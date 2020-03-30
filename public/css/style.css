@@ -1,0 +1,17 @@
+body {
+  padding: 0;
+}
+
+footer,
+header,
+main {
+  padding: 0;
+}
+
+hr {
+  margin: 0;
+}
+
+nav {
+  margin-bottom: 0;
+}
