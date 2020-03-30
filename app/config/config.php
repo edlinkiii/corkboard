@@ -9,4 +9,4 @@ define('DB_NAME', 'cork');
 // CONSTANTS
 define('APPROOT', dirname(dirname(__FILE__)));
 define('URLROOT', 'http://localhost:8888/corkboard');
-define('SITENAME', 'c0rkē');
+define('SITENAME', 'C0rkē');

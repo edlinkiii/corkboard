@@ -15,3 +15,9 @@ hr {
 nav {
   margin-bottom: 0;
 }
+
+input[type=submit] {
+  cursor: pointer;
+  background-color: #1760ff;
+  color: #fff;
+}

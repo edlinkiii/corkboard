@@ -4,7 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/mvp.css" />
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/myui.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css" />
+  <script src="<?php echo URLROOT; ?>/js/js-query.js"></script>
+  <script src="<?php echo URLROOT; ?>/js/myui.js"></script>
   <title><?php echo SITENAME; ?></title>
 </head>
 <body>
@@ -14,14 +17,7 @@
     <p>Share what's happening in your world</p>
     <br>
     -->
-    <nav>
-      <a href="/"><?php echo SITENAME; ?></a>
-      <ul>
-        <li><a href="#">Login</a></li>
-        <li><a href="#">Notifications</a></li>
-        <li><a href="#">Post</a></li>
-      </ul>
-    </nav>
+<?php require APPROOT . '/views/inc/navbar.php' ?>
   </header>
   <main>
   <hr />
