@@ -9,6 +9,67 @@ class Users extends Controller {
     // if !$user, use current user from session
   }
 
+  public function signup() {
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      print_r($_POST);
+      // die();
+
+      $error = '';
+      if($_POST['name'] == '') {
+        $error = 'Error: A name is required.';
+      }
+      elseif($_POST['email'] == '') {
+        $error = 'Error: An email is required.';
+      }
+      elseif($_POST['password'] == '') {
+        $error = 'Error: A password is required.';
+      }
+      elseif(strlen($_POST['password']) < 6) {
+        $error = 'Error: Password minimum length is 6.';
+      }
+      elseif($_POST['password'] != $_POST['confirm_password']) {
+        $error = 'Error: Passwords must match.';
+      }
+
+      if($error != '') {
+        $data = [
+          'title' => 'Sign Up',
+          'form' => [
+            'name' => $_POST['name'],
+            'email' => $_POST['email'],
+            'password' => $_POST['password'],
+            'confirm_password' => $_POST['confirm_password'],
+            'error' => $error,
+          ]
+        ];
+        $this->view('users/signup', $data);
+      }
+      else {
+        // save user
+        if($this->userModel->signup($_POST)) {
+          $_SESSION['message'] = 'Account Created!';
+          redirect('users/login');
+        }
+        // redirect
+        // ??? display success message ???
+      }
+    }
+    else {
+      $data = [
+        'title' => 'Sign Up',
+        'form' => [
+          'name' => '',
+          'email' => '',
+          'password' => '',
+          'confirm_password' => '',
+          'error' => '',
+        ]
+      ];
+      $this->view('users/signup', $data);
+    }
+  }
+
   public function login() {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);

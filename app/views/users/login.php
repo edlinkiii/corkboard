@@ -1,8 +1,9 @@
 <?php require APPROOT . '/views/inc/header.php' ?>
 <section>
-  <form style="margin-top: 2rem;" method="post" action="<?php echo URLROOT ?>/users/login">
+  <form id="login-form" style="margin-top: 2rem;" method="post" action="<?php echo URLROOT ?>/users/login">
     <h3><?php echo $data['title']; ?></h3>
-    <hr style="margin-bottom: 1rem;" />
+    <div id="message">test</div>
+    <hr id="divider" style="margin-bottom: 1rem;" />
     <label for="email">Email: </label> <input name="email" type="email" value="<?php echo $data['form']['email']; ?>" required /><br />
     <label for="password">Password: </label> <input name="password" type="password" value="<?php echo $data['form']['password']; ?>" minlength="6" required /><br />
     <input type="submit" value="Log In" />
@@ -10,17 +11,14 @@
 </section>
 <?php if($data['form']['error']): ?>
 <script>
-  const showError = () => {
-    new Shout({
-      text: '<?php echo $data['form']['error']; ?>',
-      backgroundColor: '#cf3030',
-      fontColor: '#ffffff',
-      duration: 6, // seconds
-      width: '300px',
-      allBold: true
-    });
-  }
-  showError();
+  $q('#message').text('<?php echo $data['form']['error']; ?>').css('background','#cf3030').css('color', '#ffffff').show();
+  $q('#divider').hide();
 </script>
 <?php endif; ?>
+<?php if(isset($_SESSION['message'])): ?>
+<script>
+  $q('#message').text('<?php echo $_SESSION['message']; ?>').css('background','#259425').css('color', '#ffffff').show();
+  $q('#divider').hide();
+</script>
+<?php unset($_SESSION['message']); endif; ?>
 <?php require APPROOT . '/views/inc/footer.php' ?>

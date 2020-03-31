@@ -16,10 +16,20 @@ class User {
 
     if(!$row) return false;
 
-    // $hashed_password = $row->password;
-    // return password_verify($password, $hashed_password) ? $row : false ;
+    $hashed_password = $row->password;
+    return password_verify($password, $hashed_password) ? $row : false ;
 
-    return $password == $row->password ? $row : false ;
+    // return $password == $row->password ? $row : false ;
+  }
+
+  public function signup($data) {
+    $this->db->query('INSERT INTO users (name, email, password) values (:name, :email, :password)');
+    $this->db->bind(':name', $data['name']);
+    $this->db->bind(':email', $data['email']);
+    // $this->db->bind(':password', $data['password']);
+    $this->db->bind(':password', password_hash($data['password'], PASSWORD_DEFAULT));
+
+    return ($this->db->execute()) ? true : false ;
   }
 
   public function findUserByEmail($email) {

@@ -21,3 +21,13 @@ input[type=submit] {
   background-color: #1760ff;
   color: #fff;
 }
+
+#message {
+  display: none;
+  background: black;
+  color: white;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  padding: 5px 10px;
+  margin-bottom: 1rem;
+}
