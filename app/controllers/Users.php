@@ -12,8 +12,6 @@ class Users extends Controller {
   public function signup() {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-      print_r($_POST);
-      // die();
 
       $error = '';
       if($_POST['name'] == '') {
@@ -46,13 +44,10 @@ class Users extends Controller {
         $this->view('users/signup', $data);
       }
       else {
-        // save user
         if($this->userModel->signup($_POST)) {
           $_SESSION['message'] = 'Account Created!';
           redirect('users/login');
         }
-        // redirect
-        // ??? display success message ???
       }
     }
     else {
