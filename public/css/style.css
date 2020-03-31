@@ -16,10 +16,25 @@ nav {
   margin-bottom: 0;
 }
 
+section aside h3 {
+  margin: 0;
+}
+
+h3 a {
+  color: black;
+}
+
 input[type=submit] {
   cursor: pointer;
   background-color: #1760ff;
   color: #fff;
+}
+
+a.edit-button b,
+a.delete-button b,
+form button {
+  padding: .5rem 1rem;
+  margin: 0;
 }
 
 #message {
@@ -30,4 +45,15 @@ input[type=submit] {
   font-weight: bold;
   padding: 5px 10px;
   margin-bottom: 1rem;
+}
+
+a.show-post-link {
+  color: black;
+  font-weight: normal;
+}
+
+a.delete-button b {
+  background: #cf3030;
+  border-color: #cf3030;
+  float: right;
 }

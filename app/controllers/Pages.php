@@ -44,4 +44,8 @@ class Pages extends Controller {
     ];
     $this->view('pages/about', $data);
   }
+
+  public function permission() {
+    $this->view('pages/permission');
+  }
 }

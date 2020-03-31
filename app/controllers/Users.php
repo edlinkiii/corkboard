@@ -5,8 +5,13 @@ class Users extends Controller {
     $this->userModel = $this->model('User');
   }
 
-  public function profile($user) {
+  public function profile($user = null) {
     // if !$user, use current user from session
+    $user = $user ? $user : $_SESSION['user_name'];
+
+    $data = ['name' => $user];
+
+    $this->view('users/profile', $data);
   }
 
   public function signup() {
