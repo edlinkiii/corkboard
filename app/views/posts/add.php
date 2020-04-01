@@ -1,5 +1,5 @@
 <?php require APPROOT . '/views/inc/header.php' ?>
-<form id="login-form" style="margin-top: 2rem;" method="post" action="<?php echo URLROOT ?>/posts/add">
+<form id="login-form" method="post" action="<?php echo URLROOT ?>/posts/add">
   <h3><?php echo $data['title']; ?></h3>
   <div id="message"></div>
   <hr id="divider" style="margin-bottom: 1rem;" />
