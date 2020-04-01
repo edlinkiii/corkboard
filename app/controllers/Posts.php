@@ -35,6 +35,9 @@ class Posts extends Controller {
 
   // C -- create
   public function add() {
+    if(!isset($_SESSION['user_id'])) {
+      redirect('users/login');
+    }
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -91,6 +94,9 @@ class Posts extends Controller {
 
   // U -- update
   public function edit($id = null) {
+    if(!isset($_SESSION['user_id'])) {
+      redirect('users/login');
+    }
     // edit an existing post with id=$id
     $data = [
       'title' => 'Edit Your Post',
@@ -133,6 +139,10 @@ class Posts extends Controller {
 
   // D -- delete
   public function remove($id) {
+    if(!isset($_SESSION['user_id'])) {
+      redirect('users/login');
+    }
+
     // delete an existing post
     $data = [
       'title' => 'Delete Your Post',

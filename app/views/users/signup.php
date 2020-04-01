@@ -12,7 +12,7 @@
     <input name="password" type="password" value="<?php echo $data['form']['password']; ?>" minlength="6" required /><br />
     <label for="password">Confirm Password: </label>
     <input name="confirm_password" type="password" value="<?php echo $data['form']['confirm_password']; ?>" minlength="6" required /><br />
-    <input type="submit" value="Register" />
+    <button type="submit">Register</button>
   </form>
 </section>
 <?php if($data['form']['error']): ?>

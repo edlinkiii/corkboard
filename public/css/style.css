@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap');
+
 body {
   padding: 0;
 }
@@ -9,32 +11,98 @@ main {
 }
 
 hr {
-  margin: 0;
+  margin: 1px 0;
 }
 
 nav {
   margin-bottom: 0;
 }
 
-section aside h3 {
+main {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+}
+
+main aside {
+  display: block;
+  flex-basis: 35%;
+  margin: 16px;
+  border: 1px solid white;
+  padding: 0px;
+}
+
+main aside ul {
+  list-style: none;
+  padding: 0;
   margin: 0;
+}
+
+main aside ul li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+main section {
+  display: block;
+  flex-basis: 65%;
+}
+
+main section article {
+  border: 1px solid var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow) var(--color-shadow);
+  margin: 1rem;
+  padding: 1.25rem;
+  /* width: var(--width-card); */
+}
+
+main section article:hover {
+  box-shadow: var(--box-shadow) var(--color-bg-secondary);
+}
+
+section article h3 {
+  margin: 0;
+}
+
+a {
+  color: var(--color);
 }
 
 h3 a {
   color: black;
 }
 
-input[type=submit] {
-  cursor: pointer;
-  background-color: #1760ff;
-  color: #fff;
+a b,
+button {
+  padding: .4rem .8rem;
+  margin: 0;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  line-height: var(--line-height);
 }
 
-a.edit-button b,
-a.delete-button b,
-form button {
-  padding: .5rem 1rem;
-  margin: 0;
+main aside ul li a b {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 30px 0;
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-bg);
+  color: var(--color);
+}
+
+main aside ul li a b:hover {
+  cursor: pointer;
+  border-color: #ccc;
+  box-shadow: var(--box-shadow) #bbb;
+}
+
+#title {
+  font-family: 'Dosis', sans-serif;
+  color: black;
+  font-weight: 800;
 }
 
 #message {
@@ -55,5 +123,19 @@ a.show-post-link {
 a.delete-button b {
   background: #cf3030;
   border-color: #cf3030;
-  float: right;
+  /* float: right; */
 }
+
+.side-by-side {
+  box-sizing: border-box;
+  width: 50%;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  border:0;
+}
+
+.right {
+  text-align: right;
+}
+

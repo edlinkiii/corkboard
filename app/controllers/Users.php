@@ -79,7 +79,7 @@ class Users extends Controller {
         // establish session
         $this->createUserSession($loggedInUser);
         // redirect
-        redirect('/pages/index');
+        redirect('posts/show');
       }
       else {
         $data = [

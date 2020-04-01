@@ -5,37 +5,38 @@ class Pages extends Controller {
   }
 
   public function index() {
-    $data = [
-      'posts' => [
-        [
-          'user_id' => 1,
-          'user_name' => 'edlinkiii',
-          'body' => 'Test'
-        ],
-        [
-          'user_id' => 1,
-          'user_name' => 'edlinkiii',
-          'body' => 'Test'
-        ],
-        [
-          'user_id' => 1,
-          'user_name' => 'edlinkiii',
-          'body' => 'Test'
-        ],
-        [
-          'user_id' => 1,
-          'user_name' => 'edlinkiii',
-          'body' => 'Test'
-        ],
-        [
-          'user_id' => 1,
-          'user_name' => 'edlinkiii',
-          'body' => 'Test'
-        ],
-      ]
-    ];
+    // $data = [
+    //   'posts' => [
+    //     [
+    //       'user_id' => 1,
+    //       'user_name' => 'edlinkiii',
+    //       'body' => 'Test'
+    //     ],
+    //     [
+    //       'user_id' => 1,
+    //       'user_name' => 'edlinkiii',
+    //       'body' => 'Test'
+    //     ],
+    //     [
+    //       'user_id' => 1,
+    //       'user_name' => 'edlinkiii',
+    //       'body' => 'Test'
+    //     ],
+    //     [
+    //       'user_id' => 1,
+    //       'user_name' => 'edlinkiii',
+    //       'body' => 'Test'
+    //     ],
+    //     [
+    //       'user_id' => 1,
+    //       'user_name' => 'edlinkiii',
+    //       'body' => 'Test'
+    //     ],
+    //   ]
+    // ];
 
-    $this->view('pages/index', $data);
+    // $this->view('pages/index', $data);
+    redirect('posts/show');
   }
 
   public function about() {
