@@ -2,3 +2,4 @@
 *.js -linguist-detectable
 *.php linguist-language=PHP
 *.js linguist-language=PHP
+public/js/* linguist-vendored
