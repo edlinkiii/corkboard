@@ -4,6 +4,6 @@
   <hr id="divider" style="margin-bottom: 1rem;" />
   <p><b>Are you sure?</b></p>
   <p><i>This cannot be undone.</i></p>
-  <button type="submit">Delete It!</button>
+  <button class='delete-button' type="submit">Delete It!</button>
 </form>
 <?php require APPROOT . '/views/inc/footer.php' ?>

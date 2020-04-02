@@ -124,10 +124,10 @@ a.show-post-link {
   font-weight: normal;
 }
 
+button.delete-button,
 a.delete-button b {
   background: #cf3030;
   border-color: #cf3030;
-  /* float: right; */
 }
 
 .side-by-side {
