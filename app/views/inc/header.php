@@ -6,8 +6,8 @@
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/mvp.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/myui.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css" />
-  <script src="<?php echo URLROOT; ?>/js/js-query.js"></script>
-  <script src="<?php echo URLROOT; ?>/js/myui.js"></script>
+  <script src="<?php echo URLROOT; ?>/js/lib/js-query.js"></script>
+  <script src="<?php echo URLROOT; ?>/js/lib/myui.js"></script>
   <title><?php echo SITENAME; ?></title>
 </head>
 <body>
