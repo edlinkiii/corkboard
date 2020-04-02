@@ -6,11 +6,11 @@ class Users extends Controller {
     $this->profileModel = $this->model('Profile');
   }
 
-  public function profile($user = null) {
+  public function profile($id = null) {
     // if !$user, use current user from session
-    $user = $user ? $user : $_SESSION['user_name'];
+    $id = $id ? $id : $_SESSION['user_id'];
 
-    $data = ['name' => $user];
+    $data = $this->profileModel->getProfileByUserId($id);
 
     $this->view('users/profile', $data);
   }

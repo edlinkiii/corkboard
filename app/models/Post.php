@@ -22,6 +22,7 @@ class Post {
   public function getPost($id) {
     $this->db->query('SELECT post.id as post_id,
                              post.user_id as user_id,
+                             user.email as user_email,
                              profile.name as user_name,
                              post.body as post_body,
                              post.updated_at as post_stamp
@@ -39,6 +40,7 @@ class Post {
   public function getPosts() {
     $this->db->query('SELECT post.id as post_id,
                              post.user_id as user_id,
+                             user.email as user_email,
                              profile.name as user_name,
                              post.body as post_body,
                              post.updated_at as post_stamp
