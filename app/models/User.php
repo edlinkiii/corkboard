@@ -8,7 +8,14 @@ class User {
   }
 
   public function login($email, $password) {
-    $this->db->query('SELECT * FROM users WHERE email = :email');
+    $this->db->query('SELECT user.id as id,
+                             user.email as email,
+                             user.password as password,
+                             profile.name as name
+                      FROM users user
+                      INNER JOIN profiles profile
+                      ON profile.user_id = user.id
+                      WHERE user.email = :email');
     $this->db->bind(':email', $email);
 
     $row = $this->db->single();
@@ -20,12 +27,20 @@ class User {
   }
 
   public function signup($data) {
-    $this->db->query('INSERT INTO users (name, email, password) values (:name, :email, :password)');
-    $this->db->bind(':name', $data['name']);
+    $this->db->query('INSERT INTO users (email, password) values (:email, :password)');
     $this->db->bind(':email', $data['email']);
     $this->db->bind(':password', password_hash($data['password'], PASSWORD_DEFAULT));
 
-    return ($this->db->execute()) ? true : false ;
+    if($this->db->execute()) {
+      $user_id = $this->db->lastInsertId();
+
+      $this->db->query('INSERT INTO profiles (name, user_id) values (:name, :user_id)');
+      $this->db->bind(':name', $data['name']);
+      $this->db->bind(':user_id', $user_id);
+
+      return ($this->db->execute()) ? true : false ;
+    }
+    return false;
   }
 
   public function findUserByEmail($email) {

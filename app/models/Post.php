@@ -20,29 +20,33 @@ class Post {
 
   // R -- read
   public function getPost($id) {
-    $this->db->query('SELECT p.id as post_id,
-                             p.user_id as user_id,
-                             u.name as user_name,
-                             p.body as post_body,
-                             p.updated_at as post_stamp
-                      FROM posts p 
-                      INNER JOIN users u
-                      ON p.user_id = u.id
-                      WHERE p.id=:id');
+    $this->db->query('SELECT post.id as post_id,
+                             post.user_id as user_id,
+                             profile.name as user_name,
+                             post.body as post_body,
+                             post.updated_at as post_stamp
+                      FROM posts post
+                      INNER JOIN users user
+                            ON post.user_id = user.id
+                      INNER JOIN profiles profile
+                            ON profile.user_id = user.id
+                      WHERE post.id=:id');
     $this->db->bind(':id', $id);
 
     return $this->db->single();
   }
 
   public function getPosts() {
-    $this->db->query('SELECT p.id as post_id,
-                              p.user_id as user_id,
-                              u.name as user_name,
-                              p.body as post_body,
-                              p.updated_at as post_stamp
-                      FROM posts p 
-                      INNER JOIN users u
-                      ON p.user_id = u.id'); // need to do paging here eventually
+    $this->db->query('SELECT post.id as post_id,
+                             post.user_id as user_id,
+                             profile.name as user_name,
+                             post.body as post_body,
+                             post.updated_at as post_stamp
+                      FROM posts post
+                      INNER JOIN users user
+                            ON post.user_id = user.id
+                      INNER JOIN profiles profile
+                            ON profile.user_id = user.id'); // need to do paging here eventually
 
     return $this->db->resultSet();
   }
@@ -65,34 +69,4 @@ class Post {
 
     return ($this->db->execute()) ? true : false ;
   }
-
-  // public function login($email, $password) {
-  //   $this->db->query('SELECT * FROM users WHERE email = :email');
-  //   $this->db->bind(':email', $email);
-
-  //   $row = $this->db->single();
-
-  //   if(!$row) return false;
-
-  //   $hashed_password = $row->password;
-  //   return password_verify($password, $hashed_password) ? $row : false ;
-  // }
-
-  // public function signup($data) {
-  //   $this->db->query('INSERT INTO users (name, email, password) values (:name, :email, :password)');
-  //   $this->db->bind(':name', $data['name']);
-  //   $this->db->bind(':email', $data['email']);
-  //   $this->db->bind(':password', password_hash($data['password'], PASSWORD_DEFAULT));
-
-  //   return ($this->db->execute()) ? true : false ;
-  // }
-
-  // public function findUserByEmail($email) {
-  //   $this->db->query('SELECT * FROM users WHERE email = :email');
-  //   $this->db->bind(':email', $email);
-
-  //   $row = $this->db->single();
-
-  //   return ($this->db->rowCount() > 0) ? true : false ;
-  // }
 }

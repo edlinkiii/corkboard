@@ -3,6 +3,7 @@
 class Users extends Controller {
   public function __construct() {
     $this->userModel = $this->model('User');
+    $this->profileModel = $this->model('Profile');
   }
 
   public function profile($user = null) {
