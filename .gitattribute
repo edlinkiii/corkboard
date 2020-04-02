@@ -1,1 +1,4 @@
+*.php linguist-detectable
+*.js -linguist-detectable
+*.php linguist-language=PHP
 *.js linguist-language=PHP
