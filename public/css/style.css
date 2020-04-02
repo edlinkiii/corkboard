@@ -89,14 +89,14 @@ main aside ul li a b {
   width: 100%;
   margin: 16px 0;
   background-color: var(--color-bg);
-  border: 2px solid var(--color-bg);
+  border: 1px solid var(--color-bg);
   color: var(--color);
 }
 
 main aside ul li a b:hover {
   cursor: pointer;
-  border-color: #ccc;
-  box-shadow: var(--box-shadow) #bbb;
+  /* border-color: #ccc; */
+  box-shadow: var(--box-shadow) #b8b8b8;
 }
 
 main section form {
