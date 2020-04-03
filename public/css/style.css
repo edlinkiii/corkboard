@@ -103,6 +103,12 @@ main section form {
   margin: 16px;
 }
 
+input.full-width,
+textarea.full-width {
+  box-sizing: border-box;
+  width: 100%;
+}
+
 #title {
   font-family: 'Dosis', sans-serif;
   color: black;

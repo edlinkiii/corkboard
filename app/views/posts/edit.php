@@ -6,7 +6,7 @@
   <label for="body">Body: </label> <textarea style="width: 100%;box-sizing: border-box;" name="body" required><?php echo $data['form']['body']; ?></textarea><br />
 
   <div class="side-by-side">
-    <button type="submit">Post</button>
+    <button type="submit">Save</button>
   </div><div class="side-by-side right">
     <a href="<?php echo URLROOT ?>/posts/remove/<?php echo $data['form']['id']; ?>" class="delete-button"><b>Delete</b></a>
   </div>

@@ -1,34 +1,6 @@
 <?php
 
 class Posts extends Controller {
-  private $fakePosts = [
-    [
-      'user_id' => 1,
-      'user_name' => 'edlinkiii',
-      'body' => 'Test'
-    ],
-    [
-      'user_id' => 1,
-      'user_name' => 'edlinkiii',
-      'body' => 'Test'
-    ],
-    [
-      'user_id' => 1,
-      'user_name' => 'edlinkiii',
-      'body' => 'Test'
-    ],
-    [
-      'user_id' => 1,
-      'user_name' => 'edlinkiii',
-      'body' => 'Test'
-    ],
-    [
-      'user_id' => 1,
-      'user_name' => 'edlinkiii',
-      'body' => 'Test'
-    ],
-  ];
-
   public function __construct() {
     $this->postModel = $this->model('Post');
   }

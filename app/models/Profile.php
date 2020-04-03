@@ -41,4 +41,18 @@ class Profile {
 
     return ($this->db->rowCount() > 0) ? $row : false ;
   }
+
+  public function updateProfile($data) {
+    $this->db->query('UPDATE profiles
+                      SET name=:name,
+                          birthdate=:birthdate,
+                          bio=:bio
+                      WHERE user_id = :user_id');
+    $this->db->bind(':name', $data['name']);
+    $this->db->bind(':birthdate', $data['birthdate']);
+    $this->db->bind(':bio', $data['bio']);
+    $this->db->bind(':user_id', $_SESSION['user_id']);
+
+    return ($this->db->execute() ? true : false);
+  }
 }

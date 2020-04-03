@@ -4,13 +4,17 @@ class Users extends Controller {
   public function __construct() {
     $this->userModel = $this->model('User');
     $this->profileModel = $this->model('Profile');
+    $this->postModel = $this->model('Post');
   }
 
-  public function profile($id = null) {
+  public function profile($user_id = null) {
     // if !$user, use current user from session
-    $id = $id ? $id : $_SESSION['user_id'];
+    $user_id = $user_id ? $user_id : $_SESSION['user_id'];
 
-    $data = $this->profileModel->getProfileByUserId($id);
+    $data = [
+      'profile' => $this->profileModel->getProfileByUserId($user_id),
+      'posts' => $this->postModel->getPostsByUserId($user_id)
+    ];
 
     $this->view('users/profile', $data);
   }
