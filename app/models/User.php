@@ -45,6 +45,28 @@ class User {
     return false;
   }
 
+  public function checkPassword($password) {
+    $this->db->query('SELECT password FROM users WHERE id=:user_id');
+    $this->db->bind(':user_id', $_SESSION['user_id']);
+
+    $row = $this->db->single();
+
+    if(!$row) return false;
+
+    if($password == $row->password) return true; // for testing...
+
+    $hashed_password = $row->password;
+    return password_verify($password, $hashed_password) ? true : false ;
+  }
+
+  public function changePassword($password) {
+    $this->db->query('UPDATE users SET password=:password WHERE id=:user_id');
+    $this->db->bind(':user_id', $_SESSION['user_id']);
+    $this->db->bind(':password', password_hash($password, PASSWORD_DEFAULT));
+
+    return ($this->db->execute()) ? true : false ;
+  }
+
   public function findUserByEmail($email) {
     $this->db->query('SELECT * FROM users WHERE email = :email');
     $this->db->bind(':email', $email);

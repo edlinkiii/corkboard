@@ -5,8 +5,8 @@
         <a href="<?php echo URLROOT; ?>/settings/profile" class="edit-button" style="float:right;"><b>Edit Profile</b></a>
 <?php endif; ?>
         <h3><?php echo $data['profile']->name; ?></h3><br />
-        <hr />
-        <br />
+        <div id="message"></div>
+        <hr id="divider" style="margin-bottom: 1rem;" />
         <div class="side-by-side">
           <strong>Birthdate: </strong><?php echo $data['profile']->birthdate; ?>
         </div><div class="side-by-side">
@@ -27,6 +27,10 @@
         <p><?php echo $post->post_body; ?></p>
       </article>
 <?php endforeach; ?>
-
-      <!-- need to display posts from {user} here; should come with profile payload? -->
+<?php if(isset($_SESSION['message'])): ?>
+<script>
+  $q('#message').text('<?php echo $_SESSION['message']; ?>').css('background','#259425').css('color', '#ffffff').show();
+  $q('#divider').hide();
+</script>
+<?php unset($_SESSION['message']); endif; ?>
 <?php require APPROOT . '/views/inc/footer.php' ?>

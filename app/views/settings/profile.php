@@ -18,6 +18,7 @@
     <label for="bio">Bio: </label>
     <textarea class="full-width" name="bio"><?php echo $data['form']['bio']; ?></textarea><br />
     <button type="submit">Save Profile</button>
+    <a href="<?php echo URLROOT ?>/settings/password"><b>Change Password</b></a>
   </form>
 </section>
 <?php if($data['form']['error']): ?>
@@ -26,4 +27,10 @@
   $q('#divider').hide();
 </script>
 <?php endif; ?>
+<?php if(isset($_SESSION['message'])): ?>
+<script>
+  $q('#message').text('<?php echo $_SESSION['message']; ?>').css('background','#259425').css('color', '#ffffff').show();
+  $q('#divider').hide();
+</script>
+<?php unset($_SESSION['message']); endif; ?>
 <?php require APPROOT . '/views/inc/footer.php' ?>

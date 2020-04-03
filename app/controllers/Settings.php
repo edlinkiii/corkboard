@@ -45,8 +45,48 @@ class Settings extends Controller {
 
   public function password() {
     $data = [
-      'title' => 'Change Your Password'
+      'title' => 'Change Your Password',
+      'form' => [
+        'error' => '',
+      ]
     ];
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      $error = '';
+
+      // check current password
+      if($this->userModel->checkPassword($_POST['current_password'])) {
+        if($_POST['desired_password'] == '') {
+          $error = 'Error: Passwords cannot be blank.';
+        }
+        elseif($_POST['desired_password'] == $_POST['current_password']) {
+          $error = 'Error: New password must be different.';
+        }
+        elseif(strlen($_POST['desired_password']) < 6) {
+          $error = 'Error: Password minimum length is 6.';
+        }
+        elseif($_POST['desired_password'] != $_POST['confirm_password']) {
+          $error = 'Error: Confirmation password must match.';
+        }
+      }
+      else {
+        $error = 'Error: Current password is incorrect.';
+      }
+
+      if($error == '') {
+        if($this->userModel->changePassword($_POST['desired_password'])) {
+          $_SESSION['message'] = 'Password Changed!';
+          redirect('users/profile');
+        }
+        else {
+          $error = 'Error: Unexpected database error.';
+        }
+      }
+
+      $data['form']['error'] = $error;
+    }
     $this->view('settings/password', $data);
   }
 
