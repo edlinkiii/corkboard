@@ -1,5 +1,5 @@
 <?php require APPROOT . '/views/inc/header.php' ?>
-
+<?php print_r($_SESSION); ?>
       <article>
 <?php if($data['profile']->user_id == $_SESSION['user_id']): ?>
         <a href="<?php echo URLROOT; ?>/settings/profile" class="edit-button" style="float:right;"><b>Edit Profile</b></a>

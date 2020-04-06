@@ -55,4 +55,14 @@ class Profile {
 
     return ($this->db->execute() ? true : false);
   }
+
+  public function updateProfilePic($ext) {
+    $this->db->query('UPDATE profiles
+                      SET pic=:pic_ext
+                      WHERE user_id = :user_id');
+    $this->db->bind(':pic_ext', $ext);
+    $this->db->bind(':user_id', $_SESSION['user_id']);
+
+    return ($this->db->execute() ? true : false);
+  }
 }
