@@ -19,6 +19,7 @@
     <textarea class="full-width" name="bio"><?php echo $data['form']['bio']; ?></textarea><br />
     <button type="submit">Save Profile</button>
     <a href="<?php echo URLROOT ?>/settings/password"><b>Change Password</b></a>
+    <a href="<?php echo URLROOT ?>/settings/pic"><b>Change Profile Pic</b></a>
   </form>
 </section>
 <?php if($data['form']['error']): ?>

@@ -11,7 +11,8 @@ class User {
     $this->db->query('SELECT user.id as id,
                              user.email as email,
                              user.password as password,
-                             profile.name as name
+                             profile.name as name,
+                             profile.pic as pic
                       FROM users user
                       INNER JOIN profiles profile
                       ON profile.user_id = user.id
@@ -36,9 +37,10 @@ class User {
     if($this->db->execute()) {
       $user_id = $this->db->lastInsertId();
 
-      $this->db->query('INSERT INTO profiles (name, user_id) values (:name, :user_id)');
+      $this->db->query('INSERT INTO profiles (name, user_id, pic) values (:name, :user_id, :pic)');
       $this->db->bind(':name', $data['name']);
       $this->db->bind(':user_id', $user_id);
+      $this->db->bind(':pic', 'placeholder.png');
 
       return ($this->db->execute()) ? true : false ;
     }

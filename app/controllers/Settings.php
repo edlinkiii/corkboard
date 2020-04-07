@@ -105,17 +105,10 @@ class Settings extends Controller {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-      if (!file_exists(DIRROOT . '/uploads/'. $_SESSION['user_id'])) {
-        mkdir(DIRROOT . '/uploads/'. $_SESSION['user_id'], 0777, true);
-      }
-      if (!file_exists(DIRROOT . '/uploads/'. $_SESSION['user_id'] .'/profile_pic/')) {
-        mkdir(DIRROOT . '/uploads/'. $_SESSION['user_id'] .'/profile_pic/', 0777, true);
-      }
-
-      $target_dir = DIRROOT . '/uploads/'. $_SESSION['user_id'] .'/profile_pic/';
+      $target_dir = DIRROOT . '/public/images/profile_pic/';
       $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
       $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-      $newFileName = time() . '.' . $imageFileType;
+      $newFileName = md5($_SESSION['user_id']. '_' .time()) . '.' . $imageFileType;
 
       $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
       if($check !== false) {
@@ -141,12 +134,14 @@ class Settings extends Controller {
       if (!$data['form']['error']) {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . $newFileName)) {
           // save info in database
-          $this->profileModel->updateProfilePic($newFileName);
+          if($this->profileModel->updateProfilePic($newFileName)) {
           // set success message
           $_SESSION['message'] = 'Profile Pic Uploaded!';
           // redirect to profile
           redirect('users/profile');
-        } else {
+          }
+        }
+        else {
           $data['form']['error'] = 'Error: There was an error uploading file';
         }
       }
@@ -155,17 +150,3 @@ class Settings extends Controller {
     $this->view('settings/pic', $data);
   }
 }
-
-/*
-Array
-(
-    [fileToUpload] => Array
-        (
-            [name] => remember_its_monday.gif
-            [type] => image/gif
-            [tmp_name] => C:\xampp\tmp\php3CD2.tmp
-            [error] => 0
-            [size] => 3848277
-        )
-)
-*/

@@ -1,9 +1,9 @@
 <?php require APPROOT . '/views/inc/header.php' ?>
-<?php print_r($_SESSION); ?>
       <article>
 <?php if($data['profile']->user_id == $_SESSION['user_id']): ?>
         <a href="<?php echo URLROOT; ?>/settings/profile" class="edit-button" style="float:right;"><b>Edit Profile</b></a>
 <?php endif; ?>
+        <img class="profile-pic-md" src="<?php echo URLROOT; ?>/images/profile_pic/<?php echo $data['profile']->pic; ?>" />
         <h3><?php echo $data['profile']->name; ?></h3><br />
         <div id="message"></div>
         <hr id="divider" style="margin-bottom: 1rem;" />
@@ -21,6 +21,7 @@
   <?php if(isset($_SESSION['user_id']) && $post->user_id === $_SESSION['user_id']): ?>
         <a class="edit-button" style="float: right;" href="<?php echo URLROOT; ?>/posts/edit/<?php echo $post->post_id; ?>"><b>Edit Post</b></a>
   <?php endif; ?>
+        <img class="profile-pic-sm" src="<?php echo URLROOT; ?>/images/profile_pic/<?php echo $post->user_pic; ?>" />
         <h3><a href="<?php echo URLROOT; ?>/users/profile/<?php echo $post->user_id; ?>"><?php echo $post->user_name; ?></a></h3>
         <a class='show-post-link' href="<?php echo URLROOT; ?>/posts/show/<?php echo $post->post_id; ?>"><?php echo $post->post_stamp; ?></a>
         <hr />

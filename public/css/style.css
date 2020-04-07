@@ -149,3 +149,18 @@ a.delete-button b {
   text-align: right;
 }
 
+img.profile-pic-sm {
+  border: 1px solid white;
+  border-radius: 50%;
+  float: left;
+  margin-right: 10px;
+  max-width: 50px;
+  max-height: 50px;
+}
+
+img.profile-pic-md {
+  border: 1px solid white;
+  border-radius: 50%;
+  max-width: 200px;
+  max-height: 200px;
+}

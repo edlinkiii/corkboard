@@ -24,6 +24,7 @@ class Post {
                              post.user_id as user_id,
                              user.email as user_email,
                              profile.name as user_name,
+                             profile.pic as user_pic,
                              post.body as post_body,
                              post.updated_at as post_stamp
                       FROM posts post
@@ -42,6 +43,7 @@ class Post {
                              post.user_id as user_id,
                              user.email as user_email,
                              profile.name as user_name,
+                             profile.pic as user_pic,
                              post.body as post_body,
                              post.updated_at as post_stamp
                       FROM posts post
@@ -58,6 +60,7 @@ class Post {
                              post.user_id as user_id,
                              user.email as user_email,
                              profile.name as user_name,
+                             profile.pic as user_pic,
                              post.body as post_body,
                              post.updated_at as post_stamp
                       FROM posts post
