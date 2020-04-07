@@ -9,6 +9,10 @@ class Users extends Controller {
 
   public function profile($user_id = null) {
     // if !$user, use current user from session
+    if(!$user_id && !isset($_SESSION['user_id'])) {
+      redirect('users/login');
+    }
+
     $user_id = $user_id ? $user_id : $_SESSION['user_id'];
 
     $data = [

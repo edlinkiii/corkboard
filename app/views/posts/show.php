@@ -5,7 +5,7 @@
 <?php endif; ?>
   <img class="profile-pic-sm" src="<?php echo URLROOT; ?>/images/profile_pic/<?php echo $data->user_pic; ?>" />
   <h3><a href="<?php echo URLROOT; ?>/users/profile/<?php echo $data->user_id; ?>"><?php echo $data->user_name; ?></a></h3>
-  <a class='show-post-link' href="<?php echo URLROOT; ?>/posts/show/<?php echo $data->post_id; ?>"><?php echo $data->post_stamp; ?></a>
+  <a class='show-post-link' href="<?php echo URLROOT; ?>/posts/show/<?php echo $data->post_id; ?>"><?php echo date(DATETIME_FORMAT, strtotime($data->post_stamp)); ?></a>
   <hr />
   <p><?php echo $data->post_body; ?></p>
 </article>
