@@ -37,6 +37,10 @@ class User {
     if($this->db->execute()) {
       $user_id = $this->db->lastInsertId();
 
+      $this->db->query('INSERT INTO prefs (user_id) values (:user_id)');
+      $this->db->bind(':user_id', $user_id);
+      $this->db->execute();
+
       $this->db->query('INSERT INTO profiles (name, user_id, pic) values (:name, :user_id, :pic)');
       $this->db->bind(':name', $data['name']);
       $this->db->bind(':user_id', $user_id);

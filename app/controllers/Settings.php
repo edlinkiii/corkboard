@@ -4,6 +4,7 @@ class Settings extends Controller {
   public function __construct() {
     $this->userModel = $this->model('User');
     $this->profileModel = $this->model('Profile');
+    $this->prefsModel = $this->model('Prefs');
   }
 
   public function profile() {
@@ -91,7 +92,35 @@ class Settings extends Controller {
   }
 
   public function prefs() {
-    $this->view('settings/prefs');
+    $data = [
+      'title' => 'My Preferences',
+      'form' => [
+        'public' => '1',
+        'stalkable' => '1',
+        'show_birthdate' => '1',
+        'show_location' => '1',
+        'error' => '',
+      ]
+    ];
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      if($this->prefsModel->updatePrefs($_POST)) {
+        $_SESSION['message'] = 'Preferences Updated!';
+        redirect('users/profile');
+      }
+    }
+    else {
+      // get data from db
+      $prefs = $this->prefsModel->getPrefs($_SESSION['user_id']);
+      $data['form']['public'] = $prefs->public;
+      $data['form']['stalkable'] = $prefs->stalkable;
+      $data['form']['show_birthdate'] = $prefs->show_birthdate;
+      $data['form']['show_location'] = $prefs->show_location;
+    }
+
+    $this->view('settings/prefs', $data);
   }
 
   public function pic() {

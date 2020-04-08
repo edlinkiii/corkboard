@@ -1,7 +1,10 @@
 <?php require APPROOT . '/views/inc/header.php' ?>
       <article>
 <?php if(isset($_SESSION['user_id']) && $data['profile']->user_id == $_SESSION['user_id']): ?>
-        <a href="<?php echo URLROOT; ?>/settings/profile" class="edit-button" style="float:right;"><b>Edit Profile</b></a>
+        <div style="float:right; text-align:right;">
+          <a href="<?php echo URLROOT; ?>/settings/profile" class="edit-button"><b style="margin-bottom: 10px;">Edit Profile</b></a><br />
+          <a href="<?php echo URLROOT; ?>/settings/prefs" class="edit-button"><b>Preferences</b></a>
+        </div>
 <?php endif; ?>
         <img class="profile-pic-md" src="<?php echo URLROOT; ?>/images/profile_pic/<?php echo $data['profile']->pic; ?>" />
         <h3><?php echo $data['profile']->name; ?></h3>
