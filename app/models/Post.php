@@ -37,7 +37,7 @@ class Post {
                       WHERE post.id=:id
                             AND (prefs.public=1 OR post.user_id=:user_id)');
     $this->db->bind(':id', $id);
-    $this->db->bind(':user_id', $_SESSION['user_id']);
+    $this->db->bind(':user_id', (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0));
 
     $row = $this->db->single();
     return $row ? $row : false;
@@ -59,7 +59,7 @@ class Post {
                       INNER JOIN profiles profile
                             ON profile.user_id = user.id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)'); // need to do paging here eventually
-    $this->db->bind(':user_id', $_SESSION['user_id']);
+    $this->db->bind(':user_id', (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0));
 
     return $this->db->resultSet();
   }
