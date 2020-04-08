@@ -58,7 +58,8 @@ class Post {
                             ON post.user_id = prefs.user_id
                       INNER JOIN profiles profile
                             ON profile.user_id = user.id
-                      WHERE (prefs.public=1 OR post.user_id=:user_id)'); // need to do paging here eventually
+                      WHERE (prefs.public=1 OR post.user_id=:user_id)
+                      ORDER BY post.updated_at DESC'); // need to do paging here eventually
     $this->db->bind(':user_id', (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0));
 
     return $this->db->resultSet();
@@ -79,7 +80,8 @@ class Post {
                             ON post.user_id = prefs.user_id
                       INNER JOIN profiles profile
                             ON profile.user_id = user.id
-                      WHERE post.user_id=:user_id'); // need to do paging here eventually
+                      WHERE post.user_id=:user_id
+                      ORDER BY post.updated_at DESC'); // need to do paging here eventually
     $this->db->bind(':user_id', $user_id);
 
     return $this->db->resultSet();
