@@ -5,6 +5,7 @@ class Users extends Controller {
     $this->userModel = $this->model('User');
     $this->profileModel = $this->model('Profile');
     $this->postModel = $this->model('Post');
+    $this->prefsModel = $this->model('Prefs');
   }
 
   public function profile($user_id = null) {
@@ -17,7 +18,8 @@ class Users extends Controller {
 
     $data = [
       'profile' => $this->profileModel->getProfileByUserId($user_id),
-      'posts' => $this->postModel->getPostsByUserId($user_id)
+      'posts' => $this->postModel->getPostsByUserId($user_id),
+      'prefs' => $this->prefsModel->getPrefs($user_id),
     ];
 
     $this->view('users/profile', $data);
