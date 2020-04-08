@@ -23,13 +23,13 @@
 <?php endif; ?>
         <br />
         <br />
-<?php if($data['prefs']->public): ?>
+<?php if(($data['prefs']->public) || (isset($_SESSION['user_id']) && $data['profile']->user_id == $_SESSION['user_id'])): ?>
         <strong>Bio: </strong><br /><?php echo $data['profile']->bio; ?><br />
 <?php else: ?>
         <strong>This is a private account.</strong><br />
 <?php endif; ?>
       </article>
-<?php if($data['prefs']->public): ?>
+<?php if(($data['prefs']->public) || (isset($_SESSION['user_id']) && $data['profile']->user_id == $_SESSION['user_id'])): ?>
   <?php foreach($data['posts'] as $post): ?>
       <article>
     <?php if(isset($_SESSION['user_id']) && $post->user_id === $_SESSION['user_id']): ?>

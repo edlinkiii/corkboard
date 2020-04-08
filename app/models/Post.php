@@ -30,12 +30,17 @@ class Post {
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
+                      INNER JOIN prefs prefs
+                            ON post.user_id = prefs.user_id
                       INNER JOIN profiles profile
                             ON profile.user_id = user.id
-                      WHERE post.id=:id');
+                      WHERE post.id=:id
+                            AND (prefs.public=1 OR post.user_id=:user_id)');
     $this->db->bind(':id', $id);
+    $this->db->bind(':user_id', $_SESSION['user_id']);
 
-    return $this->db->single();
+    $row = $this->db->single();
+    return $row ? $row : false;
   }
 
   public function getPosts() {
@@ -49,8 +54,12 @@ class Post {
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
+                      INNER JOIN prefs prefs
+                            ON post.user_id = prefs.user_id
                       INNER JOIN profiles profile
-                            ON profile.user_id = user.id'); // need to do paging here eventually
+                            ON profile.user_id = user.id
+                      WHERE (prefs.public=1 OR post.user_id=:user_id)'); // need to do paging here eventually
+    $this->db->bind(':user_id', $_SESSION['user_id']);
 
     return $this->db->resultSet();
   }
@@ -66,6 +75,8 @@ class Post {
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
+                      INNER JOIN prefs prefs
+                            ON post.user_id = prefs.user_id
                       INNER JOIN profiles profile
                             ON profile.user_id = user.id
                       WHERE post.user_id=:user_id'); // need to do paging here eventually
