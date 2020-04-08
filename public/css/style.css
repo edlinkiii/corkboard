@@ -78,9 +78,6 @@ a b,
 button {
   padding: .4rem .8rem;
   margin: 0;
-  font-weight: bold;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  line-height: var(--line-height);
 }
 
 main aside ul li a b {
