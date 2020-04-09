@@ -26,6 +26,15 @@ class Stalk {
     return $this->db->rowCount();
   }
 
+  public function isStalkable($user_id) {
+    $this->db->query('SELECT * FROM prefs WHERE user_id=:user_id and stalkable=1');
+    $this->db->bind(':user_id', $user_id);
+
+    $row = $this->db->single();
+
+    return $row ? true : false;
+  }
+
   public function startStalking($user_id) {
     $this->db->query('INSERT INTO stalk (stalker, stalkee) VALUES (:stalker, :stalkee)');
     $this->db->bind(':stalker', $_SESSION['user_id']);

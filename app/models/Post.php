@@ -65,6 +65,27 @@ class Post {
     return $this->db->resultSet();
   }
 
+  public function stalkPosts($stalkees) {
+    $this->db->query('SELECT post.id as post_id,
+                             post.user_id as user_id,
+                             user.email as user_email,
+                             profile.name as user_name,
+                             profile.pic as user_pic,
+                             post.body as post_body,
+                             post.updated_at as post_stamp
+                      FROM posts post
+                      INNER JOIN users user
+                            ON post.user_id = user.id
+                      INNER JOIN prefs prefs
+                            ON post.user_id = prefs.user_id
+                      INNER JOIN profiles profile
+                            ON profile.user_id = user.id
+                      WHERE (prefs.stalkable=1 AND post.user_id IN ('.join(',',$stalkees).'))
+                      ORDER BY post.updated_at DESC'); // need to do paging here eventually
+
+    return $this->db->resultSet();
+  }
+
   public function getPostsByUserId($user_id) {
     $this->db->query('SELECT post.id as post_id,
                              post.user_id as user_id,
