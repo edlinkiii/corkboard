@@ -65,7 +65,7 @@ class Post {
     return $this->db->resultSet();
   }
 
-  public function stalkPosts($stalkees) {
+  public function stalkPosts() {
     $this->db->query('SELECT post.id as post_id,
                              post.user_id as user_id,
                              user.email as user_email,
@@ -80,8 +80,11 @@ class Post {
                             ON post.user_id = prefs.user_id
                       INNER JOIN profiles profile
                             ON profile.user_id = user.id
-                      WHERE (prefs.stalkable=1 AND post.user_id IN ('.join(',',$stalkees).'))
+                      WHERE (prefs.stalkable=1 AND post.user_id IN (
+                            SELECT stalkee FROM stalk WHERE stalker=:stalker
+                      ))
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
+    $this->db->bind(':stalker', $_SESSION['user_id']);
 
     return $this->db->resultSet();
   }

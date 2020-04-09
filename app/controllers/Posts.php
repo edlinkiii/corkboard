@@ -66,13 +66,7 @@ class Posts extends Controller {
   }
 
   public function stalk() {
-    $stalkees = $this->stalkModel->getStalkees();
-    $stalking = [];
-    foreach($stalkees as $s) {
-      array_push($stalking, $s->stalkee);
-    }
-
-    $data = ['posts' => $this->postModel->stalkPosts($stalking)];
+    $data = ['posts' => $this->postModel->stalkPosts()];
     
     $this->view('posts/showAll', $data);
   }
