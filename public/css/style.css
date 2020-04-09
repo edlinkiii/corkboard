@@ -74,8 +74,7 @@ h3 a {
   color: black;
 }
 
-a b,
-button {
+a b, a strong, button {
   padding: .4rem .8rem;
   margin: 0;
 }
@@ -161,3 +160,9 @@ img.profile-pic-md {
   max-width: 200px;
   max-height: 200px;
 }
+
+a b.reverse, a strong.reverse, button.reverse {
+  background-color: var(--color-bg);
+  color: var(--color);
+}
+

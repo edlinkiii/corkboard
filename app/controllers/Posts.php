@@ -3,6 +3,7 @@
 class Posts extends Controller {
   public function __construct() {
     $this->postModel = $this->model('Post');
+    $this->stalkModel = $this->model('Stalk');
   }
 
   // C -- create
@@ -62,6 +63,16 @@ class Posts extends Controller {
 
       $this->view('posts/showAll', $data);
     }
+  }
+
+  public function stalk() {
+    $stalkees = $this->stalkModel->getStalkees();
+    print_r($stalkees);
+    die();
+
+    $data = ['posts' => $this->postModel->stalkPosts()];
+
+    $this->view('posts/showAll', $data);
   }
 
   // U -- update

@@ -6,6 +6,7 @@ class Users extends Controller {
     $this->profileModel = $this->model('Profile');
     $this->postModel = $this->model('Post');
     $this->prefsModel = $this->model('Prefs');
+    $this->stalkModel = $this->model('Stalk');
   }
 
   public function profile($user_id = null) {
@@ -20,6 +21,7 @@ class Users extends Controller {
       'profile' => $this->profileModel->getProfileByUserId($user_id),
       'posts' => $this->postModel->getPostsByUserId($user_id),
       'prefs' => $this->prefsModel->getPrefs($user_id),
+      'stalking' => $this->stalkModel->isStalking($user_id),
     ];
 
     $this->view('users/profile', $data);
@@ -131,5 +133,17 @@ class Users extends Controller {
     unset($_SESSION['user_name']);
     session_destroy();
     redirect('users/login');
+  }
+
+  public function stalk($user_id) {
+    $this->stalkModel->startStalking($user_id);
+
+    redirect('users/profile/' . $user_id);
+  }
+
+  public function unstalk($user_id) {
+    $this->stalkModel->stopStalking($user_id);
+
+    redirect('users/profile/' . $user_id);
   }
 }
