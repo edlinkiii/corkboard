@@ -56,7 +56,6 @@ class Posts extends Controller {
   public function show($id = null) {
     if($id) {
       $data = $this->postModel->getPost($id);
-      print_r($data);
 
       $this->view('posts/show', $data);
     }
