@@ -4,6 +4,7 @@ class Posts extends Controller {
   public function __construct() {
     $this->postModel = $this->model('Post');
     $this->stalkModel = $this->model('Stalk');
+    $this->reactionModel = $this->model('Reaction');
   }
 
   // C -- create
@@ -51,10 +52,11 @@ class Posts extends Controller {
     }
   }
 
-  // R -- read
+  // R -- read -- get post(s)
   public function show($id = null) {
     if($id) {
       $data = $this->postModel->getPost($id);
+      print_r($data);
 
       $this->view('posts/show', $data);
     }
@@ -151,5 +153,9 @@ class Posts extends Controller {
     else {
         redirect('pages/permission');
     }
+  }
+
+  public function react($post_id, $reaction_id) {
+    // /posts/react/1/-1
   }
 }

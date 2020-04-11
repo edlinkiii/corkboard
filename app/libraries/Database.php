@@ -86,4 +86,8 @@ class Database {
   public function lastInsertId() {
     return $this->dbh->lastInsertId();
   }
+
+  public function dump() {
+    return $this->stmt->debugDumpParams();
+  }
 }

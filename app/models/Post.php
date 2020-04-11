@@ -20,44 +20,87 @@ class Post {
 
   // R -- read
   public function getPost($id) {
-    $this->db->query('SELECT post.id as post_id,
-                             post.user_id as user_id,
-                             user.email as user_email,
-                             profile.name as user_name,
-                             profile.pic as user_pic,
-                             post.body as post_body,
-                             post.updated_at as post_stamp
+    $this->db->query('SELECT post.id AS post_id,
+                             post.user_id AS user_id,
+                             user.email AS user_email,
+                             prof.name AS user_name,
+                             prof.pic AS user_pic,
+                             post.body AS post_body,
+                             post.updated_at AS post_stamp,
+                             react.total AS post_reaction,
+                             mine.reaction AS my_reaction
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
-                      INNER JOIN prefs prefs
-                            ON post.user_id = prefs.user_id
-                      INNER JOIN profiles profile
-                            ON profile.user_id = user.id
-                      WHERE post.id=:id
-                            AND (prefs.public=1 OR post.user_id=:user_id)');
+                      INNER JOIN prefs pref
+                            ON post.user_id = pref.user_id
+                      INNER JOIN profiles prof
+                            ON prof.user_id = user.id
+                      LEFT OUTER JOIN (
+                                SELECT SUM(r.value) AS total,
+                                       pr.post_id AS post_id
+                                FROM post_reactions pr
+                                INNER JOIN reactions r
+                                    ON pr.reaction_id = r.id
+                                WHERE pr.post_id = :id
+                      ) react
+                            ON react.post_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT r.value AS reaction,
+                                       pr.post_id AS post_id
+                                FROM post_reactions pr
+                                INNER JOIN reactions r
+                                    ON pr.reaction_id = r.id
+                                WHERE pr.post_id = :id
+                                    AND pr.user_id = :user_id
+                      ) mine
+                            ON mine.post_id = post.id
+                      WHERE post.id = :id
+                            AND (pref.public = 1 OR post.user_id = :user_id)');
     $this->db->bind(':id', $id);
     $this->db->bind(':user_id', (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0));
 
+    // $this->db->dump();
+
     $row = $this->db->single();
+
     return $row ? $row : false;
   }
 
   public function getPosts() {
-    $this->db->query('SELECT post.id as post_id,
-                             post.user_id as user_id,
-                             user.email as user_email,
-                             profile.name as user_name,
-                             profile.pic as user_pic,
-                             post.body as post_body,
-                             post.updated_at as post_stamp
+    $this->db->query('SELECT post.id AS post_id,
+                             post.user_id AS user_id,
+                             user.email AS user_email,
+                             prof.name AS user_name,
+                             prof.pic AS user_pic,
+                             post.body AS post_body,
+                             post.updated_at AS post_stamp,
+                             react.total AS post_reaction,
+                             mine.reaction AS my_reaction
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
                       INNER JOIN prefs prefs
                             ON post.user_id = prefs.user_id
-                      INNER JOIN profiles profile
-                            ON profile.user_id = user.id
+                      INNER JOIN profiles prof
+                            ON prof.user_id = user.id
+                            LEFT OUTER JOIN (
+                                SELECT SUM(r.value) AS total,
+                                       pr.post_id AS post_id
+                                FROM post_reactions pr
+                                INNER JOIN reactions r
+                                    ON pr.reaction_id = r.id
+                      ) react
+                            ON react.post_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT r.value AS reaction,
+                                       pr.post_id AS post_id
+                                FROM post_reactions pr
+                                INNER JOIN reactions r
+                                    ON pr.reaction_id = r.id
+                                WHERE pr.user_id = :user_id
+                      ) mine
+                            ON mine.post_id = post.id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
     $this->db->bind(':user_id', (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0));
@@ -72,7 +115,9 @@ class Post {
                              profile.name as user_name,
                              profile.pic as user_pic,
                              post.body as post_body,
-                             post.updated_at as post_stamp
+                             post.updated_at as post_stamp,
+                             react.total AS post_reaction,
+                             mine.reaction AS my_reaction
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -80,6 +125,25 @@ class Post {
                             ON post.user_id = prefs.user_id
                       INNER JOIN profiles profile
                             ON profile.user_id = user.id
+                            INNER JOIN profiles prof
+                            ON prof.user_id = user.id
+                            LEFT OUTER JOIN (
+                                SELECT SUM(r.value) AS total,
+                                       pr.post_id AS post_id
+                                FROM post_reactions pr
+                                INNER JOIN reactions r
+                                    ON pr.reaction_id = r.id
+                      ) react
+                            ON react.post_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT r.value AS reaction,
+                                       pr.post_id AS post_id
+                                FROM post_reactions pr
+                                INNER JOIN reactions r
+                                    ON pr.reaction_id = r.id
+                                WHERE pr.user_id = :stalker
+                      ) mine
+                            ON mine.post_id = post.id
                       WHERE (prefs.stalkable=1 AND post.user_id IN (
                             SELECT stalkee FROM stalk WHERE stalker=:stalker
                       ))
