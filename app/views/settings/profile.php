@@ -17,9 +17,9 @@
     </div>
     <label for="bio">Bio: </label>
     <textarea class="full-width" name="bio"><?php echo $data['form']['bio']; ?></textarea><br />
-    <button type="submit">Save Profile</button>
-    <a href="<?php echo URLROOT ?>/settings/password"><b>Change Password</b></a>
-    <a href="<?php echo URLROOT ?>/settings/pic"><b>Change Profile Pic</b></a>
+    <button type="submit"><i class="flaticon flaticon-floppy-disk"></i> Save Profile</button>
+    <a href="<?php echo URLROOT ?>/settings/password"><b><i class="flaticon flaticon-forbidden"></i> Change Password</b></a>
+    <a href="<?php echo URLROOT ?>/settings/pic"><b><i class="flaticon flaticon-profile"></i> Change Profile Pic</b></a>
   </form>
 </section>
 <?php if($data['form']['error']): ?>

@@ -21,7 +21,7 @@
     <input type="radio" name="show_location" value="0" <?php echo $data['form']['show_location'] ? '' : 'checked'; ?>> No
     <br />
     <br />
-    <button type="submit">Save</button>
+    <button type="submit"><i class="flaticon flaticon-floppy-disk"></i> Save</button>
   </form>
 </section>
 <?php if($data['form']['error']): ?>
