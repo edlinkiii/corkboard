@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/lib/mvp.css" />
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/lib/myui.css" />
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/lib/mvp.css" />
+  <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/lib/flaticon.css">
+  <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/lib/myui.css" />
+  <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/style.css" />
   <script src="<?php echo URLROOT; ?>/js/lib/js-query.js"></script>
   <script src="<?php echo URLROOT; ?>/js/lib/myui.js"></script>
   <title><?php echo SITENAME; ?></title>
