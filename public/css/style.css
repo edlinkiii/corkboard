@@ -181,6 +181,7 @@ i.flaticon,
 i.flaticon::before,
 i.flaticon::after {
   font-size: inherit;
+  color: inherit;
   padding: 0;
   margin: 0;
   border: 0;
