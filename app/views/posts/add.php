@@ -4,7 +4,7 @@
   <div id="message"></div>
   <hr id="divider" style="margin-bottom: 1rem;" />
   <label for="body">Body: </label> <textarea style="width: 100%;box-sizing: border-box;" name="body" required><?php echo $data['form']['body']; ?></textarea><br />
-  <button type="submit">Post</button>
+  <button type="submit"><i class="flaticon flaticon-floppy-disk"></i> Post</button>
 </form>
 <?php if($data['form']['error']): ?>
 <script>
