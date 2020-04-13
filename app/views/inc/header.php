@@ -19,9 +19,7 @@
     -->
 <?php require APPROOT . '/views/inc/navbar.php' ?>
   </header>
-  <hr />
   <main>
     <aside>
 <?php require APPROOT . '/views/inc/sidebar.php' ?>
-    </aside>
-    <section>
+    </aside><section>

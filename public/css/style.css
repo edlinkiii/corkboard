@@ -8,8 +8,17 @@ footer,
 header,
 main {
   padding: 0;
+  background-color: #ffffff;
 }
 
+header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 65px;
+  border-bottom: 1px solid gray;
+}
 hr {
   margin: 1px 0;
 }
@@ -19,6 +28,7 @@ nav {
 }
 
 main {
+  margin-top: 66px;
   box-sizing: border-box;
   display: flex;
   align-items: flex-start;
