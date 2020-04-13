@@ -112,8 +112,8 @@ class Post {
     $this->db->query('SELECT post.id as post_id,
                              post.user_id as user_id,
                              user.email as user_email,
-                             profile.name as user_name,
-                             profile.pic as user_pic,
+                             prof.name as user_name,
+                             prof.pic as user_pic,
                              post.body as post_body,
                              post.updated_at as post_stamp,
                              react.total AS post_reaction,
@@ -123,11 +123,9 @@ class Post {
                             ON post.user_id = user.id
                       INNER JOIN prefs prefs
                             ON post.user_id = prefs.user_id
-                      INNER JOIN profiles profile
-                            ON profile.user_id = user.id
-                            INNER JOIN profiles prof
+                      INNER JOIN profiles prof
                             ON prof.user_id = user.id
-                            LEFT OUTER JOIN (
+                      LEFT OUTER JOIN (
                                 SELECT SUM(r.value) AS total,
                                        pr.post_id AS post_id
                                 FROM post_reactions pr
@@ -157,17 +155,36 @@ class Post {
     $this->db->query('SELECT post.id as post_id,
                              post.user_id as user_id,
                              user.email as user_email,
-                             profile.name as user_name,
-                             profile.pic as user_pic,
+                             prof.name as user_name,
+                             prof.pic as user_pic,
                              post.body as post_body,
-                             post.updated_at as post_stamp
+                             post.updated_at as post_stamp,
+                             react.total AS post_reaction,
+                             mine.reaction AS my_reaction
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
                       INNER JOIN prefs prefs
                             ON post.user_id = prefs.user_id
-                      INNER JOIN profiles profile
-                            ON profile.user_id = user.id
+                      INNER JOIN profiles prof
+                            ON prof.user_id = user.id
+                      LEFT OUTER JOIN (
+                                SELECT SUM(r.value) AS total,
+                                       pr.post_id AS post_id
+                                FROM post_reactions pr
+                                INNER JOIN reactions r
+                                    ON pr.reaction_id = r.id
+                      ) react
+                            ON react.post_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT r.value AS reaction,
+                                       pr.post_id AS post_id
+                                FROM post_reactions pr
+                                INNER JOIN reactions r
+                                    ON pr.reaction_id = r.id
+                                WHERE pr.user_id = :user_id
+                      ) mine
+                            ON mine.post_id = post.id
                       WHERE post.user_id=:user_id
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
     $this->db->bind(':user_id', $user_id);

@@ -9,6 +9,8 @@
   <a class='show-post-link' href="<?php echo URLROOT; ?>/posts/show/<?php echo $post->post_id; ?>"><?php echo date(DATETIME_FORMAT, strtotime($post->post_stamp)); ?></a>
   <hr />
   <p><?php echo $post->post_body; ?></p>
+  <hr />
+  <b>Rating: </b><?php echo $post->post_reaction ? $post->post_reaction : 0; ?>
 </article>
 <?php endforeach; ?>
 <?php require APPROOT . '/views/inc/footer.php' ?>

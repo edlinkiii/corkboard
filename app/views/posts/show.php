@@ -9,6 +9,8 @@
   <a class='show-post-link' href="<?php echo URLROOT; ?>/posts/show/<?php echo $data->post_id; ?>"><?php echo date(DATETIME_FORMAT, strtotime($data->post_stamp)); ?></a>
   <hr />
   <p><?php echo $data->post_body; ?></p>
+  <hr />
+  <b>Rating: </b><?php echo $data->post_reaction ? $data->post_reaction : 0; ?>
 <?php else: ?>
   <img class="profile-pic-sm" src="<?php echo URLROOT; ?>/images/profile_pic/placeholder.png" />
   <h3>Private</h3>
