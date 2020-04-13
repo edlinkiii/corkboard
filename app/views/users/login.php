@@ -6,7 +6,7 @@
     <hr id="divider" style="margin-bottom: 1rem;" />
     <label for="email">Email: </label> <input name="email" type="email" value="<?php echo $data['form']['email']; ?>" required /><br />
     <label for="password">Password: </label> <input name="password" type="password" value="<?php echo $data['form']['password']; ?>" minlength="6" required /><br />
-    <button type="submit">Login</button>
+    <button type="submit"><i class="flaticon flaticon-enter"></i> Login</button>
   </form>
 </section>
 <?php if($data['form']['error']): ?>
