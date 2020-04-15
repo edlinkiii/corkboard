@@ -84,12 +84,13 @@ class Post {
                             ON post.user_id = prefs.user_id
                       INNER JOIN profiles prof
                             ON prof.user_id = user.id
-                            LEFT OUTER JOIN (
+                      LEFT OUTER JOIN (
                                 SELECT SUM(r.value) AS total,
                                        pr.post_id AS post_id
                                 FROM post_reactions pr
                                 INNER JOIN reactions r
                                     ON pr.reaction_id = r.id
+                                GROUP BY pr.post_id
                       ) react
                             ON react.post_id = post.id
                       LEFT OUTER JOIN (
@@ -174,6 +175,7 @@ class Post {
                                 FROM post_reactions pr
                                 INNER JOIN reactions r
                                     ON pr.reaction_id = r.id
+                                GROUP BY pr.post_id
                       ) react
                             ON react.post_id = post.id
                       LEFT OUTER JOIN (

@@ -10,7 +10,15 @@
   <hr />
   <p><?php echo $data->post_body; ?></p>
   <hr />
-  <b>Rating: </b><?php echo $data->post_reaction ? $data->post_reaction : 0; ?>
+  <div class="post-interaction">
+    <?php if($data->my_reaction == 1): ?>
+    <span class="like-green"><i class="flaticon flaticon-like"></i> <?php echo $data->post_reaction ? $data->post_reaction : 0; ?></span>
+    <?php elseif($data->my_reaction == -1): ?>
+    <span class="dislike-red"><i class="flaticon flaticon-dislike"></i> <?php echo $data->post_reaction ? $data->post_reaction : 0; ?></span>
+    <?php else: ?>
+    <span class="untouched-gray"><i class="flaticon flaticon-like"></i> <?php echo $data->post_reaction ? $data->post_reaction : 0; ?></span>
+    <?php endif; ?>
+  </div>
 <?php else: ?>
   <img class="profile-pic-sm" src="<?php echo URLROOT; ?>/images/profile_pic/placeholder.png" />
   <h3>Private</h3>

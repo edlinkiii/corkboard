@@ -41,7 +41,15 @@
         <hr />
         <p><?php echo $post->post_body; ?></p>
         <hr />
-        <b>Rating: </b><?php echo $post->post_reaction ? $post->post_reaction : 0; ?>
+        <div class="post-interaction">
+          <?php if($post->my_reaction == 1): ?>
+          <span class="like-green"><i class="flaticon flaticon-like"></i> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span>
+          <?php elseif($post->my_reaction == -1): ?>
+          <span class="dislike-red"><i class="flaticon flaticon-dislike"></i> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span>
+          <?php else: ?>
+          <span class="untouched-gray"><i class="flaticon flaticon-like"></i> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span>
+          <?php endif; ?>
+        </div>
       </article>
   <?php endforeach; ?>
 <?php endif; ?>

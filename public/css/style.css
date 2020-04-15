@@ -186,3 +186,22 @@ i.flaticon::after {
   margin: 0;
   border: 0;
 }
+
+.post-interaction {
+  margin-top: 10px;
+}
+
+.like-green {
+  color: #4ebf4e;
+}
+.dislike-red {
+  color: #d64545;
+}
+.untouched-gray {
+  color: #bbb;
+}
+
+.flaticon.flaticon-like,
+.flaticon.flaticon-dislike {
+  font-size: 20px;
+}
