@@ -488,7 +488,7 @@ class Panel extends MyUI {
         this.instance.style.maxHeight = (this.settings.height || 150) +'px';
         this.instance.style.top = (this.targetElement.positionY + this.targetElement.height)+'px';
         this.instance.style.left = this.targetElement.positionX+'px';
-        this.instance.style.zIndex = 1000;
+        this.instance.style.zIndex = this.topZindex;
 
         return this;
     }

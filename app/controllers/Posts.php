@@ -147,7 +147,16 @@ class Posts extends Controller {
     }
   }
 
-  public function react($post_id, $reaction_id) {
+  public function react($post_id, $reaction_id = false) {
     // /posts/react/1/-1
+    $data = [
+      'post_id' => $post_id,
+      'user_id' => $_SESSION['user_id'],
+      'total' => $this->reactionModel->setReaction($post_id, $reaction_id)->total,
+      'reaction_id' => $reaction_id,
+    ];
+    $json = json_encode($data);
+    echo $json;
+    die();
   }
 }

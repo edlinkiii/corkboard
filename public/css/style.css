@@ -205,3 +205,20 @@ i.flaticon::after {
 .flaticon.flaticon-dislike {
   font-size: 20px;
 }
+
+.reaction-holder {
+  cursor: pointer;
+}
+.reaction-panel {
+  background-color: white;
+  overflow: hidden;
+  border-radius: 8px;
+  left: -22px !important;
+}
+.reaction-panel-container {
+  padding: 3px 7px;
+}
+
+.reaction-panel-container i {
+  cursor: pointer;
+}

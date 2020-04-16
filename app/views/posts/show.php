@@ -1,7 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php' ?>
 <?php if(is_array($data['posts'])): ?>
   <?php foreach($data['posts'] as $post): ?>
-  <article>
+  <article id="post_id-<?php echo $post->post_id; ?>">
   <?php if(isset($_SESSION['user_id']) && $post->user_id === $_SESSION['user_id']): ?>
     <a class="edit-button" style="float: right;" href="<?php echo URLROOT; ?>/posts/edit/<?php echo $post->post_id; ?>"><b><i class="flaticon flaticon-pen"></i> Edit Post</b></a>
   <?php endif; ?>
@@ -13,11 +13,11 @@
     <hr />
     <div class="post-interaction">
       <?php if($post->my_reaction == 1): ?>
-      <span class="like-green"><i class="flaticon flaticon-like"></i> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span>
+      <span class="reaction-holder like-green"><i class="flaticon flaticon-like"></i><span class="reaction-total"> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span></span>
       <?php elseif($post->my_reaction == -1): ?>
-      <span class="dislike-red"><i class="flaticon flaticon-dislike"></i> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span>
+      <span class="reaction-holder dislike-red"><i class="flaticon flaticon-dislike"></i><span class="reaction-total"> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span></span>
       <?php else: ?>
-      <span class="untouched-gray"><i class="flaticon flaticon-like"></i> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span>
+      <span class="reaction-holder untouched-gray"><i class="flaticon flaticon-like"></i><span class="reaction-total"> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span></span>
       <?php endif; ?>
     </div>
   </article>
