@@ -14,7 +14,6 @@ function likeListener(e) {
   let container = e.target.parents(".reaction-panel")[0];
   let postId = container.parent().parent().attr("id").substring(8);
   let reactionContainer = $q('article#post_id-' + postId + ' .reaction-holder');
-  console.log(reactionContainer)
   container.remove();
   reactionContainer.removeClass(UNTOUCHED_COLOR_CLASS).addClass(LIKE_COLOR_CLASS);
   setReaction(postId, LIKE_ID);
