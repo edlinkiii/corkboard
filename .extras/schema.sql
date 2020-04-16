@@ -89,16 +89,18 @@ CREATE TABLE `profiles` (
 CREATE TABLE `reactions` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `value` int(11) NOT NULL
+  `value` int(11) NOT NULL,
+  `color_class` varchar(50) NOT NULL,
+  `icon_class` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `reactions`
 --
 
-INSERT INTO `reactions` (`id`, `name`, `value`) VALUES
-(1, 'Like', 1),
-(2, 'Dislike', -1);
+INSERT INTO `reactions` (`id`, `name`, `value`, `color_class`, `icon_class`) VALUES
+(1, 'Like', 1, 'like-green', 'flaticon-like'),
+(2, 'Dislike', -1, 'dislike-red', 'flaticon-dislike');
 
 -- --------------------------------------------------------
 
