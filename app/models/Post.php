@@ -62,7 +62,8 @@ class Post {
 
     // $this->db->dump();
 
-    $row = $this->db->single();
+    // $row = $this->db->single();
+    $row = $this->db->resultSet();
 
     return $row ? $row : false;
   }

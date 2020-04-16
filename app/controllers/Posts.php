@@ -54,22 +54,15 @@ class Posts extends Controller {
 
   // R -- read -- get post(s)
   public function show($id = null) {
-    if($id) {
-      $data = $this->postModel->getPost($id);
+    $data = ['posts' => ($id) ? $this->postModel->getPost($id) : $this->postModel->getPosts()];
 
-      $this->view('posts/show', $data);
-    }
-    else {
-      $data = ['posts' => $this->postModel->getPosts()];
-
-      $this->view('posts/showAll', $data);
-    }
+    $this->view('posts/show', $data);
   }
 
   public function stalk() {
     $data = ['posts' => $this->postModel->stalkPosts()];
     
-    $this->view('posts/showAll', $data);
+    $this->view('posts/show', $data);
   }
 
   // U -- update
