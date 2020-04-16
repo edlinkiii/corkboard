@@ -35,4 +35,11 @@ class Reaction {
 
     return $this->getReactionTotal($post_id);
   }
+
+  public static function getReactionConfig() {
+    $my_db = new Database();
+    $my_db->query('SELECT * FROM reactions ORDER BY id');
+    $my_db->execute();
+    return $my_db->resultSet();
+  }
 }
