@@ -11,7 +11,7 @@ main {
   background-color: #ffffff;
 }
 
-header {
+body>header {
   position: fixed;
   top: 0;
   right: 0;
@@ -66,6 +66,11 @@ main section article {
   margin: 1rem;
   padding: 1.25rem;
   /* width: var(--width-card); */
+}
+
+main section article header {
+  text-align: left;
+  margin-bottom: 10px;
 }
 
 main section article:hover {
@@ -135,6 +140,19 @@ textarea.full-width {
 a.show-post-link {
   color: black;
   font-weight: normal;
+}
+
+a.edit-button b {
+  margin-right: 0;
+}
+
+a.edit-button b span {
+  display: none;
+  transition: width 2s;
+}
+
+a.edit-button:hover b span {
+  display: inline;
 }
 
 button.delete-button,
