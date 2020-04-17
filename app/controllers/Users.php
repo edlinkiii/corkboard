@@ -10,6 +10,10 @@ class Users extends Controller {
     $this->reactionModel = $this->model('Reaction');
   }
 
+  public function default() {
+    return $this->profile(null);
+  }
+
   public function profile($user_id = null) {
     // if !$user, use current user from session
     if(!$user_id && !isset($_SESSION['user_id'])) {

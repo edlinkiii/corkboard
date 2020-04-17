@@ -7,6 +7,10 @@ class Posts extends Controller {
     $this->reactionModel = $this->model('Reaction');
   }
 
+  public function default() {
+    return $this->show(null);
+  }
+
   // C -- create
   public function add() {
     if(!isset($_SESSION['user_id'])) {

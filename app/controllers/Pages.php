@@ -5,6 +5,10 @@ class Pages extends Controller {
     $this->reactionModel = $this->model('Reaction');
   }
 
+  public function default() {
+    $this->index();
+  }
+
   public function index() {
     redirect('posts/show');
   }
