@@ -5,6 +5,7 @@ class Settings extends Controller {
     $this->userModel = $this->model('User');
     $this->profileModel = $this->model('Profile');
     $this->prefsModel = $this->model('Prefs');
+    $this->reactionModel = $this->model('Reaction');
   }
 
   public function profile() {

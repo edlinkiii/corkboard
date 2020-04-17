@@ -30,28 +30,9 @@
 <?php endif; ?>
       </article>
 <?php if(($data['prefs']->public) || (isset($_SESSION['user_id']) && $data['profile']->user_id == $_SESSION['user_id'])): ?>
-  <?php foreach($data['posts'] as $post): ?>
-      <article>
-    <?php if(isset($_SESSION['user_id']) && $post->user_id === $_SESSION['user_id']): ?>
-        <a class="edit-button" style="float: right;" href="<?php echo URLROOT; ?>/posts/edit/<?php echo $post->post_id; ?>"><b><i class="flaticon flaticon-pen"></i> Edit Post</b></a>
-    <?php endif; ?>
-        <img class="profile-pic-sm" src="<?php echo URLROOT; ?>/images/profile_pic/<?php echo $post->user_pic; ?>" />
-        <h3><a href="<?php echo URLROOT; ?>/users/profile/<?php echo $post->user_id; ?>"><?php echo $post->user_name; ?></a></h3>
-        <a class='show-post-link' href="<?php echo URLROOT; ?>/posts/show/<?php echo $post->post_id; ?>"><?php echo date(DATETIME_FORMAT, strtotime($post->post_stamp)); ?></a>
-        <hr />
-        <p><?php echo $post->post_body; ?></p>
-        <hr />
-        <div class="post-interaction">
-          <?php if($post->my_reaction == 1): ?>
-          <span class="like-green"><i class="flaticon flaticon-like"></i> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span>
-          <?php elseif($post->my_reaction == -1): ?>
-          <span class="dislike-red"><i class="flaticon flaticon-dislike"></i> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span>
-          <?php else: ?>
-          <span class="untouched-gray"><i class="flaticon flaticon-like"></i> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span>
-          <?php endif; ?>
-        </div>
-      </article>
-  <?php endforeach; ?>
+
+  <?php require APPROOT . '/views/posts/posts.php' ?>
+
 <?php endif; ?>
 <?php if(isset($_SESSION['message'])): ?>
 <script>

@@ -7,6 +7,7 @@ class Users extends Controller {
     $this->postModel = $this->model('Post');
     $this->prefsModel = $this->model('Prefs');
     $this->stalkModel = $this->model('Stalk');
+    $this->reactionModel = $this->model('Reaction');
   }
 
   public function profile($user_id = null) {

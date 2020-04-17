@@ -2,6 +2,7 @@
 
 class Pages extends Controller {
   public function __construct() {
+    $this->reactionModel = $this->model('Reaction');
   }
 
   public function index() {
