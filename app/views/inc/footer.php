@@ -1,10 +1,5 @@
     </section>
   </main>
-  <?php
-  
-    $reaction_config = Reaction::getReactionConfig();
-  
-  ?>
   <script>
     const URLROOT = '<?php echo URLROOT; ?>';
     const REACTION_URL = URLROOT + '/posts/react/';

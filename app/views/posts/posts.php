@@ -13,13 +13,11 @@
     <p><?php echo $post->post_body; ?></p>
     <hr />
     <div class="post-interaction">
-      <?php if($post->my_reaction == 1): ?>
-      <span class="reaction-holder like-green"><i class="flaticon flaticon-like"></i><span class="reaction-total"> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span></span>
-      <?php elseif($post->my_reaction == -1): ?>
-      <span class="reaction-holder dislike-red"><i class="flaticon flaticon-dislike"></i><span class="reaction-total"> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span></span>
-      <?php else: ?>
-      <span class="reaction-holder untouched-gray"><i class="flaticon flaticon-like"></i><span class="reaction-total"> <?php echo $post->post_reaction ? $post->post_reaction : 0; ?></span></span>
-      <?php endif; ?>
+      <?php $post->my_reaction = $post->my_reaction ?: 0; ?>
+      <span class="reaction-holder <?php echo $reaction_config[$post->my_reaction]->color_class; ?>">
+        <i class="flaticon <?php echo $reaction_config[$post->my_reaction]->icon_class; ?>"></i>
+        <span class="reaction-total"> <?php echo $post->post_reaction ?: 0; ?></span>
+      </span>
     </div>
   </article>
   <?php endforeach; ?>

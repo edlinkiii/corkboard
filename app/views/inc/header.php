@@ -1,3 +1,4 @@
+<?php $reaction_config = Reaction::getReactionConfig(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
