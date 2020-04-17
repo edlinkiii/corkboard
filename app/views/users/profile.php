@@ -2,8 +2,8 @@
       <article>
 <?php if(isset($_SESSION['user_id']) && $data['profile']->user_id == $_SESSION['user_id']): ?>
         <div style="float:right; text-align:right;">
-          <a href="<?php echo URLROOT; ?>/settings/profile" class="edit-button"><b style="margin-bottom: 10px;"><i class="flaticon flaticon-profile"></i> Edit Profile</b></a><br />
-          <a href="<?php echo URLROOT; ?>/settings/prefs" class="edit-button"><b><i class="flaticon flaticon-settings"></i> Preferences</b></a>
+          <a href="<?php echo URLROOT; ?>/settings/profile" class="edit-button"><b style="margin-bottom: 10px;"><i class="flaticon flaticon-profile"></i><span> Edit Profile</span></b></a><br />
+          <a href="<?php echo URLROOT; ?>/settings/prefs" class="edit-button"><b><i class="flaticon flaticon-settings"></i><span> Preferences</span></b></a>
         </div>
 <?php elseif($data['prefs']->public && $data['prefs']->stalkable): ?>
         <div style="float:right; text-align:right;">
