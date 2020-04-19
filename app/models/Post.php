@@ -29,7 +29,8 @@ class Post {
                              post.updated_at AS post_stamp,
                              react.total AS post_reaction,
                              pr.reaction_id AS my_reaction,
-                             reply.replies AS post_reply_count
+                             reply.replies AS post_reply_count,
+                             my_reply.replies AS my_reply_count
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -55,6 +56,14 @@ class Post {
                                 WHERE reply_to_id=:id
                       ) reply
                             ON reply.reply_to_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT COUNT(*) AS replies,
+                                       reply_to_id
+                                FROM posts
+                                WHERE reply_to_id=:id
+                                    AND user_id=:user_id
+                      ) my_reply
+                            ON reply.reply_to_id = post.id
                       WHERE post.id = :id
                             AND (pref.public = 1 OR post.user_id = :user_id)');
     $this->db->bind(':id', $id);
@@ -79,7 +88,8 @@ class Post {
                              post.reply_to_id AS post_parent_id,
                              react.total AS post_reaction,
                              pr.reaction_id AS my_reaction,
-                             reply.replies AS post_reply_count
+                             reply.replies AS post_reply_count,
+                             my_reply.replies AS my_reply_count
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -105,6 +115,14 @@ class Post {
                                 WHERE reply_to_id=:post_id
                       ) reply
                             ON reply.reply_to_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT COUNT(*) AS replies,
+                                       reply_to_id
+                                FROM posts
+                                WHERE reply_to_id=:post_id
+                                    AND user_id=:user_id
+                      ) my_reply
+                            ON reply.reply_to_id = post.id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)
                             AND post.reply_to_id = :post_id
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
@@ -124,7 +142,8 @@ class Post {
                              post.updated_at AS post_stamp,
                              react.total AS post_reaction,
                              pr.reaction_id AS my_reaction,
-                             reply.replies AS post_reply_count
+                             reply.replies AS post_reply_count,
+                             my_reply.replies AS my_reply_count
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -150,6 +169,14 @@ class Post {
                                 GROUP BY reply_to_id
                       ) reply
                             ON reply.reply_to_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT COUNT(*) AS replies,
+                                       reply_to_id
+                                FROM posts
+                                WHERE user_id=:user_id
+                                GROUP BY reply_to_id
+                      ) my_reply
+                            ON reply.reply_to_id = post.id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)
                           AND post.reply_to_id IS NULL
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
@@ -168,7 +195,8 @@ class Post {
                              post.updated_at as post_stamp,
                              react.total AS post_reaction,
                              pr.reaction_id AS my_reaction,
-                             reply.replies AS post_reply_count
+                             reply.replies AS post_reply_count,
+                             my_reply.replies AS my_reply_count
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -194,6 +222,14 @@ class Post {
                                 GROUP BY reply_to_id
                       ) reply
                             ON reply.reply_to_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT COUNT(*) AS replies,
+                                       reply_to_id
+                                FROM posts
+                                WHERE user_id=:user
+                                GROUP BY reply_to_id
+                      ) my_reply
+                            ON reply.reply_to_id = post.id
                       WHERE (prefs.stalkable=1 AND post.user_id IN (
                             SELECT stalkee FROM stalk WHERE stalker=:user
                       ))
@@ -212,7 +248,9 @@ class Post {
                              post.body as post_body,
                              post.updated_at as post_stamp,
                              react.total AS post_reaction,
-                             mine.reaction AS my_reaction
+                             mine.reaction AS my_reaction,
+                             reply.replies AS post_reply_count,
+                             my_reply.replies AS my_reply_count
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -235,12 +273,28 @@ class Post {
                                 FROM post_reactions pr
                                 INNER JOIN reactions r
                                     ON pr.reaction_id = r.id
-                                WHERE pr.user_id = :user_id
+                                WHERE pr.user_id = :my_user_id
                       ) mine
                             ON mine.post_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT COUNT(*) AS replies,
+                                       reply_to_id
+                                FROM posts
+                                GROUP BY reply_to_id
+                      ) reply
+                            ON reply.reply_to_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT COUNT(*) AS replies,
+                                       reply_to_id
+                                FROM posts
+                                WHERE user_id=:my_user_id
+                                GROUP BY reply_to_id
+                      ) my_reply
+                            ON reply.reply_to_id = post.id
                       WHERE post.user_id=:user_id
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
     $this->db->bind(':user_id', $user_id);
+    $this->db->bind(':my_user_id', (isset($_SESSION['user_id']) ?: 0));
 
     return $this->db->resultSet();
   }
