@@ -17,6 +17,6 @@
     const UNCOMMENTED_COLOR_CLASS = 'uncommented-gray';
     const COMMENTED_COLOR_CLASS = 'commented-blue';
   </script>
-  <script src="<?php echo URLROOT; ?>/js/main.js"></script>
+  <script src="<?php echo URLROOT; ?>/js/reaction.js"></script>
 </body>
 </html>
