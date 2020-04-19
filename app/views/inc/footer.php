@@ -14,6 +14,8 @@
     const DISLIKE_ID = <?php echo $reaction_config[2]->id; ?>;
     const DISLIKE_COLOR_CLASS = '<?php echo $reaction_config[2]->color_class; ?>';
     const DISLIKE_ICON_CLASS = '<?php echo $reaction_config[2]->icon_class; ?>';
+    const UNCOMMENTED_COLOR_CLASS = 'uncommented-gray';
+    const COMMENTED_COLOR_CLASS = 'commented-blue';
   </script>
   <script src="<?php echo URLROOT; ?>/js/main.js"></script>
 </body>

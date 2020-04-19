@@ -17,7 +17,8 @@
         <span class="reaction-total"> <?php echo $post->post_reaction ?: 0; ?></span>
       </div>
       <?php $post->post_reply_count = $post->post_reply_count ?: 0; ?>
-      <div class="reply-holder">
+      <?php $post->my_reply_count = $post->my_reply_count ?: 0; ?>
+      <div class="reply-holder <?php echo ($post->my_reply_count > 0) ? 'commented-blue' : 'uncommented-gray'; ?>">
         <i class="flaticon flaticon-dialogue"></i> 
         <span class="reply-count"><?php echo $post->post_reply_count; ?></span>
       </div>

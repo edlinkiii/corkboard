@@ -228,6 +228,13 @@ article .post-interaction div {
   color: #bbb;
 }
 
+.commented-blue {
+  color: #118bee;
+}
+.uncommented-gray {
+  color: #bbb;
+}
+
 article .post-interaction .flaticon {
   font-size: 20px;
   position: relative;
