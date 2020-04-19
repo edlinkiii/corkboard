@@ -58,7 +58,10 @@ class Posts extends Controller {
 
   // R -- read -- get post(s)
   public function show($id = null) {
-    $data = ['posts' => ($id) ? $this->postModel->getPost($id) : $this->postModel->getPosts()];
+    $data = [
+      'posts' => ($id) ? $this->postModel->getPost($id) : $this->postModel->getPosts(),
+      'replies' => ($id) ? $this->postModel->getReplies($id) : null,
+    ];
 
     $this->view('posts/show', $data);
   }
