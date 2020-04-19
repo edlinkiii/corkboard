@@ -209,8 +209,13 @@ i.flaticon::after {
   border: 0;
 }
 
-.post-interaction {
+article .post-interaction {
   margin-top: 10px;
+  display: flex;
+}
+
+article .post-interaction div {
+  flex: 1;
 }
 
 .like-green {
@@ -223,14 +228,16 @@ i.flaticon::after {
   color: #bbb;
 }
 
-.flaticon.flaticon-like,
-.flaticon.flaticon-dislike {
+article .post-interaction .flaticon {
   font-size: 20px;
+  position: relative;
+  top: 2px;
 }
 
-.reaction-holder {
+.post-interaction div i {
   cursor: pointer;
 }
+
 .reaction-panel {
   background-color: white;
   overflow: hidden;

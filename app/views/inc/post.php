@@ -12,9 +12,14 @@
     <hr />
     <div class="post-interaction">
       <?php $post->my_reaction = $post->my_reaction ?: 0; ?>
-      <span class="reaction-holder <?php echo $reaction_config[$post->my_reaction]->color_class; ?>">
+      <div class="reaction-holder <?php echo $reaction_config[$post->my_reaction]->color_class; ?>">
         <i class="flaticon <?php echo $reaction_config[$post->my_reaction]->icon_class; ?>"></i>
         <span class="reaction-total"> <?php echo $post->post_reaction ?: 0; ?></span>
-      </span>
+      </div>
+      <?php $post->post_reply_count = $post->post_reply_count ?: 0; ?>
+      <div class="reply-holder">
+        <i class="flaticon flaticon-dialogue"></i> 
+        <span class="reply-count"><?php echo $post->post_reply_count; ?></span>
+      </div>
     </div>
   </article>
