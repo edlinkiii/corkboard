@@ -58,20 +58,24 @@ class Posts extends Controller {
 
   public function reply($post_id) {
     if(!isset($_SESSION['user_id'])) {
-      die('{"Error": "You are not logged in."}');
+      $error = ['Error' => 'You are not logged in.'];
+      $json = json_encode($error);
+      die($json);
     }
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $input = json_decode(file_get_contents('php://input'), true);
 
-      if($_POST['body'] == '') {
-        die('{"Error": "Body text is required."}');
+      if($input['body'] == '') {
+        $error = ['Error' => 'Body text is required.'];
+        $json = json_encode($error);
+        die($json);
       }
 
       $data = [
         'post_id' => $post_id,
         'user_id' => $_SESSION['user_id'],
-        'reply_id' => $this->postModel->addReply($_POST['body']),
+        'reply_count' => $this->postModel->addReply($input['body'], $post_id)->total,
       ];
 
       $json = json_encode($data);

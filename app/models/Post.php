@@ -25,8 +25,9 @@ class Post {
     $this->db->bind(':post_id', $post_id);
     $this->db->bind(':body', $body);
 
-    // return new id or false
-    return ($this->db->execute()) ? $this->db->lastInsertId() : false ;
+    $this->db->execute();
+
+    return $this->getReplyCount($post_id);
   }
 
   // R -- read
@@ -74,7 +75,7 @@ class Post {
                                 WHERE reply_to_id=:id
                                     AND user_id=:user_id
                       ) my_reply
-                            ON reply.reply_to_id = post.id
+                            ON my_reply.reply_to_id = post.id
                       WHERE post.id = :id
                             AND (pref.public = 1 OR post.user_id = :user_id)');
     $this->db->bind(':id', $id);
@@ -133,7 +134,7 @@ class Post {
                                 WHERE reply_to_id=:post_id
                                     AND user_id=:user_id
                       ) my_reply
-                            ON reply.reply_to_id = post.id
+                            ON my_reply.reply_to_id = post.id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)
                             AND post.reply_to_id = :post_id
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
@@ -187,11 +188,12 @@ class Post {
                                 WHERE user_id=:user_id
                                 GROUP BY reply_to_id
                       ) my_reply
-                            ON reply.reply_to_id = post.id
+                            ON my_reply.reply_to_id = post.id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)
                           AND post.reply_to_id IS NULL
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
     $this->db->bind(':user_id', (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0));
+    // $this->db->dump();
 
     return $this->db->resultSet();
   }
@@ -240,7 +242,7 @@ class Post {
                                 WHERE user_id=:user
                                 GROUP BY reply_to_id
                       ) my_reply
-                            ON reply.reply_to_id = post.id
+                            ON my_reply.reply_to_id = post.id
                       WHERE (prefs.stalkable=1 AND post.user_id IN (
                             SELECT stalkee FROM stalk WHERE stalker=:user
                       ))
@@ -301,13 +303,21 @@ class Post {
                                 WHERE user_id=:my_user_id
                                 GROUP BY reply_to_id
                       ) my_reply
-                            ON reply.reply_to_id = post.id
+                            ON my_reply.reply_to_id = post.id
                       WHERE post.user_id=:user_id
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
     $this->db->bind(':user_id', $user_id);
     $this->db->bind(':my_user_id', (isset($_SESSION['user_id']) ?: 0));
 
     return $this->db->resultSet();
+  }
+
+  public function getReplyCount($post_id) {
+    $this->db->query('SELECT COUNT(*) AS total FROM posts WHERE reply_to_id=:post_id');
+    $this->db->bind(':post_id', $post_id);
+
+    return $this->db->single();
+
   }
 
   // U -- update
