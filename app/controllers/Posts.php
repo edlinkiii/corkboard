@@ -17,6 +17,9 @@ class Posts extends Controller {
       redirect('users/login');
     }
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
+      if(!$_POST['body']) {
+        die('test');
+      }
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
       $error = '';
@@ -118,7 +121,7 @@ class Posts extends Controller {
     if($id) {
       $data['form']['id'] = $id;
 
-      $row = $this->postModel->getPost($id);
+      $row = $this->postModel->getPost($id)[0];
 
       if($row->user_id != $_SESSION['user_id']) {
         redirect('pages/permission');
@@ -159,7 +162,7 @@ class Posts extends Controller {
     if($id) {
       $data['id'] = $id;
 
-      $row = $this->postModel->getPost($id);
+      $row = $this->postModel->getPost($id)[0];
 
       if($row->user_id != $_SESSION['user_id']) {
         redirect('pages/permission');
