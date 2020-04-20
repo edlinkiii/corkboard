@@ -2,6 +2,8 @@
   </main>
   <script>
     const URLROOT = '<?php echo URLROOT; ?>';
+    const LOGIN_URL = URLROOT+'/users/login';
+    const SESSION_CHECK_URL = URLROOT + '/users/check';
     const REACTION_URL = URLROOT + '/posts/react/';
     const ICON_CLASS = 'flaticon';
     const ICON_TAG = 'i';
@@ -14,9 +16,11 @@
     const DISLIKE_ID = <?php echo $reaction_config[2]->id; ?>;
     const DISLIKE_COLOR_CLASS = '<?php echo $reaction_config[2]->color_class; ?>';
     const DISLIKE_ICON_CLASS = '<?php echo $reaction_config[2]->icon_class; ?>';
+    const REPLY_URL = URLROOT + '/posts/reply/';
     const UNCOMMENTED_COLOR_CLASS = 'uncommented-gray';
     const COMMENTED_COLOR_CLASS = 'commented-blue';
   </script>
   <script src="<?php echo URLROOT; ?>/js/reaction.js"></script>
+  <script src="<?php echo URLROOT; ?>/js/reply.js"></script>
 </body>
 </html>

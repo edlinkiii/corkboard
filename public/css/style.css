@@ -258,3 +258,11 @@ article .post-interaction .flaticon {
 .reaction-panel-container i {
   cursor: pointer;
 }
+
+#replyModal textarea#reply-body {
+  box-sizing: border-box;
+  width: 388px;
+  height: 130px;
+  margin: 0;
+  padding: 5px;
+}
