@@ -71,6 +71,6 @@ function clickReactionListener(e) {
   }
 }
 
-$qa(".reaction-holder").forEach((el) => {
+$qa(".reaction-holder i").forEach((el) => {
   el.addEventListener("click", clickReactionListener);
 });
