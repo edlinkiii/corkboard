@@ -18,6 +18,17 @@ class Post {
     return ($this->db->execute()) ? $this->db->lastInsertId() : false ;
   }
 
+  public function addReply($body, $post_id) {
+    // insert post
+    $this->db->query('INSERT INTO posts (user_id, reply_to_id, body) values (:user_id, :post_id, :body)');
+    $this->db->bind(':user_id', $_SESSION['user_id']);
+    $this->db->bind(':post_id', $post_id);
+    $this->db->bind(':body', $body);
+
+    // return new id or false
+    return ($this->db->execute()) ? $this->db->lastInsertId() : false ;
+  }
+
   // R -- read
   public function getPost($id) {
     $this->db->query('SELECT post.id AS post_id,

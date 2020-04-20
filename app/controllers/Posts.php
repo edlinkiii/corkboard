@@ -56,6 +56,30 @@ class Posts extends Controller {
     }
   }
 
+  public function reply($post_id) {
+    if(!isset($_SESSION['user_id'])) {
+      die('{"Error": "You are not logged in."}');
+    }
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      if($_POST['body'] == '') {
+        die('{"Error": "Body text is required."}');
+      }
+
+      $data = [
+        'post_id' => $post_id,
+        'user_id' => $_SESSION['user_id'],
+        'reply_id' => $this->postModel->addReply($_POST['body']),
+      ];
+
+      $json = json_encode($data);
+
+      die($json);
+    }
+  }
+
   // R -- read -- get post(s)
   public function show($id = null) {
     $data = [
