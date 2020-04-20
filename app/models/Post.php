@@ -309,7 +309,7 @@ class Post {
                              post.updated_at as post_stamp,
                              post.reply_to_id AS post_reply_to_id,
                              react.total AS post_reaction,
-                             mine.reaction AS my_reaction,
+                             pr.reaction_id AS my_reaction,
                              reply.replies AS post_reply_count,
                              my_reply.replies AS my_reply_count,
                              reply_info.user_id AS post_reply_user_id,
@@ -321,6 +321,8 @@ class Post {
                             ON post.user_id = prefs.user_id
                       INNER JOIN profiles prof
                             ON prof.user_id = user.id
+                      LEFT OUTER JOIN post_reactions pr
+                            ON pr.post_id = post.id AND pr.user_id = :my_user_id
                       LEFT OUTER JOIN (
                                 SELECT SUM(r.value) AS total,
                                        pr.post_id AS post_id
