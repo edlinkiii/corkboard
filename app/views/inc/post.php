@@ -6,7 +6,7 @@
       <img class="profile-pic-sm" src="<?php echo URLROOT; ?>/images/profile_pic/<?php echo $post->user_pic; ?>" />
       <h3><a href="<?php echo URLROOT; ?>/users/profile/<?php echo $post->user_id; ?>"><?php echo $post->user_name; ?></a></h3>
       <a class='show-post-link' href="<?php echo URLROOT; ?>/posts/show/<?php echo $post->post_id; ?>"><?php echo date(DATETIME_FORMAT, strtotime($post->post_stamp)); ?></a>
-      <?php if(isset($post->post_reply_to_id)): ?>
+      <?php if(!$nested && isset($post->post_reply_to_id)): ?>
         <br>
         <b>Replying to <a href="<?php echo URLROOT.'/posts/show/'.$post->post_reply_to_id; ?>"><?php echo $post->post_reply_user_name; ?></a></b>
       <?php endif; ?>
