@@ -151,4 +151,14 @@ class Users extends Controller {
 
     redirect('users/profile/' . $user_id);
   }
+
+  public function check() {
+    if(!isset($_SESSION['user_id'])) {
+      $data = ['user_id' => 0];
+    } else {
+      $data = ['user_id' => $_SESSION['user_id']];
+    }
+    $json = json_encode($data);
+    die($json);
+  }
 }
