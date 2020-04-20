@@ -19,6 +19,7 @@
     const REPLY_URL = URLROOT + '/posts/reply/';
     const UNCOMMENTED_COLOR_CLASS = 'uncommented-gray';
     const COMMENTED_COLOR_CLASS = 'commented-blue';
+    const POST_URL = URLROOT+'/posts/show/';
   </script>
   <script src="<?php echo URLROOT; ?>/js/reaction.js"></script>
   <script src="<?php echo URLROOT; ?>/js/reply.js"></script>

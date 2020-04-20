@@ -38,11 +38,14 @@ class Post {
                              prof.name AS user_name,
                              prof.pic AS user_pic,
                              post.body AS post_body,
+                             post.reply_to_id AS post_reply_to_id,
                              post.updated_at AS post_stamp,
                              react.total AS post_reaction,
                              pr.reaction_id AS my_reaction,
                              reply.replies AS post_reply_count,
-                             my_reply.replies AS my_reply_count
+                             my_reply.replies AS my_reply_count,
+                             reply_info.user_id AS post_reply_user_id,
+                             reply_info.user_name AS post_reply_user_name
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -76,6 +79,15 @@ class Post {
                                     AND user_id=:user_id
                       ) my_reply
                             ON my_reply.reply_to_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT post.user_id AS user_id,
+                                       post.id as post_id,
+                                       prof.name as user_name
+                                FROM posts post
+                                INNER JOIN profiles prof
+                                    ON post.user_id = prof.user_id
+                      ) reply_info
+                            ON reply_info.post_id = post.reply_to_id
                       WHERE post.id = :id
                             AND (pref.public = 1 OR post.user_id = :user_id)');
     $this->db->bind(':id', $id);
@@ -97,11 +109,13 @@ class Post {
                              prof.pic AS user_pic,
                              post.body AS post_body,
                              post.updated_at AS post_stamp,
-                             post.reply_to_id AS post_parent_id,
+                             post.reply_to_id AS post_reply_to_id,
                              react.total AS post_reaction,
                              pr.reaction_id AS my_reaction,
                              reply.replies AS post_reply_count,
-                             my_reply.replies AS my_reply_count
+                             my_reply.replies AS my_reply_count,
+                             reply_info.user_id AS post_reply_user_id,
+                             reply_info.user_name AS post_reply_user_name
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -135,6 +149,15 @@ class Post {
                                     AND user_id=:user_id
                       ) my_reply
                             ON my_reply.reply_to_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT post.user_id AS user_id,
+                                       post.id as post_id,
+                                       prof.name as user_name
+                                FROM posts post
+                                INNER JOIN profiles prof
+                                    ON post.user_id = prof.user_id
+                      ) reply_info
+                            ON reply_info.post_id = post.reply_to_id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)
                             AND post.reply_to_id = :post_id
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
@@ -152,10 +175,13 @@ class Post {
                              prof.pic AS user_pic,
                              post.body AS post_body,
                              post.updated_at AS post_stamp,
+                             post.reply_to_id AS post_reply_to_id,
                              react.total AS post_reaction,
                              pr.reaction_id AS my_reaction,
                              reply.replies AS post_reply_count,
-                             my_reply.replies AS my_reply_count
+                             my_reply.replies AS my_reply_count,
+                             reply_info.user_id AS post_reply_user_id,
+                             reply_info.user_name AS post_reply_user_name
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -189,6 +215,15 @@ class Post {
                                 GROUP BY reply_to_id
                       ) my_reply
                             ON my_reply.reply_to_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT post.user_id AS user_id,
+                                       post.id as post_id,
+                                       prof.name as user_name
+                                FROM posts post
+                                INNER JOIN profiles prof
+                                    ON post.user_id = prof.user_id
+                      ) reply_info
+                            ON reply_info.post_id = post.reply_to_id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)
                           AND post.reply_to_id IS NULL
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
@@ -206,10 +241,13 @@ class Post {
                              prof.pic as user_pic,
                              post.body as post_body,
                              post.updated_at as post_stamp,
+                             post.reply_to_id AS post_reply_to_id,
                              react.total AS post_reaction,
                              pr.reaction_id AS my_reaction,
                              reply.replies AS post_reply_count,
-                             my_reply.replies AS my_reply_count
+                             my_reply.replies AS my_reply_count,
+                             reply_info.user_id AS post_reply_user_id,
+                             reply_info.user_name AS post_reply_user_name
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -243,6 +281,15 @@ class Post {
                                 GROUP BY reply_to_id
                       ) my_reply
                             ON my_reply.reply_to_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT post.user_id AS user_id,
+                                       post.id as post_id,
+                                       prof.name as user_name
+                                FROM posts post
+                                INNER JOIN profiles prof
+                                    ON post.user_id = prof.user_id
+                      ) reply_info
+                            ON reply_info.post_id = post.reply_to_id
                       WHERE (prefs.stalkable=1 AND post.user_id IN (
                             SELECT stalkee FROM stalk WHERE stalker=:user
                       ))
@@ -260,10 +307,13 @@ class Post {
                              prof.pic as user_pic,
                              post.body as post_body,
                              post.updated_at as post_stamp,
+                             post.reply_to_id AS post_reply_to_id,
                              react.total AS post_reaction,
                              mine.reaction AS my_reaction,
                              reply.replies AS post_reply_count,
-                             my_reply.replies AS my_reply_count
+                             my_reply.replies AS my_reply_count,
+                             reply_info.user_id AS post_reply_user_id,
+                             reply_info.user_name AS post_reply_user_name
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -304,6 +354,15 @@ class Post {
                                 GROUP BY reply_to_id
                       ) my_reply
                             ON my_reply.reply_to_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT post.user_id AS user_id,
+                                       post.id as post_id,
+                                       prof.name as user_name
+                                FROM posts post
+                                INNER JOIN profiles prof
+                                    ON post.user_id = prof.user_id
+                      ) reply_info
+                            ON reply_info.post_id = post.reply_to_id
                       WHERE post.user_id=:user_id
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
     $this->db->bind(':user_id', $user_id);
