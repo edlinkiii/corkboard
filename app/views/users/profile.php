@@ -7,7 +7,7 @@
         </div>
 <?php elseif($data['prefs']->public && $data['prefs']->stalkable): ?>
         <div style="float:right; text-align:right;">
-          <a href="<?php echo URLROOT; ?>/users/<?php echo $data['stalking'] ? 'un' : ''; ?>stalk/<?php echo $data['profile']->user_id; ?>" class="edit-button"><b style="margin-bottom: 10px;" <?php echo $data['stalking'] ? 'class="reverse"' : ''; ?>>Stalk</b></a><br />
+          <a href="<?php echo URLROOT; ?>/users/<?php echo $data['stalking'] ? 'un' : ''; ?>stalk/<?php echo $data['profile']->user_id; ?>" class="edit-button"><b style="margin-bottom: 10px;" <?php echo $data['stalking'] ? 'class="reverse"' : ''; ?>><?php echo $data['stalking'] ? 'Unstalk' : 'Stalk'; ?></b></a><br />
         </div>
 <?php endif; ?>
         <img class="profile-pic-md" src="<?php echo URLROOT; ?>/images/profile_pic/<?php echo $data['profile']->pic; ?>" />
