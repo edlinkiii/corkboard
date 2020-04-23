@@ -1,9 +1,9 @@
-	/*
-  	Flaticon icon font: Flaticon
-  	Creation date: 23/04/2020 11:59
-  	*/
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 23/04/2020 11:59
+    */
 
-@font-face {
+    @font-face {
   font-family: "Flaticon";
   src: url("./Flaticon.eot");
   src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
@@ -22,15 +22,22 @@
   }
 }
 
-[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
-[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
-  font-family: Flaticon;
-        font-size: 20px;
-font-style: normal;
-margin-left: 20px;
-}
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
 
-.flaticon-dislike:before { content: "\f100"; }
+    .flaticon-dislike:before { content: "\f100"; }
 .flaticon-like:before { content: "\f101"; }
 .flaticon-retweet:before { content: "\f102"; }
 .flaticon-bell:before { content: "\f103"; }
@@ -72,3 +79,46 @@ margin-left: 20px;
 .flaticon-add-heart:before { content: "\f127"; }
 .flaticon-passion:before { content: "\f128"; }
 .flaticon-globe:before { content: "\f129"; }
+    
+    $font-Flaticon-dislike: "\f100";
+    $font-Flaticon-like: "\f101";
+    $font-Flaticon-retweet: "\f102";
+    $font-Flaticon-bell: "\f103";
+    $font-Flaticon-warning: "\f104";
+    $font-Flaticon-home: "\f105";
+    $font-Flaticon-deal: "\f106";
+    $font-Flaticon-two-users: "\f107";
+    $font-Flaticon-profile: "\f108";
+    $font-Flaticon-see: "\f109";
+    $font-Flaticon-speak: "\f10a";
+    $font-Flaticon-comment: "\f10b";
+    $font-Flaticon-comment-1: "\f10c";
+    $font-Flaticon-chat: "\f10d";
+    $font-Flaticon-dialogue: "\f10e";
+    $font-Flaticon-dialogue-1: "\f10f";
+    $font-Flaticon-resume: "\f110";
+    $font-Flaticon-connection: "\f111";
+    $font-Flaticon-mute: "\f112";
+    $font-Flaticon-new: "\f113";
+    $font-Flaticon-forbidden: "\f114";
+    $font-Flaticon-no-message: "\f115";
+    $font-Flaticon-teamwork: "\f116";
+    $font-Flaticon-logout: "\f117";
+    $font-Flaticon-enter: "\f118";
+    $font-Flaticon-clipboard: "\f119";
+    $font-Flaticon-pencil: "\f11a";
+    $font-Flaticon-delete: "\f11b";
+    $font-Flaticon-up-arrow: "\f11c";
+    $font-Flaticon-pen: "\f11d";
+    $font-Flaticon-settings: "\f11e";
+    $font-Flaticon-floppy-disk: "\f11f";
+    $font-Flaticon-delete-1: "\f120";
+    $font-Flaticon-plus: "\f121";
+    $font-Flaticon-add-friend: "\f122";
+    $font-Flaticon-trash-can: "\f123";
+    $font-Flaticon-lock: "\f124";
+    $font-Flaticon-shield: "\f125";
+    $font-Flaticon-minus-heart: "\f126";
+    $font-Flaticon-add-heart: "\f127";
+    $font-Flaticon-passion: "\f128";
+    $font-Flaticon-globe: "\f129";
