@@ -25,7 +25,7 @@
       <?php $post->post_reply_count = $post->post_reply_count ?: 0; ?>
       <?php $post->my_reply_count = $post->my_reply_count ?: 0; ?>
       <div class="reply-holder <?php echo ($post->my_reply_count > 0) ? 'commented-blue' : 'uncommented-gray'; ?>">
-        <i class="fa fa-comment<?php echo $post->post_reply_count > 0 ? '' : '-o'; ?>"></i> 
+        <i class="fa fa-comment<?php echo $post->my_reply_count > 0 ? '' : '-o'; ?>"></i> 
         <span class="reply-count"><?php echo $post->post_reply_count; ?></span>
       </div>
     </div>
