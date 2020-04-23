@@ -45,7 +45,8 @@ class Post {
                              reply.replies AS post_reply_count,
                              my_reply.replies AS my_reply_count,
                              reply_info.user_id AS post_reply_user_id,
-                             reply_info.user_name AS post_reply_user_name
+                             reply_info.user_name AS post_reply_user_name,
+                             favs.count AS is_favorite
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -88,6 +89,12 @@ class Post {
                                     ON post.user_id = prof.user_id
                       ) reply_info
                             ON reply_info.post_id = post.reply_to_id
+                      LEFT OUTER JOIN (
+                              SELECT COUNT(*) AS count, post_id
+                              FROM favorites
+                              WHERE user_id=:user_id AND post_id=:id
+                              GROUP BY post_id
+                      ) favs ON favs.post_id = post.id
                       WHERE post.id = :id
                             AND (pref.public = 1 OR post.user_id = :user_id)');
     $this->db->bind(':id', $id);
@@ -115,7 +122,8 @@ class Post {
                              reply.replies AS post_reply_count,
                              my_reply.replies AS my_reply_count,
                              reply_info.user_id AS post_reply_user_id,
-                             reply_info.user_name AS post_reply_user_name
+                             reply_info.user_name AS post_reply_user_name,
+                             favs.count AS is_favorite
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -158,6 +166,12 @@ class Post {
                                     ON post.user_id = prof.user_id
                       ) reply_info
                             ON reply_info.post_id = post.reply_to_id
+                      LEFT OUTER JOIN (
+                              SELECT COUNT(*) AS count, post_id
+                              FROM favorites
+                              WHERE user_id=:user_id
+                              GROUP BY post_id
+                      ) favs ON favs.post_id = post.id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)
                             AND post.reply_to_id = :post_id
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
@@ -181,7 +195,8 @@ class Post {
                              reply.replies AS post_reply_count,
                              my_reply.replies AS my_reply_count,
                              reply_info.user_id AS post_reply_user_id,
-                             reply_info.user_name AS post_reply_user_name
+                             reply_info.user_name AS post_reply_user_name,
+                             favs.count AS is_favorite
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -224,6 +239,12 @@ class Post {
                                     ON post.user_id = prof.user_id
                       ) reply_info
                             ON reply_info.post_id = post.reply_to_id
+                      LEFT OUTER JOIN (
+                              SELECT COUNT(*) AS count, post_id
+                              FROM favorites
+                              WHERE user_id=:user_id
+                              GROUP BY post_id
+                      ) favs ON favs.post_id = post.id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)
                           AND post.reply_to_id IS NULL
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
@@ -247,7 +268,8 @@ class Post {
                              reply.replies AS post_reply_count,
                              my_reply.replies AS my_reply_count,
                              reply_info.user_id AS post_reply_user_id,
-                             reply_info.user_name AS post_reply_user_name
+                             reply_info.user_name AS post_reply_user_name,
+                             favs.count AS is_favorite
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -256,7 +278,7 @@ class Post {
                       INNER JOIN profiles prof
                             ON prof.user_id = user.id
                       LEFT OUTER JOIN post_reactions pr
-                            ON pr.post_id = post.id AND pr.user_id = :user
+                            ON pr.post_id = post.id AND pr.user_id = :user_id
                       LEFT OUTER JOIN (
                                 SELECT SUM(r.value) AS total,
                                        pr.post_id AS post_id
@@ -277,7 +299,7 @@ class Post {
                                 SELECT COUNT(*) AS replies,
                                        reply_to_id
                                 FROM posts
-                                WHERE user_id=:user
+                                WHERE user_id=:user_id
                                 GROUP BY reply_to_id
                       ) my_reply
                             ON my_reply.reply_to_id = post.id
@@ -290,11 +312,91 @@ class Post {
                                     ON post.user_id = prof.user_id
                       ) reply_info
                             ON reply_info.post_id = post.reply_to_id
+                      LEFT OUTER JOIN (
+                              SELECT COUNT(*) AS count, post_id
+                              FROM favorites
+                              WHERE user_id=:user_id
+                              GROUP BY post_id
+                      ) favs ON favs.post_id = post.id
                       WHERE (prefs.stalkable=1 AND post.user_id IN (
-                            SELECT stalkee FROM stalk WHERE stalker=:user
+                            SELECT stalkee FROM stalk WHERE stalker=:user_id
                       ))
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
-    $this->db->bind(':user', $_SESSION['user_id']);
+    $this->db->bind(':user_id', $_SESSION['user_id']);
+
+    return $this->db->resultSet();
+  }
+
+  public function favoritePosts() {
+    $this->db->query('SELECT post.id as post_id,
+                             post.user_id as user_id,
+                             user.email as user_email,
+                             prof.name as user_name,
+                             prof.pic as user_pic,
+                             post.body as post_body,
+                             post.updated_at as post_stamp,
+                             post.reply_to_id AS post_reply_to_id,
+                             react.total AS post_reaction,
+                             pr.reaction_id AS my_reaction,
+                             reply.replies AS post_reply_count,
+                             my_reply.replies AS my_reply_count,
+                             reply_info.user_id AS post_reply_user_id,
+                             reply_info.user_name AS post_reply_user_name,
+                             favs.count AS is_favorite
+                      FROM posts post
+                      INNER JOIN users user
+                            ON post.user_id = user.id
+                      INNER JOIN prefs prefs
+                            ON post.user_id = prefs.user_id
+                      INNER JOIN profiles prof
+                            ON prof.user_id = user.id
+                      LEFT OUTER JOIN post_reactions pr
+                            ON pr.post_id = post.id AND pr.user_id = :user_id
+                      LEFT OUTER JOIN (
+                                SELECT SUM(r.value) AS total,
+                                       pr.post_id AS post_id
+                                FROM post_reactions pr
+                                INNER JOIN reactions r
+                                    ON pr.reaction_id = r.id
+                                GROUP BY pr.post_id
+                      ) react
+                            ON react.post_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT COUNT(*) AS replies,
+                                       reply_to_id
+                                FROM posts
+                                GROUP BY reply_to_id
+                      ) reply
+                            ON reply.reply_to_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT COUNT(*) AS replies,
+                                       reply_to_id
+                                FROM posts
+                                WHERE user_id=:user_id
+                                GROUP BY reply_to_id
+                      ) my_reply
+                            ON my_reply.reply_to_id = post.id
+                      LEFT OUTER JOIN (
+                                SELECT post.user_id AS user_id,
+                                       post.id as post_id,
+                                       prof.name as user_name
+                                FROM posts post
+                                INNER JOIN profiles prof
+                                    ON post.user_id = prof.user_id
+                      ) reply_info
+                            ON reply_info.post_id = post.reply_to_id
+                      LEFT OUTER JOIN (
+                              SELECT COUNT(*) AS count, post_id
+                              FROM favorites
+                              WHERE user_id=:user_id
+                              GROUP BY post_id
+                      ) favs ON favs.post_id = post.id
+                      WHERE post.id IN (
+                            SELECT post_id FROM favorites WHERE user_id=:user_id
+                      )
+                      ORDER BY post.updated_at DESC'); // need to do paging here eventually
+    $this->db->bind(':user_id', $_SESSION['user_id']);
+    // $this->db->dump();
 
     return $this->db->resultSet();
   }
@@ -313,7 +415,8 @@ class Post {
                              reply.replies AS post_reply_count,
                              my_reply.replies AS my_reply_count,
                              reply_info.user_id AS post_reply_user_id,
-                             reply_info.user_name AS post_reply_user_name
+                             reply_info.user_name AS post_reply_user_name,
+                             favs.count AS is_favorite
                       FROM posts post
                       INNER JOIN users user
                             ON post.user_id = user.id
@@ -365,10 +468,17 @@ class Post {
                                     ON post.user_id = prof.user_id
                       ) reply_info
                             ON reply_info.post_id = post.reply_to_id
+                      LEFT OUTER JOIN (
+                              SELECT COUNT(*) AS count, post_id
+                              FROM favorites
+                              WHERE user_id=:my_user_id
+                              GROUP BY post_id
+                      ) favs ON favs.post_id = post.id
                       WHERE post.user_id=:user_id
                       ORDER BY post.updated_at DESC'); // need to do paging here eventually
     $this->db->bind(':user_id', $user_id);
     $this->db->bind(':my_user_id', (isset($_SESSION['user_id']) ?: 0));
+    // $this->db->dump();
 
     return $this->db->resultSet();
   }

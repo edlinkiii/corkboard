@@ -143,6 +143,10 @@ a.show-post-link {
   font-weight: normal;
 }
 
+a {
+  cursor: pointer;
+}
+
 a.edit-button b {
   margin-right: 0;
 }
@@ -154,6 +158,12 @@ a.edit-button b span {
 
 a.edit-button:hover b span {
   display: inline;
+}
+
+a.favorite-button b {
+  border: #fff;
+  background-color: #fff;
+  color: #118bee;
 }
 
 button.delete-button,

@@ -21,9 +21,13 @@
     const UNCOMMENTED_ICON_CLASS = 'fa-comment-o';
     const COMMENTED_COLOR_CLASS = 'commented-blue';
     const COMMENTED_ICON_CLASS = 'fa-comment';
+    const FAVORITES_URL = URLROOT + '/favorites';
+    const FAVORITED_ICON_CLASS = 'fa-heart';
+    const UNFAVORITED_ICON_CLASS = 'fa-heart-o';
     const POST_URL = URLROOT+'/posts/show/';
   </script>
   <script src="<?php echo URLROOT; ?>/js/reaction.js"></script>
   <script src="<?php echo URLROOT; ?>/js/reply.js"></script>
+  <script src="<?php echo URLROOT; ?>/js/favorite.js"></script>
 </body>
 </html>

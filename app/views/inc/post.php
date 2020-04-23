@@ -3,7 +3,7 @@
   <?php if(isset($_SESSION['user_id']) && $post->user_id === $_SESSION['user_id']): ?>
       <a class="edit-button" style="float: right;" href="<?php echo URLROOT; ?>/posts/edit/<?php echo $post->post_id; ?>"><b><i class="fa fa-pencil-square-o"></i><span> Edit Post</span></b></a>
   <?php else: ?>
-      <a class="edit-button" style="float: right;" href="<?php echo URLROOT; ?>/posts/favorite/<?php echo $post->post_id; ?>"><b><i class="fa fa-heart-o"></i><span> Favorite</span></b></a>
+      <a class="edit-button favorite-button" style="float: right;"><b><i class="fa fa-heart<?php echo $post->is_favorite ? '' : '-o'; ?>"></i><span> <?php echo $post->is_favorite ? 'Unf' : 'F'; ?>avorite</span></b></a>
   <?php endif; ?>
       <img class="profile-pic-sm" src="<?php echo URLROOT; ?>/images/profile_pic/<?php echo $post->user_pic; ?>" />
       <h3><a href="<?php echo URLROOT; ?>/users/profile/<?php echo $post->user_id; ?>"><?php echo $post->user_name; ?></a></h3>
