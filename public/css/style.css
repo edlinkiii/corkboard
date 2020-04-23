@@ -200,9 +200,9 @@ a b.reverse, a strong.reverse, button.reverse {
   color: var(--color);
 }
 
-i.flaticon,
-i.flaticon::before,
-i.flaticon::after {
+i.fa,
+i.fa::before,
+i.fa::after {
   font-size: inherit;
   color: inherit;
   padding: 0;
@@ -236,7 +236,7 @@ article .post-interaction div {
   color: #bbb;
 }
 
-article .post-interaction .flaticon {
+article .post-interaction .fa {
   font-size: 20px;
   position: relative;
   top: 2px;

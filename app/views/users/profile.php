@@ -2,12 +2,12 @@
       <article>
 <?php if(isset($_SESSION['user_id']) && $data['profile']->user_id == $_SESSION['user_id']): ?>
         <div style="float:right; text-align:right;">
-          <a href="<?php echo URLROOT; ?>/settings/profile" class="edit-button"><b style="margin-bottom: 10px;"><i class="flaticon flaticon-profile"></i><span> Edit Profile</span></b></a><br />
-          <a href="<?php echo URLROOT; ?>/settings/prefs" class="edit-button"><b><i class="flaticon flaticon-settings"></i><span> Preferences</span></b></a>
+          <a href="<?php echo URLROOT; ?>/settings/profile" class="edit-button"><b style="margin-bottom: 10px;"><i class="fa fa-user"></i><span> Edit Profile</span></b></a><br />
+          <a href="<?php echo URLROOT; ?>/settings/prefs" class="edit-button"><b><i class="fa fa-cog"></i><span> Preferences</span></b></a>
         </div>
 <?php elseif($data['prefs']->public && $data['prefs']->stalkable): ?>
         <div style="float:right; text-align:right;">
-          <a href="<?php echo URLROOT; ?>/users/<?php echo $data['stalking'] ? 'un' : ''; ?>stalk/<?php echo $data['profile']->user_id; ?>" class="edit-button"><b style="margin-bottom: 10px;" <?php echo $data['stalking'] ? 'class="reverse"' : ''; ?>><?php echo $data['stalking'] ? 'Unstalk' : 'Stalk'; ?></b></a><br />
+          <a href="<?php echo URLROOT; ?>/users/<?php echo $data['stalking'] ? 'un' : ''; ?>stalk/<?php echo $data['profile']->user_id; ?>" class="edit-button"><b style="margin-bottom: 10px;" <?php echo $data['stalking'] ? 'class="reverse"' : ''; ?>><i class="fa fa-binoculars"></i> <span><?php echo $data['stalking'] ? 'Unstalk' : 'Stalk'; ?></span></b></a><br />
         </div>
 <?php endif; ?>
         <img class="profile-pic-md" src="<?php echo URLROOT; ?>/images/profile_pic/<?php echo $data['profile']->pic; ?>" />

@@ -6,9 +6,9 @@
   <label for="body">Body: </label> <textarea style="width: 100%;box-sizing: border-box;" name="body" required><?php echo $data['form']['body']; ?></textarea><br />
 
   <div class="side-by-side">
-    <button type="submit"><i class="flaticon flaticon-floppy-disk"></i> Save</button>
+    <button type="submit"><i class="fa fa-floppy-o"></i> Save</button>
   </div><div class="side-by-side right">
-    <a href="<?php echo URLROOT ?>/posts/remove/<?php echo $data['form']['id']; ?>" class="delete-button"><b><i class="flaticon flaticon-trash-can"></i> Delete</b></a>
+    <a href="<?php echo URLROOT ?>/posts/remove/<?php echo $data['form']['id']; ?>" class="delete-button"><b><i class="fa fa-trash"></i> Delete</b></a>
   </div>
 
 

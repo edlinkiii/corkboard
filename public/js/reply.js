@@ -43,6 +43,7 @@ function clickReplyListener({target}) {
                     }
                     else {
                       $q('article#post_id-'+resp.post_id+' .reply-holder').removeClass(UNCOMMENTED_COLOR_CLASS).addClass(COMMENTED_COLOR_CLASS);
+                      $q('article#post_id-'+resp.post_id+' .reply-holder i').removeClass(UNCOMMENTED_ICON_CLASS).addClass(COMMENTED_ICON_CLASS);
                       $q('article#post_id-'+resp.post_id+' .reply-count').text(resp.reply_count);
                       replyModal.destroy();
                     }

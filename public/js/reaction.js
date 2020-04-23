@@ -16,6 +16,7 @@ function likeListener(e) {
   let reactionContainer = $q('article#post_id-' + postId + ' .reaction-holder');
   container.remove();
   reactionContainer.removeClass(UNTOUCHED_COLOR_CLASS).addClass(LIKE_COLOR_CLASS);
+  reactionContainer.find(ICON_TAG).removeClass(UNTOUCHED_ICON_CLASS).addClass(LIKE_ICON_CLASS);
   setReaction(postId, LIKE_ID);
 }
 
@@ -38,17 +39,14 @@ function clickReactionListener(e) {
     callback: (check) => {
       if(check.user_id > 0) {
         if (container.hasClass(LIKE_COLOR_CLASS) || container.hasClass(DISLIKE_COLOR_CLASS)) {
-          if (container.hasClass(DISLIKE_COLOR_CLASS)) {
-            container
-              .find(ICON_TAG)
-              .removeClass(DISLIKE_ICON_CLASS)
-              .addClass(LIKE_ICON_CLASS);
-          }
-      
           container
             .removeClass(LIKE_COLOR_CLASS)
             .removeClass(DISLIKE_COLOR_CLASS)
-            .addClass(UNTOUCHED_COLOR_CLASS);
+            .addClass(UNTOUCHED_COLOR_CLASS)
+            .find(ICON_TAG)
+            .removeClass(DISLIKE_ICON_CLASS)
+            .removeClass(LIKE_ICON_CLASS)
+            .addClass(UNTOUCHED_ICON_CLASS);
       
           setReaction(postId);
         } else {

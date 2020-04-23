@@ -104,9 +104,9 @@ CREATE TABLE `reactions` (
 --
 
 INSERT INTO `reactions` (`id`, `name`, `value`, `color_class`, `icon_class`) VALUES
-(0, 'Untouched', 0, 'untouched-gray', 'flaticon-like'),
-(1, 'Like', 1, 'like-green', 'flaticon-like'),
-(2, 'Dislike', -1, 'dislike-red', 'flaticon-dislike');
+(0, 'Untouched', 0, 'untouched-gray', 'fa-thumbs-o-up'),
+(1, 'Like', 1, 'like-green', 'fa-thumbs-up'),
+(2, 'Dislike', -1, 'dislike-red', 'fa-thumbs-down');
 
 -- --------------------------------------------------------
 
