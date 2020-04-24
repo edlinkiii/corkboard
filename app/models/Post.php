@@ -509,4 +509,11 @@ class Post {
 
     return ($this->db->execute()) ? true : false ;
   }
+
+  public function getPostOwner($id) {
+    $this->db->query('SELECT user_id FROM posts WHERE id=:id');
+    $this->db->bind(':id',$id);
+
+    return $this->db->single()->user_id;
+  }
 }

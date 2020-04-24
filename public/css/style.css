@@ -293,3 +293,7 @@ article .post-interaction .fa {
   margin: 0;
   padding: 5px;
 }
+
+.notification {}
+.notification.unseen {}
+.notification.seen {}
