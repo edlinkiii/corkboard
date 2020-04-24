@@ -138,6 +138,22 @@ textarea.full-width {
   margin-bottom: 1rem;
 }
 
+#sidebar a b {
+  color: #000;
+}
+
+#sidebar a:hover b {
+  color: var(--color);
+}
+
+#sidebar a.active b {
+  color: var(--color);
+}
+
+#sidebar a.active:hover b {
+  filter: brightness(var(--hover-brightness));
+}
+
 a.show-post-link {
   color: black;
   font-weight: normal;

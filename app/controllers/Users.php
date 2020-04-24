@@ -8,6 +8,7 @@ class Users extends Controller {
     $this->prefsModel = $this->model('Prefs');
     $this->stalkModel = $this->model('Stalk');
     $this->reactionModel = $this->model('Reaction');
+    $_SESSION['active_link'] = '';
   }
 
   public function default() {
@@ -18,6 +19,9 @@ class Users extends Controller {
     // if !$user, use current user from session
     if(!$user_id && !isset($_SESSION['user_id'])) {
       redirect('users/login');
+    }
+    if(!$user_id || $user_id == $_SESSION['user_id']) {
+      $_SESSION['active_link'] = 'my_profile';
     }
 
     $user_id = $user_id ? $user_id : $_SESSION['user_id'];

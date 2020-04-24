@@ -2,10 +2,14 @@
 
 class Settings extends Controller {
   public function __construct() {
+    if(!isset($_SESSION['user_id'])) {
+      redirect('users/login');
+    }
     $this->userModel = $this->model('User');
     $this->profileModel = $this->model('Profile');
     $this->prefsModel = $this->model('Prefs');
     $this->reactionModel = $this->model('Reaction');
+    $_SESSION['active_link'] = 'my_profile';
   }
 
   public function profile() {

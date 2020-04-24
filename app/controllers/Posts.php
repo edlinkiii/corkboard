@@ -5,6 +5,7 @@ class Posts extends Controller {
     $this->postModel = $this->model('Post');
     $this->stalkModel = $this->model('Stalk');
     $this->reactionModel = $this->model('Reaction');
+    $_SESSION['active_link'] = '';
   }
 
   public function default() {
@@ -16,6 +17,7 @@ class Posts extends Controller {
     if(!isset($_SESSION['user_id'])) {
       redirect('users/login');
     }
+    $_SESSION['active_link'] = 'add_post';
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
       if(!$_POST['body']) {
         die('test');
@@ -42,6 +44,7 @@ class Posts extends Controller {
         $id = $this->postModel->addPost($_POST['body']);
 
         if($id) {
+          $_SESSION['active_link'] = '';
           redirect('posts/show/' . $id);
         }
       }
@@ -89,6 +92,9 @@ class Posts extends Controller {
 
   // R -- read -- get post(s)
   public function show($id = null) {
+    if(!$id) {
+      $_SESSION['active_link'] = 'all';
+    }
     $data = [
       'posts' => ($id) ? $this->postModel->getPost($id) : $this->postModel->getPosts(),
       'replies' => ($id) ? $this->postModel->getReplies($id) : null,
@@ -98,6 +104,8 @@ class Posts extends Controller {
   }
 
   public function stalk() {
+    $_SESSION['active_link'] = 'stalking';
+
     $data = ['posts' => $this->postModel->stalkPosts()];
     
     $this->view('posts/show', $data);
