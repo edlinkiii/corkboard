@@ -295,5 +295,9 @@ article .post-interaction .fa {
 }
 
 .notification {}
-.notification.unseen {}
-.notification.seen {}
+.notification.unseen {
+  background-color: #fff;
+}
+.notification.seen {
+  background-color:#eee;
+}

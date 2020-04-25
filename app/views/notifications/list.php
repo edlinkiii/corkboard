@@ -2,6 +2,14 @@
 
 require APPROOT . '/views/inc/header.php';
 
-print_r($data);
+if(is_array($data['notifications'])):
+
+  foreach($data['notifications'] as $notification):
+
+    require APPROOT . '/views/notifications/notification.php';
+
+  endforeach;
+
+endif;
 
 require APPROOT . '/views/inc/footer.php';

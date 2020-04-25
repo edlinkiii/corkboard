@@ -19,23 +19,45 @@ class Notification {
   }
   // R - read
   public function getUnseenNotifications() {
-    $this->db->query('SELECT post_id, type_id, COUNT(type_id)
-                      FROM notifications
-                      WHERE user_id=:user_id
-                      AND seen_at IS NULL
-                      GROUP BY post_id, type_id
-                      ORDER BY created_at');
+    $this->db->query('SELECT n.post_id AS post_id,
+                             n.type_id AS type_id,
+                             COUNT(n.type_id) AS type_count,
+                             n.seen_at AS notification_seen,
+                             nt.name AS type_name,
+                             p.body AS post_body,
+                             p.created_at AS post_created,
+                             p.reply_to_id AS post_is_reply
+                      FROM notifications n
+                      INNER JOIN notification_types nt
+                            ON nt.id = n.type_id
+                      INNER JOIN posts p
+                            ON p.id = n.post_id
+                      WHERE n.user_id=:user_id
+                      AND n.seen_at IS NULL
+                      GROUP BY n.post_id, n.type_id
+                      ORDER BY n.created_at');
     $this->db->bind('user_id', $_SESSION['user_id']);
 
     return $this->db->resultSet();
   }
   public function getSeenNotifications() {
-    $this->db->query('SELECT post_id, type_id, COUNT(type_id)
-                      FROM notifications
-                      WHERE user_id=:user_id
-                      AND seen_at > 0
-                      GROUP BY post_id, type_id
-                      ORDER BY created_at');
+    $this->db->query('SELECT n.post_id AS post_id,
+                             n.type_id AS type_id,
+                             COUNT(n.type_id) AS type_count,
+                             n.seen_at AS notification_seen,
+                             nt.name AS type_name,
+                             p.body AS post_body,
+                             p.created_at AS post_created,
+                             p.reply_to_id AS post_is_reply
+                      FROM notifications n
+                      INNER JOIN notification_types nt
+                          ON nt.id = n.type_id
+                      INNER JOIN posts p
+                            ON p.id = n.post_id
+                      WHERE n.user_id=:user_id
+                      AND n.seen_at > 0
+                      GROUP BY n.post_id, n.type_id
+                      ORDER BY n.created_at');
     $this->db->bind('user_id', $_SESSION['user_id']);
 
     return $this->db->resultSet();

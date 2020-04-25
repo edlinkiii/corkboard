@@ -18,9 +18,11 @@ class Notifications extends Controller {
   public function show() {
     $_SESSION['active_link'] = 'notifications';
 
+    $unseen_array = $this->notificationModel->getUnseenNotifications();
+    $seen_array = $this->notificationModel->getSeenNotifications();
+
     $data = [
-      'unseen' => $this->notificationModel->getUnseenNotifications(),
-      'seen' => $this->notificationModel->getSeenNotifications(),
+      'notifications' => [...$unseen_array, ...$seen_array],
     ];
 
     $this->view('notifications/list', $data);
