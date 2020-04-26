@@ -36,7 +36,7 @@ class Notification {
                       AND n.seen_at IS NULL
                       GROUP BY n.post_id, n.type_id
                       ORDER BY n.created_at');
-    $this->db->bind('user_id', $_SESSION['user_id']);
+    $this->db->bind(':user_id', $_SESSION['user_id']);
 
     return $this->db->resultSet();
   }
@@ -58,7 +58,7 @@ class Notification {
                       AND n.seen_at > 0
                       GROUP BY n.post_id, n.type_id
                       ORDER BY n.created_at');
-    $this->db->bind('user_id', $_SESSION['user_id']);
+    $this->db->bind(':user_id', $_SESSION['user_id']);
 
     return $this->db->resultSet();
   }
@@ -70,4 +70,14 @@ class Notification {
   // D - delete
 
   // utility methods
+  public function countUnseenNotifications() {
+    $this->db->query('SELECT post_id, type_id, COUNT(type_id) AS type_count
+                      FROM notifications
+                      WHERE user_id=:user_id AND seen_at IS NULL
+                      GROUP BY post_id, type_id');
+    $this->db->bind(':user_id', $_SESSION['user_id']);
+
+    return $this->db->resultSet();
+
+  }
 }

@@ -26,8 +26,20 @@
     const UNFAVORITED_ICON_CLASS = 'fa-heart-o';
     const POST_URL = URLROOT+'/posts/show/';
   </script>
+  <script src="<?php echo URLROOT; ?>/js/lib/js-query.js"></script>
+  <script src="<?php echo URLROOT; ?>/js/lib/myui.js"></script>
   <script src="<?php echo URLROOT; ?>/js/reaction.js"></script>
   <script src="<?php echo URLROOT; ?>/js/reply.js"></script>
   <script src="<?php echo URLROOT; ?>/js/favorite.js"></script>
+<?php if(isset($_SESSION['user_id'])): ?>
+  <script src="<?php echo URLROOT; ?>/js/notification_check.js"></script>
+<?php endif; ?>
+<?php if(isset($_SESSION['active_link'])): ?>
+  <script>
+    const ACTIVE_LINK = '<?php echo $_SESSION['active_link']; ?>';
+    let activeLink = $q('#sidebar a#'+ACTIVE_LINK);
+    if(activeLink) activeLink.addClass('active');
+  </script>
+<?php endif; ?>
 </body>
 </html>

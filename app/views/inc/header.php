@@ -8,8 +8,6 @@
   <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/lib/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/lib/myui.css" />
   <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/style.css" />
-  <script src="<?php echo URLROOT; ?>/js/lib/js-query.js"></script>
-  <script src="<?php echo URLROOT; ?>/js/lib/myui.js"></script>
   <title><?php echo SITENAME; ?></title>
 </head>
 <body>

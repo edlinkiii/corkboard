@@ -301,3 +301,24 @@ article .post-interaction .fa {
 .notification.seen {
   background-color:#eee;
 }
+
+#notification_alert {
+  position: relative;
+  left: -137px;
+  top: -11px;
+  display: none;
+  background-color: red;
+  color: white;
+  font-size: 8px;
+  font-weight: bold;
+  padding: 1px 3px 3px;
+  border-radius: 2px;
+  line-height: 8px;
+}
+
+#new-notifications b {
+  display: none;
+  margin: 20px auto 0;
+  width: 100%;
+  text-align: center;
+}

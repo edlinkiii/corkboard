@@ -28,6 +28,14 @@ class Notifications extends Controller {
     $this->view('notifications/list', $data);
   }
 
+  public function check() {
+    $data = [
+      'unseen' => count($this->notificationModel->countUnseenNotifications())
+    ];
+
+    die(json_encode($data));
+  }
+
   public function testAdd($post_id) {
     $user_id = $this->postModel->getPostOwner($post_id);
     $id = $this->notificationModel->addNotification($user_id, $post_id, 1);
