@@ -302,6 +302,15 @@ article .post-interaction .fa {
   background-color:#eee;
 }
 
+.notification.seen hr {
+  background-color:#ccc;
+}
+
+.notification .quote-post {
+  font-style: italic;
+  margin-left: 40px;
+}
+
 #notification_alert {
   position: relative;
   left: -137px;
@@ -316,7 +325,7 @@ article .post-interaction .fa {
   line-height: 8px;
 }
 
-#new-notifications b {
+#new-notifications {
   display: none;
   margin: 20px auto 0;
   width: 100%;

@@ -10,7 +10,8 @@ function checkNotifications() {
           $q('#notification_alert').hide();
           $q('#new-notifications span').text(data.unseen);
           if(!first) {
-            // $q('#new-notifications').show();
+            $q('#new-notifications b').show();
+            $q('#notification_alert').show();
           }
         }
         else {
@@ -29,4 +30,4 @@ checkNotifications();
 
 setInterval(() => {
   checkNotifications();
-}, 15000);
+}, 5000);

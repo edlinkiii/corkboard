@@ -5,7 +5,7 @@ require APPROOT . '/views/inc/header.php';
 if(is_array($data['notifications'])):
 
 ?>
-    <a id="new-notifications"><b><span></span> New</b></a>
+    <div id="new-notifications"><a href="<?php echo URLROOT; ?>/notifications"><b><span></span> New</b></a></div>
 <?php
 
   foreach($data['notifications'] as $notification):

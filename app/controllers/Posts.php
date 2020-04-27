@@ -5,6 +5,7 @@ class Posts extends Controller {
     $this->postModel = $this->model('Post');
     $this->stalkModel = $this->model('Stalk');
     $this->reactionModel = $this->model('Reaction');
+    $this->notificationModel = $this->model('Notification');
     $_SESSION['active_link'] = '';
   }
 
@@ -200,6 +201,7 @@ class Posts extends Controller {
       'user_id' => $_SESSION['user_id'],
       'total' => $this->reactionModel->setReaction($post_id, $reaction_id)->total,
       'reaction_id' => $reaction_id,
+      'notification_id' => $this->notificationModel->addNotification($this->postModel->getPostOwner($post_id), $post_id, 1),
     ];
     $json = json_encode($data);
     echo $json;

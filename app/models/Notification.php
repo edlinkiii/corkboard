@@ -63,9 +63,11 @@ class Notification {
     return $this->db->resultSet();
   }
   // U - update
-  public function markNotificationSeen($id) {
-    $this->db->query('UPDATE notifications SET seen_at = NOW() WHERE id=:id');
-    $this->db->bind(':id',$id);
+  public function markAllAsSeen() {
+    $this->db->query('UPDATE notifications SET seen_at = NOW() WHERE user_id=:user_id and seen_at IS NULL');
+    $this->db->bind(':user_id',$_SESSION['user_id']);
+
+    return ($this->db->execute()) ? true : false ;
   }
   // D - delete
 

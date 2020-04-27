@@ -20,6 +20,9 @@ class Notifications extends Controller {
 
     $unseen_array = $this->notificationModel->getUnseenNotifications();
     $seen_array = $this->notificationModel->getSeenNotifications();
+    
+    if(!$this->notificationModel->markAllAsSeen())
+      die('Error');
 
     $data = [
       'notifications' => [...$unseen_array, ...$seen_array],
@@ -36,9 +39,9 @@ class Notifications extends Controller {
     die(json_encode($data));
   }
 
-  public function testAdd($post_id) {
-    $user_id = $this->postModel->getPostOwner($post_id);
-    $id = $this->notificationModel->addNotification($user_id, $post_id, 1);
-    die($id);
-  }
+  // public function testAdd($post_id) {
+  //   $user_id = $this->postModel->getPostOwner($post_id);
+  //   $id = $this->notificationModel->addNotification($user_id, $post_id, 1);
+  //   die($id);
+  // }
 }
