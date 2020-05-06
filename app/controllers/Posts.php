@@ -83,6 +83,7 @@ class Posts extends Controller {
         'post_id' => $post_id,
         'user_id' => $_SESSION['user_id'],
         'reply_count' => $this->postModel->addReply($input['body'], $post_id)->total,
+        'notification_id' => $this->notificationModel->addNotification($this->postModel->getPostOwner($post_id), $post_id, 2),
       ];
 
       $json = json_encode($data);
