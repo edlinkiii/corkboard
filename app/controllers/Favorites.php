@@ -48,7 +48,7 @@ class Favorites extends Controller {
     }
     die(json_encode([
       'result' => $this->favoriteModel->addFavorite($post_id),
-      'notification_id' => $this->notificationModel->addNotification($this->postModel->getPostOwner($post_id), $post_id, 3),
+      'notification_id' => $this->notificationModel->addNotification($this->postModel->getPostOwner($post_id), $post_id, NOTIFICATION_TYPE__FAVORITE),
     ]));
   }
 
