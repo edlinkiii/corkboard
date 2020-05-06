@@ -11,8 +11,8 @@ class Users extends Controller {
     $_SESSION['active_link'] = '';
   }
 
-  public function default() {
-    return $this->profile(null);
+  public function default($id=null) {
+    return $this->profile($id);
   }
 
   public function profile($user_id = null) {
