@@ -2,6 +2,7 @@
 
 class Favorites extends Controller {
   public function __construct() {
+    $this->notificationModel = $this->model('Notification');
     $this->favoriteModel = $this->model('Favorite');
     $this->reactionModel = $this->model('Reaction');
     $this->postModel = $this->model('Post');
@@ -45,7 +46,10 @@ class Favorites extends Controller {
     if($this->favoriteModel->isFavorite($post_id)) {
       die(json_encode(['result' => 1]));
     }
-    die(json_encode(['result' => $this->favoriteModel->addFavorite($post_id)]));
+    die(json_encode([
+      'result' => $this->favoriteModel->addFavorite($post_id),
+      'notification_id' => $this->notificationModel->addNotification($this->postModel->getPostOwner($post_id), $post_id, 3),
+    ]));
   }
 
   public function remove($post_id) {
