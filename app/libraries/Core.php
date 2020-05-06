@@ -24,10 +24,10 @@ class Core {
     require_once '../app/controllers/' . $this->currentController . '.php';
     $this->currentController = new $this->currentController;
 
-    if(!isset($url[1])) {
+    if(!isset($url[1])) { // '/u' --> '/u/default'
       $url[1] = 'default';
     }
-    else if(is_numeric($url[1]) && !isset($url[2])) {
+    else if(is_numeric($url[1]) && !isset($url[2])) { // '/u/1' --> '/u/default/1'
       $num = $url[1];
       $url[2] = $num;
       $url[1] = 'default';
