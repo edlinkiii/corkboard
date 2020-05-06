@@ -27,6 +27,12 @@ class Core {
     if(!isset($url[1])) {
       $url[1] = 'default';
     }
+    else if(is_numeric($url[1]) && !isset($url[2])) {
+      $num = $url[1];
+      $url[2] = $num;
+      $url[1] = 'default';
+    }
+
     if(isset($url[1])) {
       if(method_exists($this->currentController, $url[1])) {
         $this->currentMethod = $url[1];
