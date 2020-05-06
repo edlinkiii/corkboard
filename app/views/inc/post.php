@@ -14,7 +14,7 @@
       <?php endif; ?>
     </header>
     <hr />
-    <p><?php echo $post->post_body; ?></p>
+    <p class="post-content"><?php echo $post->post_body; ?></p>
     <hr />
     <div class="post-interaction">
       <?php $post->my_reaction = $post->my_reaction ?: 0; ?>

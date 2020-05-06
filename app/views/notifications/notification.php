@@ -8,5 +8,5 @@
       <?php echo $type_name_array[($notification->type_count == 1 ? 0 : 1)]; ?>
   </p>
   <hr>
-  <p class="quote-post"><?php echo $notification->post_body; ?></p>
+  <p class="quote-post post-content"><?php echo $notification->post_body; ?></p>
 </article>
