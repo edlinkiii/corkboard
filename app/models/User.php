@@ -81,4 +81,11 @@ class User {
 
     return ($this->db->rowCount() > 0) ? true : false ;
   }
+
+  public function searchUsersByName($name) {
+    $this->db->query('SELECT user_id AS id, name FROM profiles WHERE name LIKE :name ORDER BY name');
+    $this->db->bind(':name', "%$name%");
+
+    return $this->db->resultSet();
+  }
 }

@@ -15,6 +15,7 @@ function checkNotifications() {
           }
         }
         else {
+          $q('#notification_alert').text(data.unseen);
           $q('#notification_alert').show();
         }
       }

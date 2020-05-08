@@ -10,6 +10,7 @@ define('DB_NAME', 'cork');
 define('DIRROOT', dirname(dirname(dirname(__FILE__))));
 define('APPROOT', dirname(dirname(__FILE__)));
 define('URLROOT', 'http://localhost:8888/corkboard');
+define('URLBASE', '/corkboard');
 define('SITENAME', 'C0rkē');
 
 define('DATE_FORMAT', 'F j, Y');

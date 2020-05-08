@@ -156,6 +156,14 @@ class Users extends Controller {
     redirect('users/profile/' . $user_id);
   }
 
+  public function searchByName($name) {
+    $data = [
+      'users' => $this->userModel->searchUsersByName($name),
+    ];
+
+    die(json_encode($data));
+  }
+
   public function check() {
     if(!isset($_SESSION['user_id'])) {
       $data = ['user_id' => 0];

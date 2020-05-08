@@ -45,6 +45,14 @@ class Posts extends Controller {
         $id = $this->postModel->addPost($_POST['body']);
 
         if($id) {
+          { // notification of tagged users
+            preg_match_all('/\/u\/\d+\)/', $_POST['body'], $matches);
+  
+            for($i=0; $i < count($matches[0]); $i++) {
+              $this->notificationModel->addNotification(substr($matches[0][$i], 3, -1), $id, NOTIFICATION_TYPE__MENTION);
+            }
+          }
+  
           $_SESSION['active_link'] = '';
           redirect('posts/show/' . $id);
         }
@@ -85,6 +93,14 @@ class Posts extends Controller {
         'reply_count' => $this->postModel->addReply($input['body'], $post_id)->total,
         'notification_id' => $this->notificationModel->addNotification($this->postModel->getPostOwner($post_id), $post_id, NOTIFICATION_TYPE__REPLY),
       ];
+
+      { // notification of tagged users
+        preg_match_all('/\/u\/\d+\)/', $input['body'], $matches);
+
+        for($i=0; $i < count($matches[0]); $i++) {
+          $this->notificationModel->addNotification(substr($matches[0][$i], 3, -1), $post_id, NOTIFICATION_TYPE__MENTION);
+        }
+      }
 
       $json = json_encode($data);
 
@@ -139,6 +155,14 @@ class Posts extends Controller {
 
       if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        { // notification of tagged users
+          preg_match_all('/\/u\/\d+\)/', $_POST['body'], $matches);
+
+          for($i=0; $i < count($matches[0]); $i++) {
+            $this->notificationModel->addNotification(substr($matches[0][$i], 3, -1), $id, NOTIFICATION_TYPE__MENTION);
+          }
+        }
 
         $data['form']['body'] = $_POST['body'];
 

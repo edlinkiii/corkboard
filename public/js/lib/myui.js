@@ -509,6 +509,7 @@ class Autocomplete extends MyUI {
         url: null,
         choices: null,
         autoCreate: true,
+        searchPlaceholder: '__QUERY__',
         handleSelectItem: function(e) { return e; },
         handleQueryData: function(data) { return data; }
     }
@@ -608,7 +609,7 @@ class Autocomplete extends MyUI {
     }
     doQuery(query) {
         if(this.settings.url) {
-            const url = this.settings.url.replace('__QUERY__',query); // console.log(url);
+            const url = this.settings.url.replace(this.settings.searchPlaceholder, query); // console.log(url);
             try {
                 fetch(url, { headers: { 'Accept': 'application/json' }})
                 .then(res => res.json())

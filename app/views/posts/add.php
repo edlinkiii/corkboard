@@ -3,7 +3,7 @@
   <h3><?php echo $data['title']; ?></h3>
   <div id="message"></div>
   <hr id="divider" style="margin-bottom: 1rem;" />
-  <label for="body">Body: </label> <textarea style="width: 100%;box-sizing: border-box;" name="body" required><?php echo $data['form']['body']; ?></textarea><br />
+  <label for="body">Body: </label> <textarea id="add-body" name="body" class="post-body" required><?php echo $data['form']['body']; ?></textarea><br />
   <button type="submit"><i class="fa fa-floppy-o"></i> Post</button>
 </form>
 <?php if($data['form']['error']): ?>
