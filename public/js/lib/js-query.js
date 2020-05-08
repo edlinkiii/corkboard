@@ -1,6 +1,6 @@
 /**
- * js-query -- Vanilla JS shortcuts for recovering jQuery users.
- * 
+ * JS Query -- Vanilla JS shortcuts for recovering jQuery users.
+ * @version 1.1
  * @author Ed Link III.
  */
 
@@ -13,7 +13,7 @@ NodeList.prototype.filter = function(selector) { return __toNodeList(Array.proto
 
 Element.prototype.next = function() { return this.nextElementSibling; }
 Element.prototype.prev = function() { return this.previousElementSibling; }
-Element.prototype.siblings = function(selector, inclusive = false) { if (typeof selector === "boolean") { inclusive = selector; selector = null; } if(selector && selector !== null) return __toNodeList(Array.prototype.filter.call(this.parentNode.children, (child) => ((!inclusive && child !== this) || (inclusive)) && child.tagName && child.matches(selector))); return __toNodeList(Array.prototype.filter.call(this.parentNode.children, (child) => ((!inclusive && child !== this) || (inclusive)) && child.tagName)); }
+Element.prototype.siblings = function(selector, inclusive = false) { if (typeof selector === "boolean") { inclusive = selector; selector = null; } console.log(selector, inclusive); if(selector && selector !== null) return __toNodeList(Array.prototype.filter.call(this.parentNode.children, (child) => ((!inclusive && child !== this) || (inclusive)) && child.tagName && child.matches(selector))); return __toNodeList(Array.prototype.filter.call(this.parentNode.children, (child) => ((!inclusive && child !== this) || (inclusive)) && child.tagName)); }
 Element.prototype.kids = function(selector) { if(selector) return __toNodeList(Array.prototype.filter.call(this.childNodes, (child) => child.tagName && child.matches(selector))); return __toNodeList(Array.prototype.filter.call(this.childNodes, (child) => child.tagName)); }
 Element.prototype.firstKid = function() { return Array.prototype.filter.call(this.childNodes, (child) => child.tagName)[0]; }
 Element.prototype.lastKid = function() { let arr = Array.prototype.filter.call(this.childNodes, (child) => child.tagName); return arr[arr.length-1]; }
@@ -21,6 +21,11 @@ Element.prototype.parent = function() { return this.parentElement; }
 Element.prototype.parents = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return __toNodeList(arr); }
 Element.prototype.ancestors = function(selector) { return this.parents(selector); }
 Element.prototype.closest = function(selector) { if(selector === undefined) return this.parentElement; let tagName = '', el = this, p, end = false; while(tagName !== 'HTML' && !end) { p = el.parentNode; if(p.matches(selector)) { end = true; return p; } tagName = p.tagName.toUpperCase(); el = p; } }
+
+Element.prototype.isDescendant = function(element) { if(!element) return false; return (element.contains(this)); }
+Element.prototype.isDirectDescendant = function(element) { if(!element) return false; return (this.parentElement === element); }
+Element.prototype.isChild = function(element) { if(!element) return false; return (this.parentElement === element); }
+Element.prototype.isParent = function(element) { if(!element) return false; return (element.parentElement === this); }
 
 Element.prototype.hide   = function() { this.style.display = 'none';                                     return this; }
 Element.prototype.show   = function() { this.style.display = __defaultDisplay(this.tagName);             return this; }
@@ -52,6 +57,9 @@ Element.prototype.appendTo     = function(selector) { let arr = Array.from($qa(s
 Element.prototype.prependTo    = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.prepend(this.clone(true))); return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
 Element.prototype.injectBefore = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.before(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
 Element.prototype.injectAfter  = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.after(this.clone(true)));   return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
+
+Element.prototype.replace     = function(element) { element.parentNode.replaceChild(this, element); return this; }
+Element.prototype.replaceWith = function(element) { this.parentNode.replaceChild(element, this); return element; }
 
 Element.prototype.xPixels = function(newPx) { if(newPx === undefined) return this.offsetWidth;  if(typeof newPx === 'number') this.style.width  = newPx+'px'; else if(typeof newPx === 'string') this.style.width  = newPx; return this; }
 Element.prototype.yPixels = function(newPx) { if(newPx === undefined) return this.offsetHeight; if(typeof newPx === 'number') this.style.height = newPx+'px'; else if(typeof newPx === 'string') this.style.height = newPx; return this; }
@@ -91,7 +99,10 @@ NodeList.prototype.remove = function() { this.forEach((n) => n.remove()); return
 Element.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
 Element.prototype.offset   = function() { let rect = this.getBoundingClientRect(); return { top: rect.top + document.body.scrollTop, left: rect.left + document.body.scrollLeft } }
 
-EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
+Element.prototype.hasFocus = function() { return (this === document.activeElement); }
+
+EventTarget.prototype.trigger = function(eventType) { return this.dispatchEvent(new Event(eventType, { 'bubbles': true })); }
+EventTarget.prototype.change  = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
 // EventTarget.click() // -- ALREADY EXISTS
 // EventTarget.focus() // -- ALREADY EXISTS
 // EventTarget.blur() // -- ALREADY EXISTS
