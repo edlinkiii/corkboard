@@ -8,11 +8,11 @@ Just a project for me to relearn PHP after years of not using it. (It's beginnin
 * Like/Dislike Posts
 * Reply to Posts
 * Stalk (Hidden Follow) Other Users
-
-## Coming Soon
 * Notifications
 * Favorites
 * Tagging Users
+
+## Coming Soon
 * Hashtags
 * Re-Posting
 * Connecting w/ Other Users
@@ -20,7 +20,7 @@ Just a project for me to relearn PHP after years of not using it. (It's beginnin
 ### A few of the things I've learned/relearned
 * Basic PHP syntax
 * OOP PHP
-* MVC based on the _TraversyMVC_ Framework
+* MVC (based on the _TraversyMVC_ Framework)
 * Authentication
 * Sessions
 * Access control
