@@ -109,10 +109,26 @@ class Posts extends Controller {
   }
 
   // R -- read -- get post(s)
+  public function more() {
+    $_SESSION['more_page']++;
+    $method = $_SESSION['more_method'];
+    $id = $_SESSION['more_id'];
+    $data = [
+      'posts' => $this->postModel->$method($id)
+    ];
+
+    $json = json_encode($data);
+    die($json);
+  }
   public function show($id = null) {
     if(!$id) {
       $_SESSION['active_link'] = 'all';
     }
+
+    $_SESSION['more_method'] = ($id) ? "getReplies" : "getPosts";
+    $_SESSION['more_id'] = $id;
+    $_SESSION['more_page'] = 0;
+
     $data = [
       'posts' => ($id) ? $this->postModel->getPost($id) : $this->postModel->getPosts(),
       'replies' => ($id) ? $this->postModel->getReplies($id) : null,
@@ -123,6 +139,10 @@ class Posts extends Controller {
 
   public function stalk() {
     $_SESSION['active_link'] = 'stalking';
+
+    $_SESSION['more_method'] = "stalkPosts";
+    $_SESSION['more_id'] = null;
+    $_SESSION['more_page'] = 1;
 
     $data = ['posts' => $this->postModel->stalkPosts()];
     
@@ -229,7 +249,6 @@ class Posts extends Controller {
       'notification_id' => $this->notificationModel->addNotification($this->postModel->getPostOwner($post_id), $post_id, NOTIFICATION_TYPE__REACTION),
     ];
     $json = json_encode($data);
-    echo $json;
-    die();
+    die($json);
   }
 }

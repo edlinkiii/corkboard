@@ -247,8 +247,12 @@ class Post {
                       ) favs ON favs.post_id = post.id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)
                           AND post.reply_to_id IS NULL
-                      ORDER BY post.updated_at DESC'); // need to do paging here eventually
+                      ORDER BY post.updated_at DESC
+                      LIMIT :start, :end');
     $this->db->bind(':user_id', (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0));
+    $this->db->bind(':start', ($_SESSION['more_page'] * POSTS_PER_PAGE));
+    $this->db->bind(':end', POSTS_PER_PAGE);
+
     // $this->db->dump();
 
     return $this->db->resultSet();

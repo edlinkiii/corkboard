@@ -26,6 +26,9 @@
     const FAVORITED_ICON_CLASS = 'fa-heart';
     const UNFAVORITED_ICON_CLASS = 'fa-heart-o';
     const POST_URL = URLBASE+'/posts/show/';
+    const MORE_POSTS_URL = URLBASE+'/posts/more';
+    const POSTS_PER_PAGE = <?php echo POSTS_PER_PAGE; ?>;
+    const MY_USER_ID = '<?php $_SESSION['user_id']; ?>';
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.0.0/marked.min.js"></script>
   <script src="<?php echo URLBASE; ?>/js/lib/js-query.js"></script>
@@ -35,6 +38,7 @@
   <script src="<?php echo URLBASE; ?>/js/favorite.js"></script>
   <script src="<?php echo URLBASE; ?>/js/markdown.js"></script>
   <script src="<?php echo URLBASE; ?>/js/mention.js"></script>
+  <script src="<?php echo URLBASE; ?>/js/more-posts.js"></script>
 <?php if(isset($_SESSION['user_id'])): ?>
   <script src="<?php echo URLBASE; ?>/js/notification_check.js"></script>
 <?php endif; ?>

@@ -20,6 +20,14 @@ if(is_array($data['posts'])):
 
     endforeach;
 
+    if(count($data['replies']) == POSTS_PER_PAGE):
+      echo '<a id="more-posts"><b>More</b></a>';
+    endif;
+  
+  elseif(count($data['posts']) == POSTS_PER_PAGE):
+
+    echo '<a id="more-posts"><b>More</b></a>';
+
   endif;
 
 else: ?>

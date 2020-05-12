@@ -15,6 +15,10 @@ class Favorites extends Controller {
   public function show() {
     $_SESSION['active_link'] = 'favorites';
 
+    $_SESSION['more_method'] = "favoritePosts";
+    $_SESSION['more_id'] = null;
+    $_SESSION['more_page'] = 1;
+
     $data = ['posts' => $this->postModel->favoritePosts()];
     
     $this->view('posts/show', $data);
