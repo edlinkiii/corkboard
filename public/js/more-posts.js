@@ -8,7 +8,7 @@ const formatPosts = (posts = []) => {
     post.post_reply_count = post.post_reply_count || 0;
     post.my_reply_count = post.my_reply_count || 0;
 
-    output += '      <article id="'+ post.post_id +'" class="'+ ((nested && post.post_reply_to_id) ? 'nested-post' : '') +'">\n';
+    output += '      <article id="'+ post.post_id +'" class="post-unseen '+ ((nested && post.post_reply_to_id) ? 'nested-post' : '') +'">\n';
     output += '        <header>\n';
 
     if(MY_USER_ID && post.user_id === MY_USER_ID) {
@@ -44,9 +44,9 @@ const formatPosts = (posts = []) => {
     output += '      </article>\n';
   }
 
-  if(posts.length === POSTS_PER_PAGE) {
-    output += '      <a id="more-posts"><b>More</b></a>\n'
-  }
+  // if(posts.length === POSTS_PER_PAGE) {
+  //   output += '      <a id="more-posts"><b>More</b></a>\n'
+  // }
 
   return output;
 }
@@ -72,10 +72,24 @@ const formatDate = (stamp) => {
   return a[1] + ' ' + a[2] + ' ' + a[3] + ' @ ' + t[0] + ':' + t[1] + m;
 }
 
-$q().on('click', 'a#more-posts b', () => {
-  $q('a#more-posts').remove();
-  getMorePosts();
-});
+// $q().on('click', 'a#more-posts b', () => {
+//   $q('a#more-posts').remove();
+//   getMorePosts();
+// });
+
+const areAnyPostsUnseen = () => {
+  $qa('.post-unseen').forEach((u) => {
+    let top = u.offset().top;
+    if(top < window.innerHeight) {
+      if($qa('.post-unseen').length === 2) {
+        getMorePosts();
+      }
+      u.removeClass('post-unseen');
+    }
+  });
+}
+
+window.onscroll = () => areAnyPostsUnseen();
 
 const reactionConfig = [
   {

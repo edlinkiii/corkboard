@@ -24,10 +24,6 @@ if(is_array($data['posts'])):
       echo '<a id="more-posts"><b>More</b></a>';
     endif;
   
-  elseif(count($data['posts']) == POSTS_PER_PAGE):
-
-    echo '<a id="more-posts"><b>More</b></a>';
-
   endif;
 
 else: ?>

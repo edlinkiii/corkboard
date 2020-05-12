@@ -1,4 +1,4 @@
-  <article id="post_id-<?php echo $post->post_id; ?>" class="<?php if($nested && isset($post->post_reply_to_id)) echo 'nested-post'; ?>">
+<article id="post_id-<?php echo $post->post_id; ?>" class="post-unseen <?php if($nested && isset($post->post_reply_to_id)) echo 'nested-post'; ?>">
     <header>
   <?php if(isset($_SESSION['user_id']) && $post->user_id === $_SESSION['user_id']): ?>
       <a class="edit-button" style="float: right;" href="<?php echo URLROOT; ?>/posts/edit/<?php echo $post->post_id; ?>"><b><i class="fa fa-pencil-square-o"></i><span> Edit Post</span></b></a>
