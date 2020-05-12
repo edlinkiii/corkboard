@@ -17,7 +17,7 @@ class Favorites extends Controller {
 
     $_SESSION['more_method'] = "favoritePosts";
     $_SESSION['more_id'] = null;
-    $_SESSION['more_page'] = 1;
+    $_SESSION['more_page'] = 0;
 
     $data = ['posts' => $this->postModel->favoritePosts()];
     

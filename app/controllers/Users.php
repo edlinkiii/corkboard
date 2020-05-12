@@ -24,6 +24,10 @@ class Users extends Controller {
       $_SESSION['active_link'] = 'my_profile';
     }
 
+    $_SESSION['more_method'] = "getPostsByUserId";
+    $_SESSION['more_id'] = $user_id;
+    $_SESSION['more_page'] = 0;
+
     $user_id = $user_id ? $user_id : $_SESSION['user_id'];
 
     $data = [
