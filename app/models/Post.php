@@ -174,9 +174,12 @@ class Post {
                       ) favs ON favs.post_id = post.id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)
                             AND post.reply_to_id = :post_id
-                      ORDER BY post.updated_at DESC');
+                      ORDER BY post.updated_at DESC
+                      LIMIT :start, :end');
     $this->db->bind(':user_id', (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0));
     $this->db->bind(':post_id', $post_id);
+    $this->db->bind(':start', ($_SESSION['more_page'] * POSTS_PER_PAGE));
+    $this->db->bind(':end', POSTS_PER_PAGE);
 
     return $this->db->resultSet();
   }
