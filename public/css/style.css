@@ -301,7 +301,6 @@ textarea#add-body {
   padding: 5px;
 }
 
-.notification {}
 .notification.unseen {
   background-color: #fff;
 }
