@@ -176,7 +176,7 @@ class Post {
                       ) favs ON favs.post_id = post.id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)
                             AND post.reply_to_id = :post_id
-                      ORDER BY post.updated_at DESC
+                      ORDER BY post.created_at DESC
                       LIMIT :start, :end');
     $this->db->bind(':user_id', (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0));
     $this->db->bind(':post_id', $post_id);
@@ -253,7 +253,7 @@ class Post {
                       ) favs ON favs.post_id = post.id
                       WHERE (prefs.public=1 OR post.user_id=:user_id)
                           AND post.reply_to_id IS NULL
-                      ORDER BY post.updated_at DESC
+                      ORDER BY post.created_at DESC
                       LIMIT :start, :end');
     $this->db->bind(':user_id', (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0));
     $this->db->bind(':start', ($_SESSION['more_page'] * POSTS_PER_PAGE));
@@ -332,7 +332,7 @@ class Post {
                       WHERE (prefs.stalkable=1 AND post.user_id IN (
                             SELECT stalkee FROM stalk WHERE stalker=:user_id
                       ))
-                      ORDER BY post.updated_at DESC
+                      ORDER BY post.created_at DESC
                       LIMIT :start, :end');
     $this->db->bind(':user_id', $_SESSION['user_id']);
     $this->db->bind(':start', ($_SESSION['more_page'] * POSTS_PER_PAGE));
@@ -409,7 +409,7 @@ class Post {
                       WHERE post.id IN (
                             SELECT post_id FROM favorites WHERE user_id=:user_id
                       )
-                      ORDER BY post.updated_at DESC
+                      ORDER BY post.created_at DESC
                       LIMIT :start, :end');
     $this->db->bind(':user_id', $_SESSION['user_id']);
     $this->db->bind(':start', ($_SESSION['more_page'] * POSTS_PER_PAGE));
@@ -494,7 +494,7 @@ class Post {
                               GROUP BY post_id
                       ) favs ON favs.post_id = post.id
                       WHERE post.user_id=:user_id
-                      ORDER BY post.updated_at DESC
+                      ORDER BY post.created_at DESC
                       LIMIT :start, :end');
     $this->db->bind(':user_id', $user_id);
     $this->db->bind(':my_user_id', (isset($_SESSION['user_id']) ?: 0));
