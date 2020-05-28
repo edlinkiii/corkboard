@@ -9,6 +9,15 @@ $post->post_body = preg_replace_callback(
   $post->post_body
 );
 
+$post->post_body = preg_replace_callback(
+  "/\B#+\w+/",
+  function($matches) {
+    $hashtag = $matches[0];
+    return "[".$hashtag."](".URLBASE."/search/".$hashtag.")";
+  },
+  $post->post_body
+);
+
 ?>
 <article id="post_id-<?php echo $post->post_id; ?>" class="post-unseen <?php if($nested && isset($post->post_reply_to_id)) echo 'nested-post'; ?>">
   <header>

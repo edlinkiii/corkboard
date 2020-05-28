@@ -29,7 +29,7 @@ const formatPosts = (posts = []) => {
 
     output += '        </header>\n';
     output += '        <hr />\n';
-    output += '        <p class="post-content">'+ marked(post.post_body) +'</p>\n';
+    output += '        <p class="post-content">'+ marked(userTag(hashTag(post.post_body))) +'</p>\n';
     output += '        <hr />\n';
     output += '        <div class="post-interaction">\n';
     output += '          <div class="reaction-holder '+ reactionConfig[post.my_reaction].color_class +'">\n';
@@ -49,6 +49,22 @@ const formatPosts = (posts = []) => {
   // }
 
   return output;
+}
+
+const userTag = (body) => {
+  let taggedBody = body.replace(/\B@+\w+/g, (match) => {
+    let username = match.substring(1);
+    return '[@'+username+']('+URLBASE+'/u/'+username+')';
+  });
+  return taggedBody;
+}
+
+const hashTag = (body) => {
+  let taggedBody = body.replace(/\B#+\w+/g, (match) => {
+    let hashtag = match;
+    return '['+hashtag+']('+URLBASE+'/search/'+hashtag+')';
+  });
+  return taggedBody;
 }
 
 const showPosts = (posts) => {
