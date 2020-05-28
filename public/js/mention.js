@@ -30,7 +30,7 @@ $q().on('keyup', '.post-body, .reply-body', (ev)=>{
           handleQueryData: (data) => {
             return data.users.map((u) => ({ id: u.username, display: u.name }));
           },
-          handleSelectItem: (selected) => { console.log(selected);
+          handleSelectItem: (selected) => {
             mention = '@'+ selected.id+' ';
             tagModal.destroy();
           }
