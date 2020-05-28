@@ -3,14 +3,6 @@ $q().on('keyup', '.post-body, .reply-body', (ev)=>{
     let input = ev.target;
     let beforeAt = input.value.substr(0, (input.selectionStart - 1));
     let afterAt = input.value.substr(input.selectionStart);
-    // let v = input.value.substr(0, input.selectionStart).split("\n"); // make an array
-    // let coords = {
-    //   row: v.length,
-    //   col: v[v.length-1].length
-    // }
-    // input.val(beforeAt + testMention + afterAt);
-    // console.log(coords);
-
     let mention = '';
     let tagModal = new Modal({
       id: 'tag-modal',
@@ -37,7 +29,10 @@ $q().on('keyup', '.post-body, .reply-body', (ev)=>{
         });
       },
       close: () => {
+        let cursorPos = beforeAt.length + mention.length;
         input.val(beforeAt + mention + afterAt);
+        input.focus();
+        input.setSelectionRange(cursorPos, cursorPos);
       }
     });
   }
