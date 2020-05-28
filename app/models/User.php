@@ -112,7 +112,15 @@ class User {
   }
 
   public function searchUsersByName($name) {
-    $this->db->query('SELECT user_id AS id, name FROM profiles WHERE name LIKE :name ORDER BY name');
+    $this->db->query('SELECT DISTINCT p.user_id AS id,
+                             u.username AS username,
+                             p.name AS name
+                      FROM profiles p
+                      INNER JOIN users u
+                        ON u.id = p.user_id
+                      WHERE u.id > 0
+                        AND (p.name LIKE :name OR u.username LIKE :name)
+                      ORDER BY name');
     $this->db->bind(':name', "%$name%");
 
     return $this->db->resultSet();

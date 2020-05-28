@@ -28,10 +28,10 @@ $q().on('keyup', '.post-body, .reply-body', (ev)=>{
           input: '#tag-name',
           target: '#tag-id',
           handleQueryData: (data) => {
-            return data.users.map((u) => ({ id: u.id, display: u.name }));
+            return data.users.map((u) => ({ id: u.username, display: u.name }));
           },
-          handleSelectItem: (selected) => {
-            mention = '[@'+ selected.display +']('+ URLBASE  +'/u/'+ selected.id +')';
+          handleSelectItem: (selected) => { console.log(selected);
+            mention = '@'+ selected.id+' ';
             tagModal.destroy();
           }
         });
