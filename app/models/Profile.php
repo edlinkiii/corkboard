@@ -19,22 +19,32 @@ class Profile {
     return password_verify($password, $hashed_password) ? $row : false ;
   }
 
-  public function getProfileByEmail($email) {
-    $this->db->query('SELECT * FROM users WHERE email = :email');
-    $this->db->bind(':email', $email);
+  // public function getProfileByEmail($email) {
+  //   $this->db->query('SELECT * FROM users WHERE email = :email');
+  //   $this->db->bind(':email', $email);
 
-    $user_row = $this->db->single();
+  //   $user_row = $this->db->single();
 
-    $this->db->query('SELECT * FROM profiles WHERE user_id = :user_id');
-    $this->db->bind(':user_id', $user_row->user_id);
+  //   $this->db->query('SELECT * FROM profiles WHERE user_id = :user_id');
+  //   $this->db->bind(':user_id', $user_row->user_id);
 
-    $profile_row = $this->db->single();
+  //   $profile_row = $this->db->single();
 
-    return ($this->db->rowCount() > 0) ? $profile_row : false ;
-  }
+  //   return ($this->db->rowCount() > 0) ? $profile_row : false ;
+  // }
 
   public function getProfileByUserId($user_id) {
-    $this->db->query('SELECT * FROM profiles WHERE user_id = :user_id');
+    $this->db->query('SELECT  p.name AS name,
+                              p.birthdate AS birthdate,
+                              p.bio AS bio,
+                              p.pic AS pic,
+                              p.created_at AS created_at,
+                              u.id AS user_id,
+                              u.username AS user_username
+                      FROM profiles p
+                      INNER JOIN users u
+                            ON p.user_id = u.id
+                      WHERE p.user_id = :user_id');
     $this->db->bind(':user_id', $user_id);
 
     $row = $this->db->single();

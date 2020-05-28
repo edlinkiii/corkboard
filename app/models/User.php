@@ -7,8 +7,9 @@ class User {
     $this->db = new Database();
   }
 
-  public function login($email, $password) {
+  public function login($username, $password) {
     $this->db->query('SELECT user.id as id,
+                             user.username as username,
                              user.email as email,
                              user.password as password,
                              profile.name as name,
@@ -16,8 +17,8 @@ class User {
                       FROM users user
                       INNER JOIN profiles profile
                       ON profile.user_id = user.id
-                      WHERE user.email = :email');
-    $this->db->bind(':email', $email);
+                      WHERE user.username = :username');
+    $this->db->bind(':username', $username);
 
     $row = $this->db->single();
 
@@ -30,7 +31,8 @@ class User {
   }
 
   public function signup($data) {
-    $this->db->query('INSERT INTO users (email, password) values (:email, :password)');
+    $this->db->query('INSERT INTO users (username, email, password) values (:username, :email, :password)');
+    $this->db->bind(':username', $data['username']);
     $this->db->bind(':email', $data['email']);
     $this->db->bind(':password', password_hash($data['password'], PASSWORD_DEFAULT));
 
@@ -42,7 +44,7 @@ class User {
       $this->db->execute();
 
       $this->db->query('INSERT INTO profiles (name, user_id, pic) values (:name, :user_id, :pic)');
-      $this->db->bind(':name', $data['name']);
+      $this->db->bind(':name', $data['username']);
       $this->db->bind(':user_id', $user_id);
       $this->db->bind(':pic', 'placeholder.png');
 
@@ -73,9 +75,36 @@ class User {
     return ($this->db->execute()) ? true : false ;
   }
 
+  public function getUserID($username) {
+    $this->db->query('SELECT id FROM users WHERE username = :username');
+    $this->db->bind(':username', $username);
+
+    $row = $this->db->single();
+
+    return ($row) ? $row->id : 0 ;
+  }
+
   public function findUserByEmail($email) {
     $this->db->query('SELECT * FROM users WHERE email = :email');
     $this->db->bind(':email', $email);
+
+    $row = $this->db->single();
+
+    return ($this->db->rowCount() > 0) ? true : false ;
+  }
+
+  public function emailInUse($email) {
+    $this->db->query('SELECT * FROM users WHERE email = :email');
+    $this->db->bind(':email', $email);
+
+    $row = $this->db->single();
+
+    return ($this->db->rowCount() > 0) ? true : false ;
+  }
+
+  public function usernameInUse($username) {
+    $this->db->query('SELECT * FROM users WHERE username = :username');
+    $this->db->bind(':username', $username);
 
     $row = $this->db->single();
 

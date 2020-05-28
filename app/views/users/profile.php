@@ -7,11 +7,12 @@
         </div>
 <?php elseif($data['prefs']->public && $data['prefs']->stalkable): ?>
         <div style="float:right; text-align:right;">
-          <a href="<?php echo URLROOT; ?>/users/<?php echo $data['stalking'] ? 'un' : ''; ?>stalk/<?php echo $data['profile']->user_id; ?>" class="edit-button"><b style="margin-bottom: 10px;" <?php echo $data['stalking'] ? 'class="reverse"' : ''; ?>><i class="fa fa-binoculars"></i> <span><?php echo $data['stalking'] ? 'Unstalk' : 'Stalk'; ?></span></b></a><br />
+          <a href="<?php echo URLROOT; ?>/users/<?php echo $data['stalking'] ? 'un' : ''; ?>stalk/<?php echo $data['profile']->user_username; ?>" class="edit-button"><b style="margin-bottom: 10px;" <?php echo $data['stalking'] ? 'class="reverse"' : ''; ?>><i class="fa fa-binoculars"></i> <span><?php echo $data['stalking'] ? 'Unstalk' : 'Stalk'; ?></span></b></a><br />
         </div>
 <?php endif; ?>
         <img class="profile-pic-md" src="<?php echo URLROOT; ?>/images/profile_pic/<?php echo $data['profile']->pic; ?>" />
         <h2><?php echo $data['profile']->name; ?></h2>
+<?php if($data['profile']->user_id): ?>
         <div id="message"></div>
         <hr id="divider" style="margin-bottom: 1rem;" />
         <strong>Joined:</strong> <?php echo date(DATE_FORMAT, strtotime($data['profile']->created_at)); ?><br />
@@ -40,4 +41,5 @@
   $q('#divider').hide();
 </script>
 <?php unset($_SESSION['message']); endif; ?>
+<?php endif; ?>
 <?php require APPROOT . '/views/inc/footer.php' ?>

@@ -38,7 +38,10 @@ class Core {
         $this->currentMethod = $url[1];
         unset($url[1]);
       } else {
-        die('Error: The method `'.$url[1].'` does not exist.');
+        // die('Error: The method `'.$url[1].'` does not exist.');
+        $this->currentMethod = 'default';
+        $url[2] = $url[1];
+        unset($url[1]);
       }
     }
 

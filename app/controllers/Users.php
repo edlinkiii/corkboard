@@ -11,24 +11,28 @@ class Users extends Controller {
     $_SESSION['active_link'] = '';
   }
 
-  public function default($id=null) {
-    return $this->profile($id);
+  public function default($username=null) {
+    return $this->profile($username);
   }
 
-  public function profile($user_id = null) {
-    // if !$user, use current user from session
-    if(!$user_id && !isset($_SESSION['user_id'])) {
-      redirect('users/login');
+  public function profile($username = null) {
+    $user_id = 0;
+    if(!$username) {
+      if($_SESSION['user_id']) {
+        $user_id = $_SESSION['user_id'];
+        $_SESSION['active_link'] = 'my_profile';
+      }
+      else {
+        redirect('users/login');
+      }
     }
-    if(!$user_id || $user_id == $_SESSION['user_id']) {
-      $_SESSION['active_link'] = 'my_profile';
+    else {
+      $user_id = $this->userModel->getUserID($username);
     }
 
     $_SESSION['more_method'] = "getPostsByUserId";
     $_SESSION['more_id'] = $user_id;
     $_SESSION['more_page'] = 0;
-
-    $user_id = $user_id ? $user_id : $_SESSION['user_id'];
 
     $data = [
       'profile' => $this->profileModel->getProfileByUserId($user_id),
@@ -45,8 +49,8 @@ class Users extends Controller {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
       $error = '';
-      if($_POST['name'] == '') {
-        $error = 'Error: A name is required.';
+      if($_POST['username'] == '') {
+        $error = 'Error: A username is required.';
       }
       elseif($_POST['email'] == '') {
         $error = 'Error: An email is required.';
@@ -62,10 +66,19 @@ class Users extends Controller {
       }
 
       if($error != '') {
+        if($this->userModel->usernameInUse($_POST['username'])) {
+          $error = 'Error: Username is already in use.';
+        }
+        if($this->userModel->emailInUse($_POST['email'])) {
+          $error = 'Error: Email is already in use.';
+        }
+      }
+
+      if($error != '') {
         $data = [
           'title' => 'Sign Up',
           'form' => [
-            'name' => $_POST['name'],
+            'username' => $_POST['username'],
             'email' => $_POST['email'],
             'password' => $_POST['password'],
             'confirm_password' => $_POST['confirm_password'],
@@ -85,7 +98,7 @@ class Users extends Controller {
       $data = [
         'title' => 'Sign Up',
         'form' => [
-          'name' => '',
+          'username' => '',
           'email' => '',
           'password' => '',
           'confirm_password' => '',
@@ -100,7 +113,7 @@ class Users extends Controller {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-      $loggedInUser = $this->userModel->login($_POST['email'], $_POST['password']);
+      $loggedInUser = $this->userModel->login($_POST['username'], $_POST['password']);
       if($loggedInUser) {
         // establish session
         $this->createUserSession($loggedInUser);
@@ -111,9 +124,9 @@ class Users extends Controller {
         $data = [
           'title' => 'Log In',
           'form' => [
-            'email' => $_POST['email'],
+            'username' => $_POST['username'],
             'password' => '',
-            'error' => 'Please check your email and password',
+            'error' => 'Please check your username and password',
           ]
         ];
         $this->view('users/login', $data);
@@ -123,7 +136,7 @@ class Users extends Controller {
       $data = [
         'title' => 'Log In',
         'form' => [
-          'email' => '',
+          'username' => '',
           'password' => '',
           'error' => '',
         ]
@@ -135,6 +148,7 @@ class Users extends Controller {
   public function createUserSession($user) {
     $_SESSION['user_id'] = $user->id;
     $_SESSION['user_email'] = $user->email;
+    $_SESSION['user_username'] = $user->username;
     $_SESSION['user_name'] = $user->name;
     $_SESSION['user_pic'] = $user->pic;
     redirect('posts');
@@ -142,22 +156,23 @@ class Users extends Controller {
 
   public function logout() {
     unset($_SESSION['user_id']);
+    unset($_SESSION['user_username']);
     unset($_SESSION['user_email']);
     unset($_SESSION['user_name']);
     session_destroy();
     redirect('users/login');
   }
 
-  public function stalk($user_id) {
-    $this->stalkModel->startStalking($user_id);
+  public function stalk($username) {
+    $this->stalkModel->startStalking($this->userModel->getUserID($username));
 
-    redirect('users/profile/' . $user_id);
+    redirect('users/profile/' . $username);
   }
 
-  public function unstalk($user_id) {
-    $this->stalkModel->stopStalking($user_id);
+  public function unstalk($username) {
+    $this->stalkModel->stopStalking($this->userModel->getUserID($username));
 
-    redirect('users/profile/' . $user_id);
+    redirect('users/profile/' . $username);
   }
 
   public function searchByName($name) {

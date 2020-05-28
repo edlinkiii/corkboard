@@ -34,6 +34,7 @@ class Post {
   public function getPost($id) {
     $this->db->query('SELECT post.id AS post_id,
                              post.user_id AS user_id,
+                             user.username AS user_username,
                              user.email AS user_email,
                              prof.name AS user_name,
                              prof.pic AS user_pic,
@@ -111,6 +112,7 @@ class Post {
   public function getReplies($post_id) {
     $this->db->query('SELECT post.id AS post_id,
                              post.user_id AS user_id,
+                             user.username AS user_username,
                              user.email AS user_email,
                              prof.name AS user_name,
                              prof.pic AS user_pic,
@@ -187,6 +189,7 @@ class Post {
   public function getPosts() {
     $this->db->query('SELECT post.id AS post_id,
                              post.user_id AS user_id,
+                             user.username AS user_username,
                              user.email AS user_email,
                              prof.name AS user_name,
                              prof.pic AS user_pic,
@@ -264,6 +267,7 @@ class Post {
   public function stalkPosts() {
     $this->db->query('SELECT post.id as post_id,
                              post.user_id as user_id,
+                             user.username AS user_username,
                              user.email as user_email,
                              prof.name as user_name,
                              prof.pic as user_pic,
@@ -340,6 +344,7 @@ class Post {
   public function favoritePosts() {
     $this->db->query('SELECT post.id as post_id,
                              post.user_id as user_id,
+                             user.username AS user_username,
                              user.email as user_email,
                              prof.name as user_name,
                              prof.pic as user_pic,
@@ -417,6 +422,7 @@ class Post {
   public function getPostsByUserId($user_id) {
     $this->db->query('SELECT post.id as post_id,
                              post.user_id as user_id,
+                             user.username AS user_username,
                              user.email as user_email,
                              prof.name as user_name,
                              prof.pic as user_pic,
