@@ -136,6 +136,7 @@ textarea.full-width {
   font-family: 'Dosis', sans-serif;
   color: black;
   font-weight: 800;
+  margin-left: 4px;
 }
 
 #message {
@@ -333,8 +334,8 @@ textarea#add-body {
 
 #notification_alert {
   position: absolute;
-  left: 23px;
-  top: 0px;
+  left: 24px;
+  top: 2px;
   display: none;
   background-color: red;
   color: white;
