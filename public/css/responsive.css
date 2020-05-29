@@ -1,0 +1,16 @@
+@media(max-width: 699px) {
+  main aside {
+    flex-basis: 45px;
+  }
+  main section {
+    flex-basis: calc(100% - 45px);
+  }
+  #sidebar .sidebar-label {
+    display: none;
+  }
+}
+@media(max-width: 499px) {
+  a.edit-button:hover b span {
+    display: none;
+  }
+}

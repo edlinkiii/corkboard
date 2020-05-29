@@ -37,7 +37,8 @@ main {
 
 main aside {
   display: block;
-  flex-basis: 35%;
+  /* flex-basis: 35%; */
+  flex-basis: 225px;
   margin: 0;
   border: 1px solid white;
   padding: 0px;
@@ -57,7 +58,8 @@ main aside ul li {
 
 main section {
   display: block;
-  flex-basis: 65%;
+  /* flex-basis: 65%; */
+  flex-basis: calc(100% - 225px);
 }
 
 main section article {
