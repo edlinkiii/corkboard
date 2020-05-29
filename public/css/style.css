@@ -327,10 +327,14 @@ textarea#add-body {
   margin-left: 40px;
 }
 
-#notification_alert {
+#notifications {
   position: relative;
-  left: -137px;
-  top: -11px;
+}
+
+#notification_alert {
+  position: absolute;
+  left: 23px;
+  top: 0px;
   display: none;
   background-color: red;
   color: white;
