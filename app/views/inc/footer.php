@@ -28,8 +28,8 @@
     const POST_URL = URLBASE+'/posts/show/';
     const MORE_POSTS_URL = URLBASE+'/posts/more';
     const POSTS_PER_PAGE = <?php echo POSTS_PER_PAGE; ?>;
-    const MY_USER_ID = '<?php echo $_SESSION['user_id']; ?>';
-    const MY_USER_NAME = '<?php echo $_SESSION['user_username']; ?>';
+    const MY_USER_ID = '<?php echo (isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : 0; ?>';
+    const MY_USER_NAME = '<?php echo (isset($_SESSION['user_username'])) ? $_SESSION['user_username'] : ''; ?>';
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.0.0/marked.min.js"></script>
   <script src="<?php echo URLBASE; ?>/js/lib/myui.js"></script>
