@@ -8,7 +8,7 @@ const formatPosts = (posts = []) => {
     post.post_reply_count = post.post_reply_count || 0;
     post.my_reply_count = post.my_reply_count || 0;
 
-    output += '      <article id="'+ post.post_id +'" class="post-unseen '+ ((nested && post.post_reply_to_id) ? 'nested-post' : '') +'">\n';
+    output += '      <article id="post_id-'+ post.post_id +'" class="post-unseen '+ ((nested && post.post_reply_to_id) ? 'nested-post' : '') +'">\n';
     output += '        <header>\n';
 
     if(MY_USER_ID && post.user_id === MY_USER_ID) {

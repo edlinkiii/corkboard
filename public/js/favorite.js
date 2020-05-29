@@ -1,4 +1,8 @@
-function favoriteClickListener({target}) {
+function favoriteClickListener(target) {
+  if(MY_USER_ID === '0' || MY_USER_NAME === '') {
+    location.href = URLBASE+'/users/login';
+    return;
+  }
   let isFavoritesView = window.location.href.includes('favorites');
   let post_id = target.parents('article')[0].attr('id').substr(8);
   let icon = $q('article#post_id-'+post_id+' a.favorite-button i');
@@ -29,6 +33,4 @@ function favoriteClickListener({target}) {
   });
 }
 
-$qa('article a.favorite-button').forEach((fav) => {
-  fav.addEventListener('click', favoriteClickListener);
-});
+$q('main section').on('click', 'article a.favorite-button b *', ({target}) => favoriteClickListener(target));
