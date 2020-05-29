@@ -44,10 +44,6 @@ const formatPosts = (posts = []) => {
     output += '      </article>\n';
   }
 
-  // if(posts.length === POSTS_PER_PAGE) {
-  //   output += '      <a id="more-posts"><b>More</b></a>\n'
-  // }
-
   return output;
 }
 
@@ -88,12 +84,7 @@ const formatDate = (stamp) => {
   return a[1] + ' ' + a[2] + ' ' + a[3] + ' @ ' + t[0] + ':' + t[1] + m;
 }
 
-// $q().on('click', 'a#more-posts b', () => {
-//   $q('a#more-posts').remove();
-//   getMorePosts();
-// });
-
-const areAnyPostsUnseen = () => {
+const areAnyPostsUnseen = () => { console.log('scrolling?');
   $qa('.post-unseen').forEach((u) => {
     let top = u.offset().top;
     if(top < window.innerHeight) {
@@ -105,7 +96,7 @@ const areAnyPostsUnseen = () => {
   });
 }
 
-window.onscroll = () => areAnyPostsUnseen();
+$q('main section').onscroll = () => areAnyPostsUnseen();
 
 const reactionConfig = [
   {
