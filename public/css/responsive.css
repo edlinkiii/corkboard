@@ -14,3 +14,14 @@
     display: none;
   }
 }
+
+@media(max-height: 599px) {
+  #sidebar b {
+    margin: 8px 0;
+  }
+}
+@media(max-height: 499px) {
+  #sidebar b {
+    margin: 2px 0;
+  }
+}

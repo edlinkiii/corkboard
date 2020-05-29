@@ -60,6 +60,8 @@ main section {
   display: block;
   /* flex-basis: 65%; */
   flex-basis: calc(100% - 225px);
+  max-height: calc(100vh - 66px);
+  overflow-y: auto;
 }
 
 main section article {
