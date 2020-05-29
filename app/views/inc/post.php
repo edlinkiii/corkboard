@@ -28,6 +28,7 @@ $post->post_body = preg_replace_callback(
 <?php endif; ?>
     <img class="profile-pic-sm" src="<?php echo URLROOT; ?>/images/profile_pic/<?php echo $post->user_pic; ?>" />
     <h3><a href="<?php echo URLROOT; ?>/users/profile/<?php echo $post->user_username; ?>"><?php echo $post->user_name; ?></a></h3>
+    <h4><a href="<?php echo URLROOT; ?>/users/profile/<?php echo $post->user_username; ?>">@<?php echo $post->user_username; ?></a></h4>
     <a class='show-post-link' href="<?php echo URLROOT; ?>/posts/show/<?php echo $post->post_id; ?>"><?php echo date(DATETIME_FORMAT, strtotime($post->post_stamp)); ?></a>
     <?php if(!$nested && isset($post->post_reply_to_id)): ?>
       <br>

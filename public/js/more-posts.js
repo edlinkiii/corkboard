@@ -20,6 +20,7 @@ const formatPosts = (posts = []) => {
 
     output += '          <img class="profile-pic-sm" src="'+ URLROOT +'/images/profile_pic/'+ post.user_pic +'" />\n';
     output += '          <h3><a href="'+ URLROOT +'/users/profile/'+ post.user_id +'">'+ post.user_name +'</a></h3>\n';
+    output += '          <h4><a href="'+ URLROOT +'/users/profile/'+ post.user_id +'">@'+ post.user_username +'</a></h4>\n';
     output += '          <a class="show-post-link" href="'+ URLROOT +'/posts/show/'+ post.post_id +'">'+ formatDate(post.post_stamp) +'</a>\n';
 
     if(!nested && post.post_reply_to_id) {

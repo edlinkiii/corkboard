@@ -82,7 +82,8 @@ main section article:hover {
   box-shadow: var(--box-shadow) var(--color-bg-secondary);
 }
 
-section article h3 {
+section article h3,
+section article h4 {
   margin: 0;
 }
 
@@ -90,8 +91,13 @@ a {
   color: var(--color);
 }
 
-h3 a {
+h3 a,
+h4 a {
   color: black;
+}
+
+h4 a {
+  font-weight: normal;
 }
 
 a b, a strong, button {
