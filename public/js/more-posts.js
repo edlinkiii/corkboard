@@ -84,7 +84,7 @@ const formatDate = (stamp) => {
   return a[1] + ' ' + a[2] + ' ' + a[3] + ' @ ' + t[0] + ':' + t[1] + m;
 }
 
-const areAnyPostsUnseen = () => { console.log('scrolling?');
+const areAnyPostsUnseen = () => {
   $qa('.post-unseen').forEach((u) => {
     let top = u.offset().top;
     if(top < window.innerHeight) {
