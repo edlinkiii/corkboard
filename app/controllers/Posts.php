@@ -138,6 +138,10 @@ class Posts extends Controller {
   }
 
   public function stalk() {
+    if(!isset($_SESSION['user_id'])) {
+      redirect('users/login');
+    }
+
     $_SESSION['active_link'] = 'stalking';
 
     $_SESSION['more_method'] = "stalkPosts";

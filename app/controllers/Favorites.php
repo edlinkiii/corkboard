@@ -13,6 +13,10 @@ class Favorites extends Controller {
   }
 
   public function show() {
+    if(!isset($_SESSION['user_id'])) {
+      redirect('users/login');
+    }
+
     $_SESSION['active_link'] = 'favorites';
 
     $_SESSION['more_method'] = "favoritePosts";
