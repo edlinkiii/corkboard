@@ -42,7 +42,7 @@ class Posts extends Controller {
         $this->view('posts/add', $data);
       }
       else {
-        $id = $this->postModel->addPost($_POST['body']);
+        $id = $this->postModel->addPost($_POST['body'], $_POST['img']);
 
         if($id) {
           { // notification of tagged users
@@ -163,6 +163,7 @@ class Posts extends Controller {
       'title' => 'Edit Your Post',
       'form' => [
         'body' => '',
+        'img' => '',
         'id' => null,
         'error' => ''
       ]
@@ -189,6 +190,7 @@ class Posts extends Controller {
         }
 
         $data['form']['body'] = $_POST['body'];
+        $data['form']['img'] = $_POST['img'];
 
         // put if
         if($this->postModel->editPost($data['form'])) {
@@ -197,6 +199,7 @@ class Posts extends Controller {
       }
       else {
         $data['form']['body'] = $row->post_body;
+        $data['form']['img'] = $row->post_img;
   
         $this->view('posts/edit', $data);
       }
@@ -254,5 +257,64 @@ class Posts extends Controller {
     ];
     $json = json_encode($data);
     die($json);
+  }
+
+  // upload pic, return location & filename
+  public function pic() {
+    $data = [
+      'title' => 'Upload A Profile Pic',
+      'form' => [
+        'error' => '',
+      ]
+    ];
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      $target_dir = DIRROOT . '/public/images/post_pic/';
+      $target_file = $target_dir . basename($_FILES["file"]["name"]);
+      $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+      $newFileName = md5($_SESSION['user_id']. '_' .time()) . '.' . $imageFileType;
+
+      $check = getimagesize($_FILES["file"]["tmp_name"]);
+      if($check !== false) {
+      } else {
+        $data['form']['error'] = 'Error: File is not an image';
+      }
+
+      // Check if file already exists
+      if (file_exists($target_file)) {
+        $data['form']['error'] = 'Error: File already exists';
+      } 
+      // Check file size
+      if ($_FILES["file"]["size"] > (2 * 1024 * 1024)) {
+        $data['form']['error'] = 'Error: File is too large';
+      }
+      // Allow certain file formats
+      $allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
+      if(in_array($imageFileType, $allowedExtensions)) {
+        $data['form']['error'] = 'Error: File type is not allowed';
+      } 
+
+      // Check if $uploadOk is set to 0 by an error
+      if (!$data['form']['error']) {
+        if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir . $newFileName)) {
+          // save info in database
+          // if($this->profileModel->updateProfilePic($newFileName)) {
+          //   // set success message
+          //   $_SESSION['message'] = 'Profile Pic Uploaded!';
+          //   // redirect to profile
+          //   redirect('users/profile');
+          // }
+          die($newFileName);
+        }
+        else {
+          $data['form']['error'] = 'Error: There was an error uploading file';
+        }
+      }
+    }
+
+    // $this->view('settings/pic', $data);
+    die($data['form']['error']);
   }
 }

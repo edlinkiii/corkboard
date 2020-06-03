@@ -8,11 +8,12 @@ class Post {
   }
 
   // C -- create
-  public function addPost($body) {
+  public function addPost($body, $img) {
     // insert post
-    $this->db->query('INSERT INTO posts (user_id, body) values (:user_id, :body)');
+    $this->db->query('INSERT INTO posts (user_id, body, img) values (:user_id, :body, :img)');
     $this->db->bind(':user_id', $_SESSION['user_id']);
     $this->db->bind(':body', $body);
+    $this->db->bind(':img', $img);
 
     // return new id or false
     return ($this->db->execute()) ? $this->db->lastInsertId() : false ;
@@ -39,6 +40,7 @@ class Post {
                              prof.name AS user_name,
                              prof.pic AS user_pic,
                              post.body AS post_body,
+                             post.img AS post_img,
                              post.reply_to_id AS post_reply_to_id,
                              post.updated_at AS post_stamp,
                              react.total AS post_reaction,
@@ -117,6 +119,7 @@ class Post {
                              prof.name AS user_name,
                              prof.pic AS user_pic,
                              post.body AS post_body,
+                             post.img AS post_img,
                              post.updated_at AS post_stamp,
                              post.reply_to_id AS post_reply_to_id,
                              react.total AS post_reaction,
@@ -194,6 +197,7 @@ class Post {
                              prof.name AS user_name,
                              prof.pic AS user_pic,
                              post.body AS post_body,
+                             post.img AS post_img,
                              post.updated_at AS post_stamp,
                              post.reply_to_id AS post_reply_to_id,
                              react.total AS post_reaction,
@@ -272,6 +276,7 @@ class Post {
                              prof.name as user_name,
                              prof.pic as user_pic,
                              post.body as post_body,
+                             post.img as post_img,
                              post.updated_at as post_stamp,
                              post.reply_to_id AS post_reply_to_id,
                              react.total AS post_reaction,
@@ -349,6 +354,7 @@ class Post {
                              prof.name as user_name,
                              prof.pic as user_pic,
                              post.body as post_body,
+                             post.img as post_img,
                              post.updated_at as post_stamp,
                              post.reply_to_id AS post_reply_to_id,
                              react.total AS post_reaction,
@@ -427,6 +433,7 @@ class Post {
                              prof.name as user_name,
                              prof.pic as user_pic,
                              post.body as post_body,
+                             post.img as post_img,
                              post.updated_at as post_stamp,
                              post.reply_to_id AS post_reply_to_id,
                              react.total AS post_reaction,
@@ -515,8 +522,9 @@ class Post {
 
   // U -- update
   public function editPost($data) {
-    $this->db->query('UPDATE posts SET body=:body, updated_at=now() WHERE id=:id and user_id=:user_id');
+    $this->db->query('UPDATE posts SET body=:body, img=:img, updated_at=now() WHERE id=:id and user_id=:user_id');
     $this->db->bind(':body', $data['body']);
+    $this->db->bind(':img', $data['img']);
     $this->db->bind(':id', $data['id']);
     $this->db->bind(':user_id', $_SESSION['user_id']);
 

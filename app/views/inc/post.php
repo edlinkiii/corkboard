@@ -37,6 +37,9 @@ $post->post_body = preg_replace_callback(
   </header>
   <hr />
   <p class="post-content"><?php echo $post->post_body; ?></p>
+  <?php if($post->post_img): ?>
+  <img class="post-pic" src="<?php echo URLBASE.'/images/post_pic/'.$post->post_img; ?>">
+  <?php endif; ?>
   <hr />
   <div class="post-interaction">
     <?php $post->my_reaction = $post->my_reaction ?: 0; ?>

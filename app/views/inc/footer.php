@@ -33,15 +33,16 @@
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.0.0/marked.min.js"></script>
   <script src="<?php echo URLBASE; ?>/js/lib/myui.js"></script>
+  <script src="<?php echo URLBASE; ?>/js/markdown.js"></script>
   <script src="<?php echo URLBASE; ?>/js/reaction.js"></script>
+  <script src="<?php echo URLBASE; ?>/js/mention.js"></script>
   <script src="<?php echo URLBASE; ?>/js/reply.js"></script>
   <script src="<?php echo URLBASE; ?>/js/favorite.js"></script>
-  <script src="<?php echo URLBASE; ?>/js/markdown.js"></script>
-  <script src="<?php echo URLBASE; ?>/js/mention.js"></script>
+  <?php if(isset($_SESSION['user_id'])): ?>
   <script src="<?php echo URLBASE; ?>/js/more-posts.js"></script>
-<?php if(isset($_SESSION['user_id'])): ?>
+  <script src="<?php echo URLBASE; ?>/js/post-pic-upload.js"></script>
   <script src="<?php echo URLBASE; ?>/js/notification_check.js"></script>
-<?php endif; ?>
+  <?php endif; ?>
   <script>
     <?php if(isset($_SESSION['active_link']) && $_SESSION['active_link'] != ''): ?>
     const ACTIVE_LINK = '<?php echo $_SESSION['active_link']; ?>';
