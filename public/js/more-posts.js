@@ -31,6 +31,11 @@ const formatPosts = (posts = []) => {
     output += '        </header>\n';
     output += '        <hr />\n';
     output += '        <p class="post-content">'+ marked(userTag(hashTag(post.post_body))) +'</p>\n';
+
+    if(post.post_img) {
+      output += '        <img class="post-pic" src="'+ URLBASE +'/images/post_pic/'+ post.post_img +'" />\n';
+    }
+  
     output += '        <hr />\n';
     output += '        <div class="post-interaction">\n';
     output += '          <div class="reaction-holder '+ reactionConfig[post.my_reaction].color_class +'">\n';
