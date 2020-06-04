@@ -4,7 +4,7 @@
   <div id="message"></div>
   <hr id="divider" style="margin-bottom: 1rem;" />
   <label for="body">Body: </label> <textarea  id="add-body" name="body" class="post-body" required><?php echo $data['form']['body']; ?></textarea>
-  <input type="hidden" id="img" name="img" value="" />
+  <input type="hidden" id="img" name="img" value="<?php echo $data['form']['img']; ?>" />
   <div id="img-holder">
     <?php if($data['form']['img']): ?>
     <a id="remove-image"></a>
