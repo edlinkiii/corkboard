@@ -31,19 +31,18 @@ $q().on('change', '#img-upload', (e) => {
 
   request.upload.addEventListener('progress', function(e) {
     let percent_complete = ((e.loaded / e.total) * 100);
-    console.log(percent_complete);
+    // console.log(percent_complete);
   });
 
   request.addEventListener('load', function(e) {
-    console.log(request.status);
-    console.log(request.response);
+    // console.log(request.status);
+    // console.log(request.response);
     if(request.response.substring(0,5) === 'Error') {
       alert(request.response);
     }
     else {
       $q('#img-holder').html('<a id="remove-image"></a><img class="post-pic" src="'+ URLBASE +'/images/post_pic/'+ request.response +'" /><br />');
       $q('input#img').val(request.response);
-      console.log($q('input#img').val());
     }
   });
 
