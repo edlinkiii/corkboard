@@ -96,6 +96,7 @@ CREATE TABLE `posts` (
   `reply_to_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `body` tinytext NOT NULL,
+  `img` varchar(250) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
