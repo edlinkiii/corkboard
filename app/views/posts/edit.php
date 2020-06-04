@@ -5,7 +5,12 @@
   <hr id="divider" style="margin-bottom: 1rem;" />
   <label for="body">Body: </label> <textarea  id="add-body" name="body" class="post-body" required><?php echo $data['form']['body']; ?></textarea>
   <input type="hidden" id="img" name="img" value="" />
-  <div id="img-holder"><img class="post-pic" src="<?php if($data['form']['img']) echo URLBASE.'/images/post_pic/'.$data['form']['img']; ?>"></div>
+  <div id="img-holder">
+    <?php if($data['form']['img']): ?>
+    <a id="remove-image"></a>
+    <img class="post-pic" src="<?php echo URLBASE.'/images/post_pic/'.$data['form']['img']; ?>">
+    <?php endif; ?>
+  </div>
   <br />
   <div class="side-by-side">
     <button type="submit"><i class="fa fa-floppy-o"></i> Save</button>

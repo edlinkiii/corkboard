@@ -1,3 +1,7 @@
+$q().on('click', '#remove-image', () => {
+  $q('#img-holder').html('');
+  $q('input#img').val('');
+});
 $q().on('click','#img-upload-trigger', () => { $q('#img-upload').click(); });
 $q().on('change', '#img-upload', (e) => {
   console.log(e);
@@ -37,7 +41,7 @@ $q().on('change', '#img-upload', (e) => {
       alert(request.response);
     }
     else {
-      $q('#img-holder').html('<img class="post-pic" src="'+ URLBASE +'/images/post_pic/'+ request.response +'" /><br />');
+      $q('#img-holder').html('<a id="remove-image"></a><img class="post-pic" src="'+ URLBASE +'/images/post_pic/'+ request.response +'" /><br />');
       $q('input#img').val(request.response);
       console.log($q('input#img').val());
     }
