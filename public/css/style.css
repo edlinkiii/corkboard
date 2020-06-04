@@ -74,7 +74,6 @@ main section article {
   box-shadow: var(--box-shadow) var(--color-shadow);
   margin: 1rem;
   padding: 1.25rem;
-  /* width: var(--width-card); */
 }
 
 main section article header {

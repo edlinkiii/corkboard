@@ -348,9 +348,6 @@ class Modal extends MyUI {
         this.instance.setAttribute('style', 'max-width: 100vw; max-height: 100vh; width: '+ this.settings.width +'px; height: '+ ((this.settings.height == parseInt(this.settings.height)) ? this.settings.height+'px' : this.settings.height));
         this.instance.style.zIndex = this.topZindex;
 
-        // this.instance.innerHTML = this.settings.message;
-
-        // modal titlebar
         if(!this.settings.noTitle) {
             this.titleBar = document.createElement('div');
             let title = document.createTextNode(this.settings.title);
@@ -360,13 +357,11 @@ class Modal extends MyUI {
             if(this.settings.draggable) this.titleBar.classList.add('draggable');
         }
 
-        // modal content
         let content = this.modalContent = document.createElement('div');
         content.classList.add('modal-content');
         content.innerHTML = this.settings.content;
         this.instance.appendChild(content);
 
-        // modal buttonbar
         if(!this.settings.noButtons) {
             let buttonBar = document.createElement('div');
             buttonBar.classList.add('modal-buttons');
@@ -376,10 +371,8 @@ class Modal extends MyUI {
             this.settings.buttons.forEach((button) => buttonBar.appendChild((new Button(button)).instance));
         }
 
-        // close on esc
         if(this.settings.closeOnEsc) document.addEventListener("keydown", e => { if(e.keyCode === 27) this.destroy(); });
 
-        // close when overlay is clicked
         if(this.settings.closeOnOverlayClick) this.overlay.instance.addEventListener("click", e => { if(e.target === this.overlay.instance) this.destroy(); });
 
         if(!this.settings.noTitle && this.settings.draggable) this.drag();
@@ -435,10 +428,6 @@ class Modal extends MyUI {
             };
         };
     }
-
-    fadeIn() {}
-
-    fadeOut () {}
 
     content(content) {
         this.modalContent.innerHTML = content;

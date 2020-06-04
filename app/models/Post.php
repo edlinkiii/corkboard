@@ -263,8 +263,6 @@ class Post {
     $this->db->bind(':start', ($_SESSION['more_page'] * POSTS_PER_PAGE));
     $this->db->bind(':end', POSTS_PER_PAGE);
 
-    // $this->db->dump();
-
     return $this->db->resultSet();
   }
 
