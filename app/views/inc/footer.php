@@ -38,9 +38,9 @@
   <script src="<?php echo URLBASE; ?>/js/mention.js"></script>
   <script src="<?php echo URLBASE; ?>/js/reply.js"></script>
   <script src="<?php echo URLBASE; ?>/js/favorite.js"></script>
-  <?php if(isset($_SESSION['user_id'])): ?>
   <script src="<?php echo URLBASE; ?>/js/more-posts.js"></script>
-  <script src="<?php echo URLBASE; ?>/js/post-pic-upload.js"></script>
+  <script src="<?php echo URLBASE; ?>/js/post-pic.js"></script>
+  <?php if(isset($_SESSION['user_id'])): ?>
   <script src="<?php echo URLBASE; ?>/js/notification_check.js"></script>
   <?php endif; ?>
   <script>
