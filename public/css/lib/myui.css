@@ -180,6 +180,14 @@
   background: #aaa;
 }
 
+.modal-ui.lightbox {
+  background: transparent;
+}
+
+.modal-ui.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+}
 
 
 

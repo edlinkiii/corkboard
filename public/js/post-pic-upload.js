@@ -1,8 +1,29 @@
+$q().on('click', '.post-pic', ({target}) => {
+  let url = target.attr('src');
+  let lightbox = new Modal({
+    target: 'body',
+    width: 'auto',
+    height: 'auto',
+    closeOnOverlayClick: true,
+    closeOnEsc: true,
+    noTitle: true,
+    noButtons: true,
+    classes: ['lightbox'],
+    overlay: {
+      backgroundColor: '#000',
+      opacity: 0.8
+    },
+    content: '<img src="'+ url +'">'
+  });
+});
+
 $q().on('click', '#remove-image', () => {
   $q('#img-holder').html('');
   $q('input#img').val('');
 });
+
 $q().on('click','#img-upload-trigger', () => { $q('#img-upload').click(); });
+
 $q().on('change', '#img-upload', (e) => {
   console.log(e);
   let $input = e.target;
