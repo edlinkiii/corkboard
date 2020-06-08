@@ -10,9 +10,9 @@ $post->post_body = preg_replace_callback(
 );
 
 $post->post_body = preg_replace_callback(
-  "/\B#+\w+/",
+  "/(?<=[\s>]|^)#(\w*[A-Za-z_]+\w*)\b(?!;)/",
   function($matches) {
-    $hashtag = $matches[0];
+    $hashtag = trim($matches[0]);
     return "[".$hashtag."](".URLBASE."/search/".$hashtag.")";
   },
   $post->post_body
