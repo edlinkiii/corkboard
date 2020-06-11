@@ -62,7 +62,7 @@ const userTag = (body) => {
 }
 
 const hashTag = (body) => {
-  let taggedBody = body.replace(/(?<=[\s>]|^)#(\w*[A-Za-z_]+\w*)\b(?!;)/g, (match) => {
+  let taggedBody = body.replace(/(?=[\s]*|^)#(\w*[A-Za-z_]+\w*)\b(?!;)/g, (match) => {
     let hashtag = match;
     return '['+hashtag+']('+URLBASE+'/search/'+hashtag+')';
   });
