@@ -4,7 +4,7 @@ class Reaction {
   private $db;
 
   public function __construct() {
-    $this->db = new Database();
+    $this->db = new MySQL();
   }
 
   public function getReactionTotal($post_id) {
@@ -37,7 +37,7 @@ class Reaction {
   }
 
   public static function getReactionConfig() {
-    $my_db = new Database();
+    $my_db = new MySQL();
     $my_db->query('SELECT * FROM reactions ORDER BY id');
     $my_db->execute();
     return $my_db->resultSet();
