@@ -4,7 +4,7 @@ class Favorite {
   private $db;
 
   public function __construct() {
-    $this->db = new Database();
+    $this->db = new MySQL();
   }
 
   public function isFavorite($post_id) {

@@ -1,6 +1,7 @@
 <?php
 
 // DB PARAMS
+define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
 define('DB_USER', 'cork');
 define('DB_PASS', '!P@ssw0rd1234');

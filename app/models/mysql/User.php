@@ -4,7 +4,7 @@ class User {
   private $db;
 
   public function __construct() {
-    $this->db = new Database();
+    $this->db = new MySQL();
   }
 
   public function login($username, $password) {
